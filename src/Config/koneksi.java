@@ -14,6 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class koneksi {
     
+    public static final int  ERROR_MESSAGE = 0;
+    /** Used for information messages. */
+    public static final int  INFORMATION_MESSAGE = 1;
+    /** Used for warning messages. */
+    public static final int  WARNING_MESSAGE = 2;
+    /** Used for questions. */
+    public static final int  QUESTION_MESSAGE = 3;
+    
     protected Connection conn;
     protected Statement stmt;   
 
@@ -75,6 +83,11 @@ public class koneksi {
 
     public static void popup_message(Object _message){
         javax.swing.JOptionPane.showMessageDialog(null, _message);
+    }
+    
+    
+    public static void popup_message(String _title, Object _message, int _message_type){
+        javax.swing.JOptionPane.showMessageDialog(null, _message, _title, _message_type);
     }
     
     
