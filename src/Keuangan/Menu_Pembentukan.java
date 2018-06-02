@@ -24,6 +24,8 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
      */
     public Menu_Pembentukan() {
         initComponents();
+        b_process.setEnabled(false);
+        b_cancel.setEnabled(false);
     }
 
     /**
@@ -54,14 +56,19 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        b_cancel = new javax.swing.JButton();
         b_process = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        t_data_pengisian = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Pembentukan & Pengisian Kembali Dana Kas Kecil");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -71,7 +78,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Pembentukan & Pengisisan Kembali Dana Kas Kecil");
+        jLabel2.setText("Pembentukan & Pengisian Kembali Dana Kas Kecil");
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,7 +203,12 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(2, 47, 102));
 
-        jButton2.setText("Hapus");
+        b_cancel.setText("Hapus");
+        b_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_cancelActionPerformed(evt);
+            }
+        });
 
         b_process.setText("Simpan");
         b_process.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +225,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                 .addGap(8, 8, 8)
                 .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(b_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -221,14 +233,14 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_process, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Data Pembentukan & Pengisian Dana Kas Kecil", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        t_data_pengisian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -239,7 +251,12 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        t_data_pengisian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t_data_pengisianMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(t_data_pengisian);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -253,9 +270,8 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -292,7 +308,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -313,18 +329,53 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     private void f_no_pengisianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_no_pengisianActionPerformed
         this.set_no_pengisian();
         f_jumlah.requestFocus();
+        b_process.setEnabled(true);
+        b_cancel.setEnabled(true);
+        try {
+            db.runQueryUpdate("INSERT INTO pembentukan_dana (no_pengisian) VALUES ('"+f_no_pengisian.getText()+"')");
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        b_cancel.setText("Batal");
     }//GEN-LAST:event_f_no_pengisianActionPerformed
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
         if(this.field_validation()){
-            switch(b_process.getText()){
-                case "Simpan":
-                    break;
-                case "Simpan Perubahan":
-                    break;
-            }
+            this.save_pengisian();
+            b_process.setEnabled(false);
+            b_cancel.setEnabled(false);
         }
     }//GEN-LAST:event_b_processActionPerformed
+
+    private void t_data_pengisianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_data_pengisianMouseClicked
+        b_process.setEnabled(true);
+        b_cancel.setEnabled(true);
+        b_cancel.setText("Hapus");
+        
+        f_no_pengisian.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 0));
+        f_tanggal.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 1));
+        f_jumlah.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 2));
+        f_terpakai.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 3));
+        c_keterangan.setSelectedItem((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 4));
+        
+    }//GEN-LAST:event_t_data_pengisianMouseClicked
+
+    private void b_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelActionPerformed
+        switch(b_cancel.getText()){
+            case "Hapus":
+                this.delete_pengisian();
+                b_cancel.setText("Batal");
+                break;
+            case "Batal":
+                this.cancel_pengisian();
+                break;
+        }
+        b_process.setEnabled(false);
+        b_cancel.setEnabled(false);
+    }//GEN-LAST:event_b_cancelActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this._check_permission();
+        this.get_data_table();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -357,13 +408,13 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton b_cancel;
     private javax.swing.JButton b_process;
     private javax.swing.JComboBox<String> c_keterangan;
     private javax.swing.JTextField f_jumlah;
     private javax.swing.JTextField f_no_pengisian;
     private javax.swing.JTextField f_tanggal;
     private javax.swing.JTextField f_terpakai;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -382,7 +433,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable t_data_pengisian;
     // End of variables declaration//GEN-END:variables
     
     
@@ -408,9 +459,12 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     protected Boolean field_validation(){
-        javax.swing.JTextField[] _fields = {f_no_pengisian, f_tanggal, f_jumlah, f_terpakai};
+        javax.swing.JTextField[] _fields = {f_no_pengisian, f_tanggal};
         for(javax.swing.JTextField _field : _fields){
             if (_field.getText().isEmpty() || c_keterangan.getSelectedIndex() == 0){
+                koneksi.popup_message("Data Belum Lengkap!");
+                return false;
+            } else if (f_jumlah.getText().isEmpty() && f_terpakai.getText().isEmpty()){
                 koneksi.popup_message("Data Belum Lengkap!");
                 return false;
             }
@@ -430,47 +484,110 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         try {
             ResultSet result = db.runQuery(_query);
             if (result.next()){
-                no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")
-                                    +result.getString(1);
+                if(result.getInt(1) <= 9){
+                   no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/00")
+                                +result.getString(1); 
+                } else if (result.getInt(1) <= 99){
+                    no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/0")
+                                +result.getString(1); 
+                } else {
+                    no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")
+                                +result.getString(1); 
+                }
+                
             } else {
                 no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")+"001";
             }
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         f_no_pengisian.setText(no_pengisian);
         f_tanggal.setText(koneksi.get_date_with_format("YYYY-MM-dd"));
+        int value = Integer.parseInt(koneksi.get_date_with_format("dd"));
+        int[] _days = {7, 14, 21, 28};
+        for (int i = 0; i < _days.length; i++){
+            if(value <= _days[i]){
+                c_keterangan.setSelectedIndex(i+1);
+                break;
+            } else if (value > _days[3]){
+               c_keterangan.setSelectedIndex(4);
+               break; 
+            }
+        }
     }
     
     //---------------------------------------------------------------------------------//
     
     private void get_data_table(){
-        
+        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Keterangan"};
+        try {
+            this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, keterangan "
+                        + "FROM pembentukan_dana ORDER BY no_pengisian";
+            ResultSet result = db.runQuery(_query);
+            ResultSetMetaData table = result.getMetaData();
+            
+            int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
+            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            result.beforeFirst();
+            while(result.next()){
+                for(int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                counter++;
+            }
+            t_data_pengisian.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
     }
     
     //---------------------------------------------------------------------------------//
     
     private void save_pengisian(){
-        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Keterangan"};
-//        try {
-//            
-//        } catch (SQLException err) {koneksi.print(err.getMessage());}
-    }
-    
-    //---------------------------------------------------------------------------------//
-    
-    private void update_pengisian(){
+        int terpakai = 0, jumlah = 0;
         
+        if(f_terpakai.getText().isEmpty() == false){ terpakai = Integer.parseInt(f_terpakai.getText()); }
+        if(f_jumlah.getText().isEmpty() == false){ jumlah = Integer.parseInt(f_jumlah.getText()); }
+        
+        this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal = '"+f_tanggal.getText()+"', "
+                    + "jumlah = "+jumlah+", "
+                    + "terpakai = "+terpakai+", "
+                    + "keterangan = '"+c_keterangan.getSelectedItem()+"' "
+                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
+        try {
+            db.runQueryUpdate(_query);
+            koneksi.popup_message("Berhasil di simpan");
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        this.get_data_table();
+        this.clear();
     }
-    
+        
     //---------------------------------------------------------------------------------//
     
     private void delete_pengisian(){
-        
+        try {
+            db.runQueryUpdate("DELETE FROM pembentukan_dana "
+                            + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
+            koneksi.popup_message("Berhasil di hapus");
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        this.get_data_table();
+        this.clear();
     }
     
     //---------------------------------------------------------------------------------//
     
     private void cancel_pengisian(){
-        
+        try {
+            db.runQueryUpdate("DELETE FROM pembentukan_dana "
+                            + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        this.get_data_table();
+        this.clear();
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void clear(){
+        f_no_pengisian.setText(null);
+        f_tanggal.setText(null);
+        f_jumlah.setText(null);
+        f_terpakai.setText(null);
+        c_keterangan.setSelectedIndex(0);
     }
     
     
