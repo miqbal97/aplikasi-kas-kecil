@@ -68,9 +68,9 @@ public class Menu_Utama extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         m_transaksi = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        m_pembentukan_dana = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        m_pengeluaran = new javax.swing.JMenuItem();
         m_keluar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -342,12 +342,22 @@ public class Menu_Utama extends javax.swing.JFrame {
         m_transaksi.setText("Transaksi");
         m_transaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jMenuItem4.setText("Pembentukan Dana Kas Kecil");
-        m_transaksi.add(jMenuItem4);
+        m_pembentukan_dana.setText("Pembentukan Dana Kas Kecil");
+        m_pembentukan_dana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_pembentukan_danaActionPerformed(evt);
+            }
+        });
+        m_transaksi.add(m_pembentukan_dana);
         m_transaksi.add(jSeparator5);
 
-        jMenuItem5.setText("Pengeluaran Dana Kas Kecil");
-        m_transaksi.add(jMenuItem5);
+        m_pengeluaran.setText("Pengeluaran Dana Kas Kecil");
+        m_pengeluaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_pengeluaranActionPerformed(evt);
+            }
+        });
+        m_transaksi.add(m_pengeluaran);
 
         jMenuBar1.add(m_transaksi);
 
@@ -435,6 +445,18 @@ public class Menu_Utama extends javax.swing.JFrame {
         this._check_persetujuan();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void m_pembentukan_danaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_pembentukan_danaActionPerformed
+        Keuangan.Menu_Pembentukan portal = new Keuangan.Menu_Pembentukan();
+        portal.grant_permission(true);
+        portal.setVisible(true);
+    }//GEN-LAST:event_m_pembentukan_danaActionPerformed
+
+    private void m_pengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_pengeluaranActionPerformed
+        Keuangan.Menu_Pengeluaran portal = new Keuangan.Menu_Pengeluaran();
+        portal.grant_permission(true);
+        portal.setVisible(true);
+    }//GEN-LAST:event_m_pengeluaranActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,8 +503,6 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -499,6 +519,8 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JMenu m_file;
     private javax.swing.JMenu m_keluar;
     private javax.swing.JMenu m_laporan;
+    private javax.swing.JMenuItem m_pembentukan_dana;
+    private javax.swing.JMenuItem m_pengeluaran;
     private javax.swing.JMenu m_transaksi;
     private javax.swing.JMenuItem submenu_pengguna;
     private javax.swing.JMenuItem submenu_persetujuan;

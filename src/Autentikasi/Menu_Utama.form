@@ -79,17 +79,23 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="m_pembentukan_dana">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pembentukan Dana Kas Kecil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="m_pembentukan_danaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="m_pengeluaran">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pengeluaran Dana Kas Kecil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="m_pengeluaranActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
