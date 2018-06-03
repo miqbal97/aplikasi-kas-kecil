@@ -16,8 +16,10 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     koneksi db = new koneksi();
     
-    protected String _query, id_barang, no_rekening;
+    protected String _query;
     protected Boolean _is_grant = false;
+    
+    public String id_barang, no_rekening;
     
     /**
      * Creates new form Menu_Pengeluaran
@@ -60,13 +62,20 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         f_id_barang = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        b_cari = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_data = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Pengeluaran Dana Kas Kecil");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -171,7 +180,12 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("ID Barang");
 
-        jButton4.setText("Cari");
+        b_cari.setText("Cari");
+        b_cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_cariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -203,7 +217,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(f_id_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(b_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,7 +241,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                     .addComponent(jLabel12)
                     .addComponent(jLabel9)
                     .addComponent(f_id_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(b_cari))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -367,6 +381,17 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_b_cancelActionPerformed
 
+    private void b_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cariActionPerformed
+        Menu_Popup_Data_Pengajuan portal = new Menu_Popup_Data_Pengajuan();
+        portal.grant_permission(true);
+        portal.portal = this;
+        portal.setVisible(true);
+    }//GEN-LAST:event_b_cariActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        f_id_barang.setText(this.id_barang); f_no_rekening.setText(this.no_rekening);
+    }//GEN-LAST:event_formWindowGainedFocus
+
     /**
      * @param args the command line arguments
      */
@@ -398,6 +423,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_cancel;
+    private javax.swing.JButton b_cari;
     private javax.swing.JButton b_simpan;
     private javax.swing.JTextField f_id_barang;
     private javax.swing.JTextField f_keterangan;
@@ -406,7 +432,6 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     private javax.swing.JTextField f_no_rekening;
     private javax.swing.JTextField f_nominal;
     private javax.swing.JTextField f_tanggal_transaksi;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -435,6 +460,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     public void grant_permission(Boolean _grant){
         this._is_grant = _grant;
     }
+
     
     
     
@@ -542,6 +568,8 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void clear(){
+        this.id_barang = null;
+        this.no_rekening = null;
         f_kode_transaksi.setText(null);
         f_no_nota.setText(null);
         f_tanggal_transaksi.setText(null);
