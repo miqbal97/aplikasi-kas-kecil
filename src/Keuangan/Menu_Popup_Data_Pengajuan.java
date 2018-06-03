@@ -16,6 +16,8 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     
     koneksi db = new koneksi();
     
+    Menu_Pengeluaran portal;
+    
     protected String _query;
     protected Boolean _is_grant = false;
 
@@ -161,6 +163,11 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        t_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t_dataMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(t_data);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -228,12 +235,19 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 
     private void f_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_f_cariKeyTyped
         this.search_data_table();
     }//GEN-LAST:event_f_cariKeyTyped
+
+    private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
+        portal.id_barang = (String) t_data.getValueAt(t_data.getSelectedRow(), 1);
+        portal.no_rekening = (String) t_data.getValueAt(t_data.getSelectedRow(), 3);
+        this.dispose();
+    }//GEN-LAST:event_t_dataMouseClicked
 
     /**
      * @param args the command line arguments
