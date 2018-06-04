@@ -235,7 +235,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        this._check_permission();
+//        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 
@@ -322,9 +322,10 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        this._query = "SELECT data_pengajuan.id_pegawai, id_barang,nama_barang, no_rekening, "
-                    + "data_pengajuan.tanggal_pengajuan FROM detail_pengajuan "
-                    + "INNER JOIN data_pengajuan ORDER BY data_pengajuan.id_pengajuan";
+        this._query = "SELECT data_pengajuan.id_pegawai, detail_pengajuan.id_barang, detail_pengajuan.nama_barang, "
+                    + "detail_pengajuan.no_rekening, data_pengajuan.tanggal_pengajuan "
+                    + "FROM data_pengajuan INNER JOIN detail_pengajuan "
+                    + "ON data_pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan";
         
         final String[] _label = {"ID Pegawai", "ID Barang", "Nama Barang", "No. Rekening", "Tanggal"};
         try {
@@ -345,10 +346,12 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void search_data_table(){
-        this._query = "SELECT data_pengajuan.id_pegawai, id_barang, nama_barang, no_rekening, "
-                    + "data_pengajuan.tanggal_pengajuan FROM detail_pengajuan "
-                    + "INNER JOIN data_pengajuan WHERE data_pengajuan.tanggal_pengajuan LIKE "
-                    + "'%"+f_cari.getText()+"%' OR nama_barang LIKE '%"+f_cari.getText()+"%'";
+        this._query = "SELECT data_pengajuan.id_pegawai, detail_pengajuan.id_barang, detail_pengajuan.nama_barang, "
+                    + "detail_pengajuan.no_rekening, data_pengajuan.tanggal_pengajuan "
+                    + "FROM data_pengajuan INNER JOIN detail_pengajuan "
+                    + "ON data_pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
+                    + "WHERE data_pengajuan.tanggal_pengajuan LIKE "
+                    + "'%"+f_cari.getText()+"%' OR detail_pengajuan.nama_barang LIKE '%"+f_cari.getText()+"%'";;
         
         final String[] _label = {"ID Pegawai", "ID Barang", "Nama Barang", "No. Rekening", "Tanggal"};
         try {
