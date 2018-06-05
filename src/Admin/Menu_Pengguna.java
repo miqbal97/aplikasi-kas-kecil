@@ -227,7 +227,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("*Note : Tekan Tombol ' DELETE' untuk menghapus data");
+        jLabel11.setText("*Note : Tekan tombol ' DELETE'  di keyboard untuk menghapus data");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -363,28 +363,30 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     }//GEN-LAST:event_f_cariKeyTyped
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
-        if (f_password_verify.getText().equals(f_password.getText())){
-            switch(b_process.getText()){
-                case "Simpan":
-                    this.create_user();
-                    break;
-                case "Simpan Perubahan":
-                    this.update_user();
-                    b_process.setText("Simpan");
-                    f_username.setEnabled(true);
-                    break;
-            }
-            this.get_data_table();
-            f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
-            f_password.setText(null); f_password_verify.setText(null);
-        } else koneksi.popup_message("password konfirmasi tidak sama!");
+        if(this.field_validation()){
+            if (f_password_verify.getText().equals(f_password.getText())){
+                switch(b_process.getText()){
+                    case "Simpan":
+                        this.create_user();
+                        break;
+                    case "Simpan Perubahan":
+                        this.update_user();
+                        b_process.setText("Simpan");
+                        f_username.setEnabled(true);
+                        break;
+                }
+                this.get_data_table();
+                f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
+                f_password.setText(null); f_password_verify.setText(null);
+            } else koneksi.popup_message("password konfirmasi tidak sama!");
+        }
+        
     }//GEN-LAST:event_b_processActionPerformed
 
     private void b_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_batalActionPerformed
         f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
         f_password.setText(null); f_password_verify.setText(null);
-        b_process.setText("Simpan");
-        f_username.setEnabled(true);
+        b_process.setText("Simpan"); f_username.setEnabled(true);
     }//GEN-LAST:event_b_batalActionPerformed
 
     private void t_dataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_dataKeyPressed
@@ -404,6 +406,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             }
             f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
             f_password.setText(null); f_password_verify.setText(null);
+            b_process.setText("Simpan"); f_username.setEnabled(true);
         }
     }//GEN-LAST:event_t_dataKeyPressed
 
@@ -581,6 +584,19 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             t_data.setModel( new javax.swing.table.DefaultTableModel(_data, _label));
             
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean field_validation(){
+        javax.swing.JTextField[] _fields = {f_username, f_nama, f_password, f_password_verify};
+        for(javax.swing.JTextField _field : _fields){
+            if(_field.getText().isEmpty()){
+                koneksi.popup_message("Data Belum lengkap");
+                return false;
+            }
+        }
+        return true;
     }
     
     
