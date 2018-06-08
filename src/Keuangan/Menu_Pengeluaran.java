@@ -607,17 +607,18 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         try {
             ResultSet result = db.runQuery(_query);
             if (result.next()){
-                if(result.getInt(1) <= 9){
-                   kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/00")
-                                +result.getString(1); 
-                } else if (result.getInt(1) <= 99){
-                    kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/0")
-                                +result.getString(1); 
-                } else {
-                    kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")
-                                +result.getString(1); 
+                while(result.next()){
+                    if(result.getInt(1) <= 9){
+                       kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/00")
+                                    +result.getString(1); 
+                    } else if (result.getInt(1) <= 99){
+                        kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/0")
+                                    +result.getString(1); 
+                    } else {
+                        kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")
+                                    +result.getString(1); 
+                    }
                 }
-                
             } else {
                 kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")+"001";
             }
