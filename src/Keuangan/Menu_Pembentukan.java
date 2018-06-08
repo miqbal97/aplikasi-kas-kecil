@@ -145,7 +145,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         jLabel8.setText("Terpakai");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Keterangan");
+        jLabel9.setText("Keterangan Pengisian");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -483,18 +483,19 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         this._query = "SELECT RIGHT(`no_pengisian`, 3) + 1 FROM pembentukan_dana ORDER BY no_pengisian";
         try {
             ResultSet result = db.runQuery(_query);
-            if (result.next()){
-                if(result.getInt(1) <= 9){
-                   no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/00")
-                                +result.getString(1); 
-                } else if (result.getInt(1) <= 99){
-                    no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/0")
-                                +result.getString(1); 
-                } else {
-                    no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")
-                                +result.getString(1); 
+            if(result.next()){
+                while (result.next()){
+                    if(result.getInt(1) <= 9){
+                       no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/00")
+                                    +result.getString(1); 
+                    } else if (result.getInt(1) <= 99){
+                        no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/0")
+                                    +result.getString(1); 
+                    } else {
+                        no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")
+                                    +result.getString(1); 
+                    }
                 }
-                
             } else {
                 no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")+"001";
             }
