@@ -394,10 +394,11 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        this._check_permission();
+//        this._check_permission();
         this.get_data_table(); this.get_data_table_nota();
         f_id_barang.setEditable(false);
         f_no_rekening.setEditable(false);
+        f_keterangan.setEditable(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void f_kode_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_kode_transaksiActionPerformed
@@ -475,16 +476,21 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     }//GEN-LAST:event_b_cariActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        
         f_id_barang.setText(this.id_barang); f_no_rekening.setText(this.no_rekening);
+        
+        if(this.no_rekening != null){
+            try {
+                ResultSet result = db.runQuery("SELECT keterangan FROM rekening "
+                                + "WHERE no_rekening = '"+this.no_rekening+"'");
+                if (result.next()) f_keterangan.setText(result.getString(1));
+            } catch (SQLException err) {koneksi.print(err.getMessage());}   
+        }
+        
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void t_data_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_data_transaksiMouseClicked
-        javax.swing.JTextField[] _field = {f_kode_transaksi, f_no_nota, f_tanggal_transaksi, f_id_barang,
-                                           f_no_rekening, f_keterangan, f_nominal};
-        for (int i = 0; i < t_data_transaksi.getColumnCount(); i++){
-            _field[i].setText((String) t_data_transaksi.getValueAt(t_data_transaksi.getSelectedRow(), i));
-        }
-        this.field_enabled(true);
+        f_kode_transaksi.setText((String) t_data_transaksi.getValueAt(t_data_transaksi.getSelectedRow(), 0));
         b_cancel.setText("Hapus");
     }//GEN-LAST:event_t_data_transaksiMouseClicked
 
@@ -670,9 +676,9 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 + "tanggal = '"+f_tanggal_transaksi.getText()+"', "
                 + "id_barang = "+f_id_barang.getText()+", "
                 + "no_rekening = "+f_no_rekening.getText()+", "
-                + "keterangan = '"+f_keterangan.getText()+"', "
-                + "nominal = "+f_nominal.getText()+" "
-                + "WHERE kode_transaksi = '"+f_kode_transaksi.getText()+"'";
+                + "keterangan = '"+f_keterangan.getText().trim()+"', "
+                + "nominal = "+f_nominal.getText().trim()+" "
+                + "WHERE kode_transaksi = '"+f_kode_transaksi.getText().trim()+"'";
         try {
             db.runQueryUpdate(_query);
             koneksi.popup_message("Berhasil di simpan");
