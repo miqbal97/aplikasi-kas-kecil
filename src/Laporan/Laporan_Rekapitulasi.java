@@ -381,13 +381,13 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             ResultSetMetaData table = result.getMetaData();
             
             int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
-            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            Object[][] data_rekap = new Object[_row][table.getColumnCount()];
             result.beforeFirst();
             while(result.next()){
-                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                for (int i = 0; i < table.getColumnCount(); i++) data_rekap[counter][i] = result.getString(i+1);
                 counter++;
             }
-            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_rekap, _label));
         } catch (SQLException err) {koneksi.print(err.getMessage());}
     }
     
@@ -412,13 +412,13 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             ResultSetMetaData table = result.getMetaData();
             
             int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
-            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            Object[][] data_rekap = new Object[_row][table.getColumnCount()];
             result.beforeFirst();
             while(result.next()){
-                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                for (int i = 0; i < table.getColumnCount(); i++) data_rekap[counter][i] = result.getString(i+1);
                 counter++;
             }
-            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_rekap, _label));
         } catch (SQLException err) {koneksi.print(err.getMessage());}
     }
     
@@ -461,13 +461,13 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             ResultSetMetaData table = result.getMetaData();
             
             int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
-            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            Object[][] data_rekap = new Object[_row][table.getColumnCount()];
             result.beforeFirst();
             while(result.next()){
-                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                for (int i = 0; i < table.getColumnCount(); i++) data_rekap[counter][i] = result.getString(i+1);
                 counter++;
             }
-            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_rekap, _label));
         } catch (SQLException err) {koneksi.print(err.getMessage());}
     }
     
