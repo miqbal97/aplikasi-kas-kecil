@@ -5,17 +5,26 @@
  */
 package Laporan;
 
+import Config.koneksi;
+import java.sql.*;
+
 /**
  *
  * @author Muhammad Iqbal
  */
 public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
+    koneksi db = new koneksi();
+    
+    protected String _query;
+    protected Boolean _is_grant;
+    
     /**
      * Creates new form Menu_Rekapitulasi
      */
     public Laporan_Rekapitulasi() {
         initComponents();
+        this.get_data_table();
     }
 
     /**
@@ -35,20 +44,20 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        c_mingguan = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        c_bulanan = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        c_tahunan = new javax.swing.JComboBox<>();
+        b_process = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        t_data = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Register & Rekapitulasi Pengeluaran Kas Kecil");
+        setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Rekapitulasi Pengeluaran Kas Kecil");
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -58,7 +67,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Register & Rekapitulasi Pengeluaran Kas Kecil");
+        jLabel2.setText("Rekapitulasi Pengeluaran Kas Kecil");
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,24 +112,29 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Periode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Periode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Mingguan");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Minggu Pertama", "Minggu Kedua", "Minggu Ketiga", "Minggu Keempat" }));
+        c_mingguan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Minggu Pertama", "Minggu Kedua", "Minggu Ketiga", "Minggu Keempat" }));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Bulanan");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
+        c_bulanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tahunan");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
+        c_tahunan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
 
-        jButton1.setText("Process");
+        b_process.setText("Process");
+        b_process.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_processActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -130,17 +144,17 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_mingguan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_bulanan, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_tahunan, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -149,16 +163,16 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_mingguan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_bulanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(c_tahunan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_process))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        t_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -169,7 +183,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(t_data);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -189,8 +203,18 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         );
 
         jButton2.setText("Tampil");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Keluar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -247,6 +271,26 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
+        if(this.field_validator()){
+            if(c_mingguan.getSelectedIndex() != 0){
+                this.data_full_filtered();
+            } else if (c_mingguan.getSelectedIndex() == 0){
+                this.data_filtered_by_month();
+            } else {
+                this.data_full_filtered();
+            }
+        }
+    }//GEN-LAST:event_b_processActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,17 +307,11 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Laporan_Rekapitulasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Laporan_Rekapitulasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Laporan_Rekapitulasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Laporan_Rekapitulasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
@@ -284,12 +322,12 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton b_process;
+    private javax.swing.JComboBox<String> c_bulanan;
+    private javax.swing.JComboBox<String> c_mingguan;
+    private javax.swing.JComboBox<String> c_tahunan;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -304,6 +342,153 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable t_data;
     // End of variables declaration//GEN-END:variables
+    
+    
+    // PUBLIC CLASS
+    //////////////////////////////////////////////////////////////////////////////////////
+    public void grant_permission(Boolean _grant){
+        this._is_grant = _grant;
+    }
+    
+    
+    
+    
+    // PROTECTED CLASS
+    //////////////////////////////////////////////////////////////////////////////////////
+    protected void _check_permission(){
+        if(this._is_grant.equals(false)) {
+            
+            koneksi.popup_message("Anda tidak memiliki izin!");
+            this.dispose();
+            
+        }
+    }
+    
+    
+    
+    
+    // PRIVATE CLASS
+    //////////////////////////////////////////////////////////////////////////////////////
+    private void get_data_table(){
+        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+                                 "Keterangan", "Nominal"};
+        try {
+            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening,"
+                        + "keterangan, nominal FROM pengeluaran_dana ORDER BY kode_transaksi";
+            ResultSet result = db.runQuery(_query);
+            ResultSetMetaData table = result.getMetaData();
+            
+            int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
+            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            result.beforeFirst();
+            while(result.next()){
+                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                counter++;
+            }
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void data_filtered_by_month(){
+        String month = Integer.toString(c_bulanan.getSelectedIndex());
+        
+        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+                                 "Keterangan", "Nominal"};
+        
+        if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;
+        
+        try {
+            
+            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
+                        + "keterangan, nominal FROM pengeluaran_dana "
+                        + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-01' "
+                        + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-31'";
+            
+            ResultSet result = db.runQuery(_query);
+            ResultSetMetaData table = result.getMetaData();
+            
+            int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
+            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            result.beforeFirst();
+            while(result.next()){
+                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                counter++;
+            }
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void data_full_filtered(){
+        int awal = 0, akhir = 0;
+        
+        switch(c_mingguan.getSelectedIndex()){
+            case 1:
+                awal = 1; akhir = 7;
+                break;
+            case 2:
+                awal = 7; akhir = 14;
+                break;
+            case 3:
+                awal = 14; akhir = 21;
+                break;
+            case 4:
+                awal = 21; akhir = 31;
+                break;
+        }
+        
+        String month = Integer.toString(c_bulanan.getSelectedIndex());
+        
+        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+                                 "Keterangan", "Nominal"};
+        
+        if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;
+        
+        try {
+            
+            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
+                        + "keterangan, nominal FROM pengeluaran_dana "
+                        + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-"+awal+"' "
+                        + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-"+akhir+"'";
+            
+            koneksi.print(_query);
+            ResultSet result = db.runQuery(_query);
+            ResultSetMetaData table = result.getMetaData();
+            
+            int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
+            Object[][] data_pengisian = new Object[_row][table.getColumnCount()];
+            result.beforeFirst();
+            while(result.next()){
+                for (int i = 0; i < table.getColumnCount(); i++) data_pengisian[counter][i] = result.getString(i+1);
+                counter++;
+            }
+            t_data.setModel(new javax.swing.table.DefaultTableModel(data_pengisian, _label));
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean field_validator(){
+        
+        int mingguan = c_mingguan.getSelectedIndex(),
+            bulanan = c_bulanan.getSelectedIndex(),
+            tahunan = c_tahunan.getSelectedIndex();
+       
+        if (mingguan == 0 && bulanan == 0 || tahunan == 0){
+            koneksi.popup_message("Data Belum Lengkap");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
+    
+    
+    // END OF CLASS DECLARATION
 }
