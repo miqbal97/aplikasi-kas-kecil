@@ -70,6 +70,7 @@ public class Login extends javax.swing.JDialog {
         f_password.setToolTipText("Masukan Password");
 
         b_cancel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        b_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_clear_18pt.png"))); // NOI18N
         b_cancel.setText("CANCEL");
         b_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +79,7 @@ public class Login extends javax.swing.JDialog {
         });
 
         b_login.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        b_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_input_18pt.png"))); // NOI18N
         b_login.setText("LOGIN");
         b_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +288,7 @@ public class Login extends javax.swing.JDialog {
                         Menu_Utama portal = new Menu_Utama();
                         portal.grant_permission(true);
                         portal.set_user(_username, result.getString(2));
+                        portal.setExtendedState(Menu_Utama.MAXIMIZED_BOTH);
                         portal.setVisible(true);
                     }
                     this.sessions(_username);

@@ -148,6 +148,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(2, 47, 102));
 
+        b_simpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_save_18pt.png"))); // NOI18N
         b_simpan.setText("Simpan");
         b_simpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,10 +258,10 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Detail Keterangan", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("ID Barang");
+        jLabel9.setText("ID Data Rekening");
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nama Barang");
+        jLabel10.setText("Nama Data Rekening");
 
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("No Rekening");
@@ -269,7 +270,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jLabel12.setText("Jumlah");
 
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Keterangan");
+        jLabel13.setText("Keterangan Data Rekening");
 
         ta_keterangan.setColumns(20);
         ta_keterangan.setRows(5);
@@ -298,10 +299,8 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                     .addComponent(f_jumlah))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(

@@ -14,13 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class koneksi {
     
-    public static final int  ERROR_MESSAGE = 0;
-    /** Used for information messages. */
-    public static final int  INFORMATION_MESSAGE = 1;
-    /** Used for warning messages. */
-    public static final int  WARNING_MESSAGE = 2;
-    /** Used for questions. */
-    public static final int  QUESTION_MESSAGE = 3;
+    public String _status = null;
+    
+    public static final int ERROR_MESSAGE = 0,
+                            INFORMATION_MESSAGE = 1,
+                            WARNING_MESSAGE = 2,
+                            QUESTION_MESSAGE = 3;
     
     protected Connection conn;
     protected Statement stmt;   
@@ -29,7 +28,7 @@ public class koneksi {
                      _user_ = "root",
                      _pass_ = "";
     
-    public String _status = null;
+    
     
     public koneksi() {
         
@@ -50,7 +49,11 @@ public class koneksi {
             JOptionPane.showMessageDialog(null, err.getMessage());
         }
     }
-
+    
+    public Connection getConnection(){
+        return this.conn;
+    }
+    
     
     public ResultSet runQuery(String _QUERY_) throws SQLException {
 

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rekapitulasi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="c9c7feef-1be5-4ad3-aae9-6e8886bbec7c">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="4"/>
 	<parameter name="tanggal_1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -61,7 +61,11 @@ BETWEEN
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<break type="Column">
+				<reportElement x="0" y="7" width="100" height="1" uuid="1af09027-e2ff-4fad-b050-075ed37dca7f"/>
+			</break>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch">
@@ -73,42 +77,42 @@ BETWEEN
 				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="41" width="138" height="20" uuid="f1a11555-96af-49f8-ab73-658b85eb891a"/>
+				<reportElement x="193" y="41" width="138" height="20" uuid="f1a11555-96af-49f8-ab73-658b85eb891a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nama Rekening]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="384" y="41" width="138" height="20" uuid="34f4af3a-ee43-4224-b9f1-b7361603f553"/>
+				<reportElement x="417" y="41" width="138" height="20" uuid="34f4af3a-ee43-4224-b9f1-b7361603f553"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nominal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="0" width="42" height="20" uuid="2e414fa0-0686-4087-b43c-41e3516100e2"/>
+				<reportElement x="32" y="0" width="59" height="20" uuid="2e414fa0-0686-4087-b43c-41e3516100e2"/>
 				<textElement>
-					<font size="12" isBold="false"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Periode : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="0" width="64" height="20" uuid="2440b046-1c7f-4213-88dc-1fd5abe74b23"/>
+				<reportElement x="91" y="0" width="64" height="20" uuid="2440b046-1c7f-4213-88dc-1fd5abe74b23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tanggal_1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="0" width="65" height="20" uuid="e856f534-82d3-4c06-a1a7-2ad8eed12bcb"/>
+				<reportElement x="180" y="0" width="80" height="20" uuid="e856f534-82d3-4c06-a1a7-2ad8eed12bcb"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tanggal_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="147" y="0" width="20" height="20" uuid="105261f3-ec05-46bf-a48f-c4da11caaff4"/>
+				<reportElement x="157" y="0" width="20" height="20" uuid="105261f3-ec05-46bf-a48f-c4da11caaff4"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
@@ -126,28 +130,28 @@ BETWEEN
 				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="4" width="24" height="20" uuid="2cc34272-acc2-44ed-a1b3-8f067841e7ed"/>
+				<reportElement x="193" y="4" width="24" height="20" uuid="2cc34272-acc2-44ed-a1b3-8f067841e7ed"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rekening}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="207" y="4" width="138" height="20" uuid="4dff596a-59f9-4335-8220-dd1a5981bf2d"/>
+				<reportElement x="230" y="4" width="138" height="20" uuid="4dff596a-59f9-4335-8220-dd1a5981bf2d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
-				<reportElement x="384" y="4" width="138" height="20" uuid="be450c70-0c3f-4fc1-8c08-05f7666d6e0e"/>
+				<reportElement x="417" y="4" width="138" height="20" uuid="be450c70-0c3f-4fc1-8c08-05f7666d6e0e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="194" y="0" width="10" height="20" uuid="8e6a503d-f961-41d7-a37f-40ecf1956ee4"/>
+				<reportElement x="217" y="0" width="10" height="20" uuid="8e6a503d-f961-41d7-a37f-40ecf1956ee4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -158,14 +162,14 @@ BETWEEN
 	<columnFooter>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="170" y="0" width="100" height="20" uuid="e5d1058d-f24d-49a1-9572-5a19f6329b27"/>
+				<reportElement x="193" y="0" width="138" height="20" uuid="e5d1058d-f24d-49a1-9572-5a19f6329b27"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField pattern="Rp #,##0">
-				<reportElement x="384" y="1" width="100" height="20" uuid="4efd826c-316e-4399-ae9f-7211ae76116a"/>
+				<reportElement x="417" y="1" width="100" height="20" uuid="4efd826c-316e-4399-ae9f-7211ae76116a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -174,7 +178,13 @@ BETWEEN
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="34" width="100" height="20" uuid="859e6495-d082-41d7-b1de-cf24f3191b6b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

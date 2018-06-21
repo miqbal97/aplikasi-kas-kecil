@@ -235,7 +235,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        this._check_permission();
+        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 

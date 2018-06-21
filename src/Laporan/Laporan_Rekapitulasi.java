@@ -8,6 +8,9 @@ package Laporan;
 import Config.koneksi;
 import java.sql.*;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Muhammad Iqbal
@@ -16,7 +19,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
     koneksi db = new koneksi();
     
-    protected String _query;
+    protected String _query, _from_date, _to_date;
     protected Boolean _is_grant;
     
     /**
@@ -129,6 +132,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
         c_tahunan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
 
+        b_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_autorenew_18pt.png"))); // NOI18N
         b_process.setText("Process");
         b_process.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +206,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_print_18pt.png"))); // NOI18N
         jButton2.setText("Tampil");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +214,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             }
         });
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_clear_18pt.png"))); // NOI18N
         jButton3.setText("Keluar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +294,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (this.field_validator()) this.report();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -377,6 +383,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         try {
             this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening,"
                         + "keterangan, nominal FROM pengeluaran_dana ORDER BY kode_transaksi";
+            
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
             
@@ -408,6 +415,9 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                         + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-01' "
                         + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-31'";
             
+            _from_date = c_tahunan.getSelectedItem()+"-"+month+"-01";
+            _to_date = c_tahunan.getSelectedItem()+"-"+month+"-31";
+            
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
             
@@ -429,10 +439,10 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         
         switch(c_mingguan.getSelectedIndex()){
             case 1:
-                awal = 1; akhir = 7;
+                awal = 01; akhir = 07;
                 break;
             case 2:
-                awal = 7; akhir = 14;
+                awal = 07; akhir = 14;
                 break;
             case 3:
                 awal = 14; akhir = 21;
@@ -456,7 +466,9 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                         + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-"+awal+"' "
                         + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-"+akhir+"'";
             
-            koneksi.print(_query);
+            _from_date = c_tahunan.getSelectedItem()+"-"+month+"-"+awal;
+            _to_date = c_tahunan.getSelectedItem()+"-"+month+"-"+akhir;
+            
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
             
@@ -485,6 +497,21 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         }
         
         return true;
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void report(){
+        try {
+            String file = "src\\Laporan\\Laporan_Rekapitulasi.jasper";
+            
+            java.util.Map parameter = new java.util.HashMap();
+            parameter.put("tanggal_1", _from_date);
+            parameter.put("tanggal_2", _to_date);
+            
+            JasperPrint print = JasperFillManager.fillReport(file, parameter, db.getConnection());
+            JasperViewer.viewReport(print, false);
+        } catch (JRException err) {koneksi.print(err.getMessage());}
     }
     
     

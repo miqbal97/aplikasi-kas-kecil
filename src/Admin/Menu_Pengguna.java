@@ -18,7 +18,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     koneksi db = new koneksi();
     
     protected Boolean _is_grant = false;
-    protected String _query;
+    protected String _query, _user;
     
     /**
      * Creates new form User
@@ -154,6 +154,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Action Panel", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        b_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_save_18pt.png"))); // NOI18N
         b_process.setText("Simpan");
         b_process.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +162,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             }
         });
 
+        b_batal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_clear_18pt.png"))); // NOI18N
         b_batal.setText("Batal");
         b_batal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,10 +415,25 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
         b_process.setText("Simpan Perubahan");
         f_username.setEnabled(false);
+        try{
+            ResultSet check = db.runQuery("SELECT COUNT(jabatan) FROM user WHERE jabatan = 'Admin'");
+            if(check.next()){
+                if(check.getInt(1) == 1 && t_data.getValueAt(t_data.getSelectedRow(), 3).equals("Admin")){
+                    c_jabatan.setEnabled(false);
+                } else {
+                    c_jabatan.setEnabled(true);
+                }
+            }
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
         f_username.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
         c_jabatan.setSelectedItem((String) t_data.getValueAt(t_data.getSelectedRow(), 3));
         f_nama.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 1));
-        f_password.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 2));
+        try{
+            ResultSet pass = db.runQuery("SELECT password FROM user WHERE username = '"
+                                        +(String) t_data.getValueAt(t_data.getSelectedRow(), 0)+"'");
+            if(pass.next()) f_password.setText(pass.getString(1));
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        
     }//GEN-LAST:event_t_dataMouseClicked
 
     /**
@@ -486,6 +503,10 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         this._is_grant = _grant;
     }
     
+    public void get_user(String _username){
+        this._user = _username;
+    }
+    
     
     
     
@@ -537,6 +558,16 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         try {
             db.runQueryUpdate(_query);
             koneksi.popup_message("User berhasil di update!");
+            try {
+                ResultSet check = db.runQuery("SELECT jabatan FROM user WHERE username = '"+this._user+"'");
+                if(check.next() && !check.getString(1).equals("Admin")){
+                    db.runQueryUpdate("DELETE FROM sessions WHERE username = '"+this._user+"'");
+                    koneksi.popup_message("Halaman ini hanya untuk admin!");
+                    Autentikasi.Login portal = new Autentikasi.Login();
+                    portal.setLocationRelativeTo(null);
+                    portal.setVisible(true);
+                }
+            } catch (SQLException err) { koneksi.print(err.getMessage()); }
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
     
@@ -554,7 +585,10 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             result.beforeFirst();
             
             while(result.next()){
-                for (int i = 0; i < table.getColumnCount(); i++) _data[counter][i] = result.getString(i+1);
+                _data[counter][0] = result.getString(1);
+                _data[counter][1] = result.getString(2);
+                _data[counter][2] = result.getString(3).replaceAll("[a-zA-Z0-9]", "*");
+                _data[counter][3] = result.getString(4);
                 counter++;
             }
             
@@ -577,7 +611,10 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             result.beforeFirst();
             
             while(result.next()){
-                for (int i = 0; i < table.getColumnCount(); i++) _data[counter][i] = result.getString(i+1);
+                _data[counter][0] = result.getString(1);
+                _data[counter][1] = result.getString(2);
+                _data[counter][2] = result.getString(3).replaceAll("[a-zA-Z0-9]", "*");
+                _data[counter][3] = result.getString(4);
                 counter++;
             }
             
