@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rekapitulasi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="c9c7feef-1be5-4ad3-aae9-6e8886bbec7c">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="4"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="tanggal_1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -58,6 +58,9 @@ BETWEEN
 				</textElement>
 				<text><![CDATA[Rekapitulasi Pengeluaran Dana Kas Kecil]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="78" width="555" height="1" uuid="808d3e0b-3552-419f-811b-ccf35961603c"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -69,22 +72,31 @@ BETWEEN
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="41" width="167" height="20" backcolor="#333333" uuid="c4047b3c-56c4-4212-824a-f0505ca543ff"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="167" y="41" width="218" height="20" backcolor="#333333" uuid="33dedcaf-f587-4364-b628-cfd236e0ef7e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="385" y="41" width="170" height="20" backcolor="#333333" uuid="f0fc3bd9-7f31-4478-a691-ac5214cf2ecf"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="32" y="41" width="138" height="20" uuid="96a92427-7928-4cbf-a980-dbd66fdc8ea0"/>
+				<reportElement x="32" y="41" width="135" height="20" forecolor="#FFFFFF" uuid="96a92427-7928-4cbf-a980-dbd66fdc8ea0"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="41" width="138" height="20" uuid="f1a11555-96af-49f8-ab73-658b85eb891a"/>
+				<reportElement x="193" y="41" width="192" height="20" forecolor="#FFFFFF" uuid="f1a11555-96af-49f8-ab73-658b85eb891a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nama Rekening]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="41" width="138" height="20" uuid="34f4af3a-ee43-4224-b9f1-b7361603f553"/>
+				<reportElement x="417" y="41" width="138" height="20" forecolor="#FFFFFF" uuid="34f4af3a-ee43-4224-b9f1-b7361603f553"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -122,26 +134,19 @@ BETWEEN
 	</columnHeader>
 	<detail>
 		<band height="24" splitType="Stretch">
-			<textField pattern="yyyy-MM-dd">
-				<reportElement x="32" y="4" width="138" height="20" uuid="6f957c78-5f0c-4bf3-af9c-9a882dad4ad0"/>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="32" y="4" width="135" height="20" uuid="6f957c78-5f0c-4bf3-af9c-9a882dad4ad0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="193" y="4" width="24" height="20" uuid="2cc34272-acc2-44ed-a1b3-8f067841e7ed"/>
-				<textElement>
+				<reportElement x="167" y="4" width="218" height="20" uuid="4dff596a-59f9-4335-8220-dd1a5981bf2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{rekening}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="230" y="4" width="138" height="20" uuid="4dff596a-59f9-4335-8220-dd1a5981bf2d"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{rekening}+" - "+$F{keterangan}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
 				<reportElement x="417" y="4" width="138" height="20" uuid="be450c70-0c3f-4fc1-8c08-05f7666d6e0e"/>
@@ -150,43 +155,42 @@ BETWEEN
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="217" y="0" width="10" height="20" uuid="8e6a503d-f961-41d7-a37f-40ecf1956ee4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[-]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="22" splitType="Stretch">
-			<staticText>
-				<reportElement x="193" y="0" width="138" height="20" uuid="e5d1058d-f24d-49a1-9572-5a19f6329b27"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total]]></text>
-			</staticText>
-			<textField pattern="Rp #,##0">
-				<reportElement x="417" y="1" width="100" height="20" uuid="4efd826c-316e-4399-ae9f-7211ae76116a"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="3" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="455" y="34" width="100" height="20" uuid="859e6495-d082-41d7-b1de-cf24f3191b6b"/>
+				<reportElement x="455" y="0" width="100" height="20" uuid="859e6495-d082-41d7-b1de-cf24f3191b6b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="385" height="20" backcolor="#333333" uuid="c7b5d947-1591-4f28-8c2e-bde7f4665041"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="385" y="0" width="170" height="20" backcolor="#333333" uuid="340c1dd1-bc55-4511-bf8b-8ba56e03f707"/>
+			</rectangle>
+			<textField pattern="Rp #,##0">
+				<reportElement x="417" y="0" width="138" height="20" forecolor="#FFFFFF" uuid="4efd826c-316e-4399-ae9f-7211ae76116a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="0" width="138" height="20" forecolor="#FFFFFF" uuid="e5d1058d-f24d-49a1-9572-5a19f6329b27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>
