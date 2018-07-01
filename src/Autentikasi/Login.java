@@ -15,8 +15,8 @@ import java.sql.*;
 public class Login extends javax.swing.JDialog {
         
     koneksi db = new koneksi();
+   
     protected String _query;
-
 
     /**
      * Creates new form Login
@@ -53,7 +53,7 @@ public class Login extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(2, 47, 102));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/xlayer_logo.jpg"))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -271,7 +271,7 @@ public class Login extends javax.swing.JDialog {
         String _username = f_username.getText(),
                _password = f_password.getText();
         try {
-            this._query = "SELECT password, nama, jabatan FROM user WHERE username = '"+_username+"'";
+            this._query = "SELECT password, nama_pengguna, jabatan, id_pengguna FROM pengguna WHERE username = '"+_username+"'";
             
             ResultSet result = db.runQuery(this._query);
             
@@ -282,7 +282,7 @@ public class Login extends javax.swing.JDialog {
                     if(result.getString(3).equals("Pegawai")){
                         Pegawai.Menu_Pengajuan portal = new Pegawai.Menu_Pengajuan();
                         portal.grant_permission(true);
-                        portal.set_user(_username, result.getString(2));
+                        portal.set_user(result.getString(4), result.getString(2));
                         portal.setVisible(true);
                     } else {
                         Menu_Utama portal = new Menu_Utama();
@@ -291,7 +291,6 @@ public class Login extends javax.swing.JDialog {
                         portal.setExtendedState(Menu_Utama.MAXIMIZED_BOTH);
                         portal.setVisible(true);
                     }
-                    this.sessions(_username);
                     this.dispose();
                     
                 } else koneksi.popup_message("Password salah!");
@@ -300,16 +299,6 @@ public class Login extends javax.swing.JDialog {
             
             f_username.setText(null); f_password.setText(null);
             
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
-    }
-    
-    //---------------------------------------------------------------------------------//
-
-    private void sessions(String _username){
-        try {
-            db.runQueryUpdate(
-                "INSERT sessions SELECT `username`,`nama`,`password`,`jabatan` "
-                + "FROM user WHERE username = '"+_username+"'");
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
     

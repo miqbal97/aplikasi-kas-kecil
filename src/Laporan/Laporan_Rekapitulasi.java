@@ -58,13 +58,19 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         t_data = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Rekapitulasi Pengeluaran Kas Kecil");
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/xlayer_logo.jpg"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -108,27 +114,27 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Periode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Periode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Mingguan");
+        jLabel5.setText("Pilih Periode Minggu");
 
         c_mingguan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Minggu Pertama", "Minggu Kedua", "Minggu Ketiga", "Minggu Keempat" }));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Bulanan");
+        jLabel6.setText("Bulan");
 
         c_bulanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Tahunan");
+        jLabel7.setText("Tahun");
 
         c_tahunan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
 
@@ -158,7 +164,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(c_tahunan, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -222,6 +228,59 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             }
         });
 
+        jPanel8.setBackground(new java.awt.Color(2, 47, 102));
+
+        jLabel27.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_map_white_18pt.png"))); // NOI18N
+        jLabel27.setText("Alamat");
+
+        jLabel28.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Intiland Tower - Annex, 8th Floor. Jl. Jend. Sudirman Kav 32, Jakarta 10220");
+
+        jLabel29.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_phone_white_18pt.png"))); // NOI18N
+        jLabel29.setText("Telepon");
+
+        jLabel30.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("(021) -57853468 ");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel30))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel29)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel30))
+        );
+
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -230,9 +289,15 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(23, 23, 23))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,10 +312,14 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,7 +405,11 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -345,9 +418,11 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable t_data;
     // End of variables declaration//GEN-END:variables
     
@@ -378,7 +453,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
                                  "Keterangan", "Nominal"};
         try {
             this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening,"
@@ -403,7 +478,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     private void data_filtered_by_month(){
         String month = Integer.toString(c_bulanan.getSelectedIndex());
         
-        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
                                  "Keterangan", "Nominal"};
         
         if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;
@@ -454,7 +529,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         
         String month = Integer.toString(c_bulanan.getSelectedIndex());
         
-        final String[] _label = {"Tgl Transaksi", "Kode Transaksi", "No Nota", "Nama Rekening",
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
                                  "Keterangan", "Nominal"};
         
         if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;

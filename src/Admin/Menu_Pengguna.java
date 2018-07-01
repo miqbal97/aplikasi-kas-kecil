@@ -61,6 +61,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         f_nama = new javax.swing.JTextField();
+        f_id_pengguna = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Manajemen Pengguna");
@@ -74,7 +77,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(2, 47, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/xlayer_logo.jpg"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,19 +117,18 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3)
+                        .addGap(8, 8, 8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -141,7 +143,8 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Jabatan");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("ENTER");
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -152,7 +155,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel8.setText("Verifikasi Password");
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Action Panel", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Action Panel", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         b_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_save_18pt.png"))); // NOI18N
         b_process.setText("Simpan");
@@ -177,9 +180,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(b_process, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(b_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,6 +267,20 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Nama Lengkap");
 
+        f_id_pengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                f_id_penggunaActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("ID pengguna");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Jabatan");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,34 +292,39 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(f_password)
+                        .addGap(18, 18, 18)
+                        .addComponent(f_password_verify, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(128, 128, 128))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(f_password)
-                                .addGap(9, 9, 9)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(53, 53, 53))
-                            .addComponent(f_password_verify)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(f_username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(f_id_pengguna)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel6)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(c_jabatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(f_username)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(f_nama))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(233, 233, 233)
+                    .addComponent(jLabel13)
+                    .addContainerGap(705, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,30 +335,43 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(f_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_jabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(c_jabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(f_id_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(f_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(f_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(f_password_verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(177, 177, 177)
+                    .addComponent(jLabel13)
+                    .addContainerGap(254, Short.MAX_VALUE)))
         );
 
         f_username.getAccessibleContext().setAccessibleDescription("");
@@ -387,8 +422,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
     private void b_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_batalActionPerformed
         f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
-        f_password.setText(null); f_password_verify.setText(null);
-        b_process.setText("Simpan"); f_username.setEnabled(true);
+        f_password.setText(null); f_password_verify.setText(null); f_id_pengguna.setText(null);
+        b_process.setText("Simpan"); f_username.setEnabled(true); f_id_pengguna.setEnabled(true);
+        c_jabatan.setEnabled(true);
     }//GEN-LAST:event_b_batalActionPerformed
 
     private void t_dataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_dataKeyPressed
@@ -414,27 +450,32 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
         b_process.setText("Simpan Perubahan");
-        f_username.setEnabled(false);
+        f_id_pengguna.setEnabled(false);
         try{
-            ResultSet check = db.runQuery("SELECT COUNT(jabatan) FROM user WHERE jabatan = 'Admin'");
+            ResultSet check = db.runQuery("SELECT COUNT(jabatan) FROM pengguna WHERE jabatan = 'Admin'");
             if(check.next()){
-                if(check.getInt(1) == 1 && t_data.getValueAt(t_data.getSelectedRow(), 3).equals("Admin")){
+                if(check.getInt(1) == 1 && t_data.getValueAt(t_data.getSelectedRow(), 4).equals("Admin")){
                     c_jabatan.setEnabled(false);
                 } else {
                     c_jabatan.setEnabled(true);
                 }
             }
         } catch (SQLException err) {koneksi.print(err.getMessage());}
-        f_username.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
-        c_jabatan.setSelectedItem((String) t_data.getValueAt(t_data.getSelectedRow(), 3));
-        f_nama.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 1));
+        f_id_pengguna.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
+        f_username.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 1));
+        c_jabatan.setSelectedItem((String) t_data.getValueAt(t_data.getSelectedRow(), 4));
+        f_nama.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 2));
         try{
-            ResultSet pass = db.runQuery("SELECT password FROM user WHERE username = '"
+            ResultSet pass = db.runQuery("SELECT password FROM pengguna WHERE id_pengguna = '"
                                         +(String) t_data.getValueAt(t_data.getSelectedRow(), 0)+"'");
             if(pass.next()) f_password.setText(pass.getString(1));
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         
     }//GEN-LAST:event_t_dataMouseClicked
+
+    private void f_id_penggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_id_penggunaActionPerformed
+        this.no_user();
+    }//GEN-LAST:event_f_id_penggunaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,6 +512,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private javax.swing.JButton b_process;
     private javax.swing.JComboBox<String> c_jabatan;
     private javax.swing.JTextField f_cari;
+    private javax.swing.JTextField f_id_pengguna;
     private javax.swing.JTextField f_nama;
     private javax.swing.JPasswordField f_password;
     private javax.swing.JPasswordField f_password_verify;
@@ -478,6 +520,8 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -536,8 +580,25 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
+    private void no_user(){
+        String urut = null;
+        this._query = "SELECT RIGHT(id_pengguna, 3) + 1 FROM pengguna ORDER BY id_pengguna";
+        try {
+            ResultSet id = db.runQuery(_query);
+            if(id.last()){
+                if(id.getInt(1) < 9) urut = "P00"+id.getString(1);
+                else if(id.getInt(1) < 99) urut = "P0"+id.getString(1);
+                else if(id.getInt(1) < 999) urut = "P"+id.getString(1);
+            }
+            f_id_pengguna.setText(urut);
+        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
     private void create_user(){
-        this._query = "INSERT INTO user(username, nama, password, jabatan) VALUES('"
+        this._query = "INSERT INTO pengguna(id_pengguna, username, nama_pengguna, password, jabatan) VALUES('"
+                    + f_id_pengguna.getText().toUpperCase().trim()+"', '"
                     + f_username.getText().toLowerCase().trim() +"', '"
                     + f_nama.getText().toLowerCase().trim() +"', '"
                     + f_password.getText().toLowerCase().trim() +"', '"
@@ -551,33 +612,34 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void update_user(){
-        this._query = "UPDATE user SET nama = '"+ f_nama.getText().toLowerCase().trim() +"', "
+        this._query = "UPDATE pengguna SET nama_pengguna = '"+ f_nama.getText().toLowerCase().trim() +"', "
                     + "password = '"+ f_password.getText().toLowerCase().trim()+"', "
-                    + "jabatan = '"+ c_jabatan.getSelectedItem().toString().trim() +"' "
-                    + "WHERE username  = '"+ f_username.getText().toLowerCase().trim() +"'";
+                    + "jabatan = '"+ c_jabatan.getSelectedItem().toString().trim() +"', "
+                    + "username  = '"+ f_username.getText().toLowerCase().trim() +"' "
+                    + "WHERE id_pengguna  = '"+ f_id_pengguna.getText().toUpperCase().trim() +"'";
         try {
             db.runQueryUpdate(_query);
             koneksi.popup_message("User berhasil di update!");
             try {
-                ResultSet check = db.runQuery("SELECT jabatan FROM user WHERE username = '"+this._user+"'");
+                ResultSet check = db.runQuery("SELECT jabatan FROM pengguna WHERE username = '"+this._user+"'");
                 if(check.next() && !check.getString(1).equals("Admin")){
-                    db.runQueryUpdate("DELETE FROM sessions WHERE username = '"+this._user+"'");
                     koneksi.popup_message("Halaman ini hanya untuk admin!");
                     Autentikasi.Login portal = new Autentikasi.Login();
                     portal.setLocationRelativeTo(null);
                     portal.setVisible(true);
                 }
             } catch (SQLException err) { koneksi.print(err.getMessage()); }
+            
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
     
     //---------------------------------------------------------------------------------//
     
     private void get_data_table(){
-        final String[] _label = {"username", "nama", "password", "jabatan"};
+        final String[] _label = {"ID Pengguna", "Username", "Nama", "Password", "Jabatan"};
         try{
             
-            ResultSet result = db.runQuery("SELECT * FROM user");
+            ResultSet result = db.runQuery("SELECT * FROM pengguna");
             ResultSetMetaData table = result.getMetaData();
             int _row = 0, counter = 0; while (result.next()) _row = result.getRow();
             
@@ -587,8 +649,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             while(result.next()){
                 _data[counter][0] = result.getString(1);
                 _data[counter][1] = result.getString(2);
-                _data[counter][2] = result.getString(3).replaceAll("[a-zA-Z0-9]", "*");
-                _data[counter][3] = result.getString(4);
+                _data[counter][2] = result.getString(3);
+                _data[counter][3] = result.getString(4).replaceAll("[a-zA-Z0-9]", "*");
+                _data[counter][4] = result.getString(5);
                 counter++;
             }
             
@@ -600,10 +663,10 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void search_data_table(){
-        final String[] _label = {"username", "nama", "password", "jabatan"};
+        final String[] _label = {"ID Pengguna", "Username", "Nama", "Password", "Jabatan"};
         try{
             
-            ResultSet result = db.runQuery("SELECT * FROM user WHERE username LIKE '%"+f_cari.getText()+"%'");
+            ResultSet result = db.runQuery("SELECT * FROM pengguna WHERE username LIKE '%"+f_cari.getText()+"%'");
             ResultSetMetaData table = result.getMetaData();
             int _row = 0, counter = 0; while (result.next()) _row = result.getRow();
             
@@ -613,8 +676,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
             while(result.next()){
                 _data[counter][0] = result.getString(1);
                 _data[counter][1] = result.getString(2);
-                _data[counter][2] = result.getString(3).replaceAll("[a-zA-Z0-9]", "*");
-                _data[counter][3] = result.getString(4);
+                _data[counter][2] = result.getString(3);
+                _data[counter][3] = result.getString(4).replaceAll("[a-zA-Z0-9]", "*");
+                _data[counter][4] = result.getString(5);
                 counter++;
             }
             
@@ -626,7 +690,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private Boolean field_validation(){
-        javax.swing.JTextField[] _fields = {f_username, f_nama, f_password, f_password_verify};
+        javax.swing.JTextField[] _fields = {f_id_pengguna, f_username, f_nama, f_password, f_password_verify};
         for(javax.swing.JTextField _field : _fields){
             if(_field.getText().isEmpty()){
                 koneksi.popup_message("Data Belum lengkap");

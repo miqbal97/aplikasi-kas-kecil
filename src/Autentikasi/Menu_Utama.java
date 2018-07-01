@@ -37,7 +37,6 @@ public class Menu_Utama extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,6 +46,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -63,7 +63,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         submenu_persetujuan = new javax.swing.JMenuItem();
         m_laporan = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        m_jurnal_umum = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         m_laporan_rekapitulasi = new javax.swing.JMenuItem();
         m_transaksi = new javax.swing.JMenu();
@@ -85,16 +85,11 @@ public class Menu_Utama extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
         });
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -105,7 +100,7 @@ public class Menu_Utama extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PT. Exlayer Teknologi Indonesia");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -137,7 +132,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_map_18pt.png"))); // NOI18N
-        jLabel4.setText("Address");
+        jLabel4.setText("Alamat");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -185,13 +180,16 @@ public class Menu_Utama extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/xlayer_logo.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,9 +197,16 @@ public class Menu_Utama extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3)
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(24, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
@@ -276,7 +281,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -321,9 +326,14 @@ public class Menu_Utama extends javax.swing.JFrame {
         m_laporan.setText("Laporan");
         m_laporan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
-        jMenuItem6.setText("Data Jurnal Umum");
-        m_laporan.add(jMenuItem6);
+        m_jurnal_umum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
+        m_jurnal_umum.setText("Data Jurnal Umum");
+        m_jurnal_umum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jurnal_umumActionPerformed(evt);
+            }
+        });
+        m_laporan.add(m_jurnal_umum);
         m_laporan.add(jSeparator2);
 
         m_laporan_rekapitulasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
@@ -390,15 +400,15 @@ public class Menu_Utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        this._check_permission();
+        this._check_permission();
         this._check_persetujuan();
         l_status.setText(db._status);
-        l_tanggal.setText(koneksi.get_date_with_format("YYYY-mm-dd"));
+        l_tanggal.setText(koneksi.get_date_with_format("YYYY-MM-dd"));
         try {
-            String query = "SELECT jabatan FROM sessions WHERE username = '"+this._username+"'";
+            String query = "SELECT jabatan FROM pengguna WHERE username = '"+this._username+"'";
             ResultSet check = db.runQuery(query);
             if(check.next()){
-                if("Admin".equals(check.getString("jabatan"))){
+                if("Admin".equals(check.getString(1))){
                     m_transaksi.setVisible(false);
                 } else {
                     m_file.setVisible(false);
@@ -408,20 +418,9 @@ public class Menu_Utama extends javax.swing.JFrame {
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }//GEN-LAST:event_formWindowActivated
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            db.runQueryUpdate("DELETE FROM sessions WHERE username = '"+this._username+"'");
-            koneksi.popup_message("Anda Telah Logout");
-            new Login().setVisible(true);
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
-    }//GEN-LAST:event_formWindowClosing
-
     private void m_keluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_keluarMouseClicked
-        try {
-            db.runQueryUpdate("DELETE FROM sessions WHERE username = '"+this._username+"'");
-            koneksi.popup_message("Anda Telah Logout");
-            new Login().setVisible(true);
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+        koneksi.popup_message("Anda Telah Logout");
+        new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_m_keluarMouseClicked
 
@@ -434,6 +433,7 @@ public class Menu_Utama extends javax.swing.JFrame {
 
     private void submenu_rekeningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_rekeningActionPerformed
         Admin.Menu_Rekening portal = new Admin.Menu_Rekening();
+        portal.grant_permission(true);
         portal.setVisible(true);
     }//GEN-LAST:event_submenu_rekeningActionPerformed
 
@@ -464,6 +464,12 @@ public class Menu_Utama extends javax.swing.JFrame {
         portal.grant_permission(true);
         portal.setVisible(true);
     }//GEN-LAST:event_m_laporan_rekapitulasiActionPerformed
+
+    private void m_jurnal_umumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jurnal_umumActionPerformed
+        Laporan.Laporan_Jurnal_Umum portal = new Laporan.Laporan_Jurnal_Umum();
+        portal.grant_permission(true);
+        portal.setVisible(true);
+    }//GEN-LAST:event_m_jurnal_umumActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,7 +515,6 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -524,6 +529,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JLabel l_tanggal;
     private javax.swing.JLabel l_user;
     private javax.swing.JMenu m_file;
+    private javax.swing.JMenuItem m_jurnal_umum;
     private javax.swing.JMenu m_keluar;
     private javax.swing.JMenu m_laporan;
     private javax.swing.JMenuItem m_laporan_rekapitulasi;
@@ -567,7 +573,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     protected void _check_persetujuan(){
         try {
             
-            ResultSet result = db.runQuery("SELECT COUNT(status) FROM data_pengajuan "
+            ResultSet result = db.runQuery("SELECT COUNT(status) FROM pengajuan "
                                          + "WHERE status = 'Belum Di Setujui'");
             if(result.next()) submenu_persetujuan.setText("Persetujuan ( "+result.getString(1)+" )");
             
