@@ -21,7 +21,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     protected Boolean _is_grant = false;
     protected int _used_balance = 0;
     
-    public String id_barang, no_rekening, keterangan;
+    public String id_kategori, no_rekening, keterangan;
     
     /**
      * Creates new form Menu_Pengeluaran
@@ -565,6 +565,8 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 break;
         }
         t_data_transaksi.setEnabled(true);
+        t_data_transaksi.clearSelection();
+        t_data_nota.clearSelection();
         this.field_enabled(false);
     }//GEN-LAST:event_b_cancelActionPerformed
 
@@ -581,7 +583,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         
-        f_id_barang.setText(this.id_barang); f_no_rekening.setText(this.no_rekening);
+        f_id_barang.setText(this.id_kategori); f_no_rekening.setText(this.no_rekening);
         
         if(this.no_rekening != null){
             try {
@@ -725,18 +727,16 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         this._query = "SELECT RIGHT(`kode_transaksi`, 3) + 1 FROM pengeluaran_dana ORDER BY kode_transaksi";
         try {
             ResultSet result = db.runQuery(_query);
-            if (result.next()){
-                while(result.next()){
-                    if(result.getInt(1) <= 9){
-                       kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/00")
-                                    +result.getString(1); 
-                    } else if (result.getInt(1) <= 99){
-                        kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/0")
-                                    +result.getString(1); 
-                    } else {
-                        kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")
-                                    +result.getString(1); 
-                    }
+            if (result.last()){
+                if(result.getInt(1) <= 9){
+                   kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/00")
+                                +result.getString(1); 
+                } else if (result.getInt(1) <= 99){
+                    kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/0")
+                                +result.getString(1); 
+                } else {
+                    kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")
+                                +result.getString(1); 
                 }
             } else {
                 kode_transaksi = "TRX"+koneksi.get_date_with_format("/YY/MM/")+"001";
@@ -810,7 +810,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table_nota(){
-        final String[] _label = {"No. Nota", "Tanggal", "Jumlah", "Terpakai", "Pengisian Kembali", "Keterangan"};
+        final String[] _label = {"No. Nota", "Tanggal", "Jumlah", "Terpakai", "Pengisian Kembali", "Sisa Saldo", "Keterangan"};
         try {
             this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, jumlah_pengisian_kembali, uraian "
                         + "FROM pembentukan_dana ORDER BY no_pengisian";
@@ -818,10 +818,16 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
             ResultSetMetaData table = result.getMetaData();
             
             int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
-            Object[][] data_nota = new Object[_row][table.getColumnCount()];
+            Object[][] data_nota = new Object[_row][table.getColumnCount()+1];
             result.beforeFirst();
             while(result.next()){
-                for(int i = 0; i < table.getColumnCount(); i++) data_nota[counter][i] = result.getString(i+1);
+                data_nota[counter][0] = result.getString(1);
+                data_nota[counter][1] = result.getString(2);
+                data_nota[counter][2] = result.getString(3);
+                data_nota[counter][3] = result.getString(4);
+                data_nota[counter][4] = result.getString(5);
+                data_nota[counter][5] = (result.getInt(3) + result.getInt(5)) - result.getInt(4);
+                data_nota[counter][6] = result.getString(6);
                 counter++;
             }
             t_data_nota.setModel(new javax.swing.table.DefaultTableModel(data_nota, _label));
@@ -903,7 +909,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void clear(){
-        this.id_barang = null;
+        this.id_kategori = null;
         this.no_rekening = null;
         f_kode_transaksi.setText(null);
         f_no_nota.setText(null);
