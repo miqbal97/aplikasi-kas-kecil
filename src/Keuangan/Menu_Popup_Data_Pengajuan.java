@@ -69,7 +69,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Daftar Data Pengajuan");
+        jLabel2.setText("Daftar Pengajuan");
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,7 +235,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        this._check_permission();
+//        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 
@@ -322,12 +322,14 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        this._query = "SELECT data_pengajuan.id_pegawai, detail_pengajuan.id_barang, detail_pengajuan.nama_barang, "
-                    + "detail_pengajuan.no_rekening, data_pengajuan.tanggal_pengajuan "
-                    + "FROM data_pengajuan INNER JOIN detail_pengajuan "
-                    + "ON data_pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan";
+        this._query = "SELECT pengajuan.id_pengguna, detail_pengajuan.id_kategori, detail_pengajuan.nama_kategori, "
+                    + "detail_pengajuan.no_rekening, pengajuan.tanggal_pengajuan "
+                    + "FROM pengajuan INNER JOIN detail_pengajuan "
+                    + "ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan WHERE pengajuan.tanggal_pengajuan "
+                    + "BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
+
+        final String[] _label = {"ID Pengguna", "ID Kategori", "Nama", "No. Rekening", "Tanggal"};
         
-        final String[] _label = {"ID Pegawai", "ID Barang", "Nama Barang", "No. Rekening", "Tanggal"};
         try {
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -346,14 +348,17 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void search_data_table(){
-        this._query = "SELECT data_pengajuan.id_pegawai, detail_pengajuan.id_barang, detail_pengajuan.nama_barang, "
-                    + "detail_pengajuan.no_rekening, data_pengajuan.tanggal_pengajuan "
-                    + "FROM data_pengajuan INNER JOIN detail_pengajuan "
-                    + "ON data_pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
-                    + "WHERE data_pengajuan.tanggal_pengajuan LIKE "
-                    + "'%"+f_cari.getText()+"%' OR detail_pengajuan.nama_barang LIKE '%"+f_cari.getText()+"%'";;
+        this._query = "SELECT pengajuan.id_pengguna, detail_pengajuan.id_kategori, detail_pengajuan.nama_kategori, "
+                    + "detail_pengajuan.no_rekening, pengajuan.tanggal_pengajuan "
+                    + "FROM pengajuan INNER JOIN detail_pengajuan "
+                    + "ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
+                    + "WHERE pengajuan.tanggal_pengajuan LIKE "
+                    + "'%"+f_cari.getText()+"%' OR detail_pengajuan.nama_barang LIKE '%"+f_cari.getText()+"%' AND"
+                    + "pengajuan.tanggal_pengajuan BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' "
+                    + "AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
         
-        final String[] _label = {"ID Pegawai", "ID Barang", "Nama Barang", "No. Rekening", "Tanggal"};
+        final String[] _label = {"ID Pengguna", "ID Kategori", "Nama", "No. Rekening", "Tanggal"};
+        
         try {
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();

@@ -24,7 +24,7 @@ public class koneksi {
     protected Connection conn;
     protected Statement stmt;   
 
-    protected String _host_ = "jdbc:mysql://localhost/aplikasi_kas_kecil",
+    protected String _host_ = "jdbc:mysql://localhost/kas_kecil",
                      _user_ = "root",
                      _pass_ = "";
     

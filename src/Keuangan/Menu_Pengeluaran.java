@@ -17,8 +17,9 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     koneksi db = new koneksi();
     
-    protected String _query;
+    protected String _query, _no_nota;
     protected Boolean _is_grant = false;
+    protected int _used_balance = 0;
     
     public String id_barang, no_rekening, keterangan;
     
@@ -74,6 +75,12 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         t_data_transaksi = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         c_no_nota = new javax.swing.JComboBox<>();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Pengeluaran Dana Kas Kecil");
@@ -92,7 +99,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/xlayer_logo.jpg"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -123,7 +130,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                         .addComponent(jSeparator1))
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +143,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
@@ -176,7 +183,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
             }
         });
 
-        b_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_save_18pt.png"))); // NOI18N
+        b_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_clear_18pt.png"))); // NOI18N
         b_cancel.setText("Batal");
         b_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +195,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel12.setText("ENTER");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("ID Barang");
+        jLabel9.setText("ID Kategori");
 
         b_cari.setText("Cari");
         b_cari.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +242,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(f_nominal, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(f_nominal)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(b_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -279,7 +286,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         );
 
         jPanel4.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Data Nota", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Data Nota", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         t_data_nota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -317,7 +324,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         );
 
         jPanel5.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Data Transaksi", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Data Nota", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         t_data_transaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -354,7 +361,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,17 +381,75 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jPanel6.setBackground(new java.awt.Color(2, 47, 102));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_map_white_18pt.png"))); // NOI18N
+        jLabel14.setText("Alamat");
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Intiland Tower - Annex, 8th Floor. Jl. Jend. Sudirman Kav 32, Jakarta 10220");
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_phone_white_18pt.png"))); // NOI18N
+        jLabel16.setText("Telepon");
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("(021) -57853468 ");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel16)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel17))
+        );
+
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,10 +461,14 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,13 +502,16 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     private void f_kode_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_kode_transaksiActionPerformed
-        this.set_no_pengeluaran();
-        try {
-            db.runQueryUpdate("INSERT INTO pengeluaran_dana (kode_transaksi) VALUES ('"+f_kode_transaksi.getText()+"')");
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
-        f_tanggal_transaksi.setText(koneksi.get_date_with_format("YYYY-MM-dd HH:mm:ss"));
-        this.field_enabled(true);
-        t_data_transaksi.setEnabled(false);
+        if(f_kode_transaksi.getText().isEmpty()){
+            this.set_no_pengeluaran();
+            try {
+                db.runQueryUpdate("INSERT INTO pengeluaran_dana (kode_transaksi) VALUES ('"+f_kode_transaksi.getText()+"')");
+            } catch (SQLException err) {koneksi.print(err.getMessage());}
+            f_tanggal_transaksi.setText(koneksi.get_date_with_format("YYYY-MM-dd HH:mm:ss"));
+            this.field_enabled(true);
+            t_data_transaksi.setEnabled(false);
+        } else koneksi.popup_message("Field harus kosong!");
+        
     }//GEN-LAST:event_f_kode_transaksiActionPerformed
 
     private void t_data_notaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_data_notaMouseClicked
@@ -455,15 +527,15 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
             int default_balance = 0, used_balance = 0;
                     
             try{
-                ResultSet result = db.runQuery("SELECT jumlah, terpakai FROM pembentukan_dana "
+                ResultSet result = db.runQuery("SELECT jumlah, jumlah_pengisian_kembali, terpakai FROM pembentukan_dana "
                           + "WHERE no_pengisian = '"+f_no_nota.getText()+"'");
                 if(result.next()){
-                    default_balance = result.getInt(1); used_balance = result.getInt(2);
+                    default_balance = result.getInt(1) + result.getInt(2); used_balance = result.getInt(3);
                 }
             } catch (SQLException err) {koneksi.print(err.getMessage());}
 
             int sum_balance = Integer.parseInt(f_nominal.getText()) + used_balance;
-
+                        
             if (default_balance >= sum_balance){
                 try{
                     db.runQueryUpdate("UPDATE pembentukan_dana SET terpakai = "+sum_balance+", "
@@ -513,8 +585,8 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         
         if(this.no_rekening != null){
             try {
-                ResultSet result = db.runQuery("SELECT keterangan FROM rekening "
-                                + "WHERE no_rekening = '"+this.no_rekening+"'");
+                ResultSet result = db.runQuery("SELECT keterangan FROM kategori_rekening "
+                                + "WHERE no_kategori = '"+this.no_rekening+"'");
                 if (result.next()) f_keterangan_rek.setText(result.getString(1));
             } catch (SQLException err) {koneksi.print(err.getMessage());}   
         }
@@ -523,6 +595,8 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     private void t_data_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_data_transaksiMouseClicked
         f_kode_transaksi.setText((String) t_data_transaksi.getValueAt(t_data_transaksi.getSelectedRow(), 0));
+        this._used_balance = Integer.parseInt((String) t_data_transaksi.getValueAt(t_data_transaksi.getSelectedRow(), 7));
+        this._no_nota = (String) t_data_transaksi.getValueAt(t_data_transaksi.getSelectedRow(), 1);
         b_cancel.setText("Hapus");
     }//GEN-LAST:event_t_data_transaksiMouseClicked
 
@@ -577,6 +651,10 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -590,10 +668,12 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable t_data_nota;
     private javax.swing.JTable t_data_transaksi;
     // End of variables declaration//GEN-END:variables
@@ -677,7 +757,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//r
     
     private void get_data_filtered_by_nota(){
-        final String[] _label = {"Kode Transaksi", "No. Nota", "Tanggal", "ID Barang", 
+        final String[] _label = {"Kode Transaksi", "No. Nota", "Tanggal", "ID Kategori", 
                                  "No. Rekening", "Keterangan Rekening", "Uraian" ,"Nominal"};
         
         String no_nota = null;
@@ -686,7 +766,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
             no_nota = (String) c_no_nota.getSelectedItem();
             
             try {
-                this._query = "SELECT kode_transaksi, no_nota, tanggal, id_barang, "
+                this._query = "SELECT kode_transaksi, no_nota, tanggal, id_kategori, "
                             + "no_rekening, keterangan, uraian, nominal FROM pengeluaran_dana WHERE no_nota = '"+no_nota+"'";
 
                 ResultSet result = db.runQuery(_query);
@@ -708,10 +788,10 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table(){
-        final String[] _label = {"Kode Transaksi", "No. Nota", "Tanggal", "ID Barang", 
+        final String[] _label = {"Kode Transaksi", "No. Nota", "Tanggal", "ID Kategori", 
                                  "No. Rekening", "Keterangan Rekening", "Uraian" ,"Nominal"};
         try {
-            this._query = "SELECT kode_transaksi, no_nota, tanggal, id_barang, "
+            this._query = "SELECT kode_transaksi, no_nota, tanggal, id_kategori, "
                         + "no_rekening, keterangan, uraian, nominal FROM pengeluaran_dana ORDER BY kode_transaksi";
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -730,9 +810,9 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table_nota(){
-        final String[] _label = {"No. Nota", "Tanggal", "Jumlah", "Terpakai", "Keterangan"};
+        final String[] _label = {"No. Nota", "Tanggal", "Jumlah", "Terpakai", "Pengisian Kembali", "Keterangan"};
         try {
-            this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, uraian "
+            this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, jumlah_pengisian_kembali, uraian "
                         + "FROM pembentukan_dana ORDER BY no_pengisian";
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -754,7 +834,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         this._query = "UPDATE pengeluaran_dana SET "
                 + "no_nota = '"+f_no_nota.getText()+"', "
                 + "tanggal = '"+f_tanggal_transaksi.getText()+"', "
-                + "id_barang = "+f_id_barang.getText()+", "
+                + "id_kategori = "+f_id_barang.getText()+", "
                 + "no_rekening = "+f_no_rekening.getText()+", "
                 + "keterangan = '"+f_keterangan_rek.getText().trim()+"', "
                 + "uraian = '"+f_uraian.getText().trim()+"', "
@@ -780,28 +860,28 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         if (konfir == JOptionPane.YES_OPTION){
             
             int default_balance = 0,
-                sum_balance = 0,
-                used_balance = 0;
-            
-            if(!f_nominal.getText().isEmpty()) used_balance = Integer.parseInt(f_nominal.getText());
+                sum_balance = 0;
             
             try{
                 
                 ResultSet result = db.runQuery("SELECT terpakai FROM pembentukan_dana "
-                          + "WHERE no_pengisian = '"+f_no_nota.getText()+"'");
+                          + "WHERE no_pengisian = '"+this._no_nota+"'");
                 
                 if(result.next()){
                     default_balance = result.getInt(1);
-                    sum_balance = default_balance - used_balance;
                 }
                 
-                db.runQueryUpdate("UPDATE pembentukan_dana SET terpakai = '"+sum_balance+"' "
-                                 + "WHERE no_pengisian = '"+f_no_nota.getText()+"'");
+                sum_balance = default_balance - this._used_balance;
+                db.runQueryUpdate("UPDATE pembentukan_dana SET terpakai = "+sum_balance+" "
+                                 + "WHERE no_pengisian = '"+this._no_nota+"'");
                 
                 db.runQueryUpdate("DELETE FROM pengeluaran_dana "
                             + "WHERE kode_transaksi = '"+f_kode_transaksi.getText()+"'");
                 
                 koneksi.popup_message("'"+f_kode_transaksi.getText()+"' berhasil di hapus!");
+                
+                this._used_balance = 0;
+                this._no_nota = null;
                 
             } catch (SQLException err) {koneksi.print(err.getMessage());}
         }

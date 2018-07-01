@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Laporan Jurnal Umum" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="9e9c7b11-8f29-4f1b-b81b-0cc4ef44ce50">
-	<property name="ireport.zoom" value="1.6105100000000017"/>
+	<property name="ireport.zoom" value="1.6105100000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="140"/>
+	<property name="ireport.y" value="432"/>
 	<parameter name="tanggal_1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -22,7 +22,9 @@
      pembentukan_dana.`uraian` AS uraian_dana,
      pembentukan_dana.`terakhir_digunakan` AS terakhir_digunakan,
      pembentukan_dana.`jumlah_pengisian_kembali` AS jumlah_pengisian_kembali,
-     pembentukan_dana.`tanggal_pengisian_kembali` AS tanggal_pengisian_kembali
+     pembentukan_dana.`tanggal_pengisian_kembali` AS tanggal_pengisian_kembali,
+     pengeluaran_dana.`keterangan` AS keterangan,
+     pengeluaran_dana.`no_rekening` AS no_rekening
 FROM
      `pembentukan_dana` pembentukan_dana INNER JOIN `pengeluaran_dana` pengeluaran_dana ON pembentukan_dana.`no_pengisian` = pengeluaran_dana.`no_nota`
 WHERE
@@ -49,7 +51,7 @@ WHERE
 	<field name="uraian" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tanggal_trans" class="java.sql.Timestamp"/>
+	<field name="tanggal_trans" class="java.sql.Date"/>
 	<field name="uraian_dana" class="java.lang.String"/>
 	<field name="terakhir_digunakan" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -60,16 +62,21 @@ WHERE
 	<field name="tanggal_pengisian_kembali" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_rekening" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="no_dana_awal" class="java.lang.String"/>
+	<variable name="nominal_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{nominal}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="131" splitType="Stretch">
-			<image>
-				<reportElement x="25" y="0" width="96" height="79" uuid="de600adc-92ce-4dbe-a76d-9612d470339c"/>
-				<imageExpression><![CDATA["C:\\Users\\Muhammad Iqbal\\Documents\\Latihan\\Aplikasi_Kas_Kecil\\src\\image\\logo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="153" y="15" width="336" height="20" uuid="a85aab5e-5c25-47fa-858b-538d53bee5d9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -104,6 +111,10 @@ WHERE
 			<line>
 				<reportElement x="176" y="121" width="202" height="1" uuid="e540ae2b-1a27-40f1-b1ba-1d0a12ff01fd"/>
 			</line>
+			<image>
+				<reportElement x="12" y="7" width="141" height="75" uuid="b1b1be66-bb7b-4746-9a7f-d2dfed4449dd"/>
+				<imageExpression><![CDATA["xlayer_logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -226,51 +237,65 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{no_pengisian}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="YYYY-MM-dd">
 				<reportElement x="0" y="101" width="90" height="20" uuid="3ebea615-df0c-4bd8-a8f6-bef1cdfde1b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[( $F{tanggal_pengisian_kembali}.equals( null ) ? $F{tanggal} : $F{tanggal_pengisian_kembali} )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{tanggal_pengisian_kembali} : "-" )]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="YYYY-MM-dd">
 				<reportElement x="0" y="121" width="90" height="20" uuid="e594769a-36ad-4b34-bb20-954283615b1b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[( $F{tanggal_pengisian_kembali}.equals( null ) ? $F{tanggal} : $F{tanggal_pengisian_kembali} )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{tanggal_pengisian_kembali} : "-" )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="90" y="101" width="94" height="20" uuid="52ba9467-59a1-4c86-a6ea-baee04045f73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{no_pengisian}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{no_pengisian} : "-" )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="90" y="121" width="94" height="20" uuid="23fa7053-9c90-4df7-bfb1-ee3e32039dc1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{no_pengisian}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{no_pengisian} : "-" )]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="184" y="101" width="152" height="20" uuid="c5926f37-645d-4e1a-8518-ac2de016d04b"/>
-				<textElement verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[Kas]]></text>
-			</staticText>
-			<textField>
+			<textField pattern="Rp #,##0">
 				<reportElement x="336" y="101" width="108" height="20" uuid="c32ebd29-c203-47a0-8d17-651299d0306e"/>
-				<textFieldExpression><![CDATA[$F{jumlah_pengisian_kembali}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="444" y="121" width="111" height="20" uuid="7cef62e1-5231-4fc5-982a-d4cad57b36d9"/>
-				<textFieldExpression><![CDATA[$F{jumlah_pengisian_kembali}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="184" y="121" width="152" height="20" uuid="e0623d3c-721c-4f48-9ace-c71f9e05a0f5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{uraian_dana}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{jumlah_pengisian_kembali} : "-" )]]></textFieldExpression>
 			</textField>
+			<textField pattern="Rp #,##0">
+				<reportElement x="444" y="121" width="111" height="20" uuid="7cef62e1-5231-4fc5-982a-d4cad57b36d9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? $F{jumlah_pengisian_kembali} : "-" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="100" width="152" height="20" uuid="e0623d3c-721c-4f48-9ace-c71f9e05a0f5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? "Pengisian Kembali" : "-" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="120" width="152" height="20" uuid="0ecc8b69-ae81-424f-91a0-7315d069d797"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( !$F{tanggal_pengisian_kembali}.equals( null ) ? "Kas" : "-" )]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="81" width="555" height="1" uuid="06f78034-8970-4756-a453-64f732575b65"/>
+			</line>
+			<line>
+				<reportElement x="0" y="100" width="555" height="1" uuid="37f67854-e37b-4b25-8bb6-024242ef4648"/>
+			</line>
+			<line>
+				<reportElement x="0" y="120" width="555" height="1" uuid="886df260-b41d-440d-9c8c-2010c2014a7d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="140" width="555" height="1" uuid="0f020d6b-b389-43c1-a13a-028279589390"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<textField>
 				<reportElement x="90" y="0" width="94" height="20" uuid="f342c6ac-0612-4a0c-885b-8c248afd0901"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -282,39 +307,75 @@ WHERE
 				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
-				<reportElement x="444" y="20" width="111" height="20" uuid="4534b218-2997-4d58-a699-a12229fd18c6"/>
+				<reportElement x="444" y="34" width="111" height="20" uuid="4534b218-2997-4d58-a699-a12229fd18c6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
+			<textField pattern="YYYY-MM-dd">
 				<reportElement x="0" y="0" width="90" height="20" uuid="3756cb2e-8ae6-45e3-9239-135b6128bbe1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tanggal_trans}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement x="0" y="20" width="90" height="20" uuid="0e67546f-e5cb-4b23-87ce-6ebc6b474f7c"/>
+			<textField pattern="YYYY-MM-dd">
+				<reportElement x="0" y="34" width="90" height="20" uuid="0e67546f-e5cb-4b23-87ce-6ebc6b474f7c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tanggal_trans}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="184" y="3" width="152" height="17" uuid="bd060ebc-f835-42a8-8d4b-4f2bd078ec63"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_rekening}+" - "+$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="34" width="94" height="20" uuid="42802d97-f576-483b-9f87-999d8321062d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kode_transaksi}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="34" width="555" height="1" uuid="eaed4d56-79f5-4984-908d-28b82c3fb95f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="53" width="555" height="1" uuid="6b071cef-87c5-4b44-bab2-d374a2fad475"/>
+			</line>
 			<staticText>
-				<reportElement x="184" y="20" width="152" height="20" uuid="84f82ead-a2f7-4848-ad7b-f983125682fc"/>
+				<reportElement x="184" y="34" width="152" height="20" uuid="84f82ead-a2f7-4848-ad7b-f983125682fc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
 				<text><![CDATA[Kas]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="184" y="0" width="152" height="20" uuid="bd060ebc-f835-42a8-8d4b-4f2bd078ec63"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{uraian}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="90" y="20" width="94" height="20" uuid="42802d97-f576-483b-9f87-999d8321062d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{kode_transaksi}]]></textFieldExpression>
+				<reportElement x="184" y="20" width="152" height="14" uuid="49b8b925-25fe-4a71-ae09-9f8149b1351a"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["( "+$F{uraian}+" )"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band/>
+		<band height="167">
+			<textField>
+				<reportElement x="0" y="47" width="184" height="20" uuid="02938ba6-b9c1-49dd-81b0-797688e71826"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Depok, "+$P{tanggal_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="147" width="184" height="20" uuid="ad0e83b6-3f19-4b6b-84a1-3f24edaf3142"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["( Bagian Keuangan )"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="47" width="184" height="20" uuid="91b31d3f-1da5-4bff-b716-156c35b6f04e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Mengetahui"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="147" width="184" height="20" uuid="7da3aa16-1ab1-4b59-987a-91d56347ca5a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["( Kepala Keuangan )"]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<summary>
 		<band height="62" splitType="Stretch">
@@ -329,7 +390,7 @@ WHERE
 				<text><![CDATA[Kas]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="0" y="42" width="555" height="18" backcolor="#333333" uuid="101eddff-6a20-49e2-bbad-8f83d1edb22d"/>
+				<reportElement x="0" y="40" width="555" height="20" backcolor="#333333" uuid="101eddff-6a20-49e2-bbad-8f83d1edb22d"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="184" y="40" width="152" height="20" forecolor="#FFFFFF" uuid="34df7161-f9e2-4e24-b73e-7edc5766073d"/>
@@ -339,11 +400,6 @@ WHERE
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="184" y="0" width="152" height="20" uuid="efef1edc-b474-4d68-a3b9-068cf9a5ce9b"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[Dana Kas Kecil]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="90" y="20" width="94" height="20" uuid="5bc1563a-6cfb-4a89-bd18-b7e4e179083e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{no_pengisian}]]></textFieldExpression>
@@ -351,33 +407,41 @@ WHERE
 			<textField pattern="Rp #,##0">
 				<reportElement x="336" y="0" width="108" height="20" uuid="926030a2-82c3-4eb0-8256-1f8dba3d8b8e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new Integer ($F{jumlah}.intValue() - $F{terpakai}.intValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Integer (($F{jumlah_pengisian_kembali}.intValue() + $F{jumlah}.intValue()) - $F{terpakai}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
 				<reportElement x="444" y="20" width="111" height="20" uuid="3fb45131-6160-499e-bd24-0e72ff6dd671"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new Integer ($F{jumlah}.intValue() - $F{terpakai}.intValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Integer (($F{jumlah_pengisian_kembali}.intValue() + $F{jumlah}.intValue()) - $F{terpakai}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
 				<reportElement x="336" y="40" width="108" height="20" forecolor="#FFFFFF" uuid="b7f1e6b7-002e-4933-a2c3-c71cae3d02fd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new Integer (($F{jumlah}.intValue() + $F{nominal}.intValue()) + ($F{jumlah}.intValue() - $F{terpakai}.intValue()))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Integer (($F{jumlah}.intValue() + $V{nominal_1}.intValue() + $F{jumlah_pengisian_kembali}.intValue()) + ($F{jumlah_pengisian_kembali}.intValue() + $F{jumlah}.intValue()) - $F{terpakai}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="Rp #,##0">
 				<reportElement x="444" y="40" width="111" height="20" forecolor="#FFFFFF" uuid="87697fd7-c5a2-43e0-9a41-7326040c98c1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new Integer (($F{jumlah}.intValue() + $F{nominal}.intValue()) + ($F{jumlah}.intValue() - $F{terpakai}.intValue()))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Integer (($F{jumlah}.intValue() + $V{nominal_1}.intValue() + $F{jumlah_pengisian_kembali}.intValue()) + ($F{jumlah_pengisian_kembali}.intValue() + $F{jumlah}.intValue()) - $F{terpakai}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="90" height="20" uuid="9d3654c2-8185-4463-9620-8f5f4f8f8698"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{terakhir_digunakan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tanggal_2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="20" width="90" height="20" uuid="36295d71-e2e2-4bc1-aa42-385b5ef812da"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{terakhir_digunakan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tanggal_2}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="7e2d6f8d-b8f1-4976-a5a4-34b988190e23"/>
+			</line>
+			<staticText>
+				<reportElement x="184" y="0" width="152" height="20" uuid="311d3c38-c6a3-4fea-ab50-d38a577fa283"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<text><![CDATA[Dana Kas Kecil]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

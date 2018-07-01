@@ -6,6 +6,8 @@
 package Testing;
 
 import Config.koneksi;
+import java.sql.*;
+import java.util.Arrays;
 
 /**
  *
@@ -13,6 +15,10 @@ import Config.koneksi;
  */
 public class test {
     public static void main(String[] args){
-
+        koneksi db = new koneksi();
+        java.util.List<String> data = new java.util.ArrayList<>();
+//        try {
+//            
+//        } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
 }
