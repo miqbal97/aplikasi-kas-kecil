@@ -17,6 +17,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
     koneksi db = new koneksi();
     
+    protected int _sisa_saldo = 0;
     protected String _query, _keterangan_pengisian;
     protected Boolean _is_grant = false;
     
@@ -419,11 +420,19 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
         if(this.field_validation()){
-            this.save_pengisian();
+            switch(b_process.getText()){
+                case "Simpan":
+                    this.save_pengisian();
+                    break;
+                    
+                case "Simpan Perubahan":
+                    this.edit_pengisian();
+                    b_process.setText("Simpan");
+                    break;
+            }
+            
             b_process.setEnabled(false);
             b_cancel.setEnabled(false);
-            
-            koneksi.print(t_data_pengisian.getRowCount());
         }
     }//GEN-LAST:event_b_processActionPerformed
 
@@ -431,6 +440,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         b_process.setEnabled(true);
         b_cancel.setEnabled(true);
         b_cancel.setText("Kembali");
+        b_process.setText("Simpan Perubahan");
         
         f_no_pengisian.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 0));
         f_tanggal.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 1));
@@ -454,7 +464,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     }//GEN-LAST:event_b_cancelActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        this._check_permission();
+        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 
@@ -616,7 +626,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table(){
-        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Keterangan", "Uraian", "Transaksi Terakhir", 
+        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Periode", "Keterangan", "Transaksi Terakhir", 
                                  "Pengisian Kembali", "Tanggal Pengisian Kembali"};
         try {
             this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, keterangan, uraian, terakhir_digunakan, "
@@ -638,12 +648,66 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void save_pengisian(){
+        this.check_sisa_saldo();
+        
+        int terpakai = 0, jumlah = 0, sisa_saldo = 0;
+        
+        if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
+        if(!f_jumlah.getText().isEmpty()){
+            
+            if(this._sisa_saldo != 0){
+                int konfir = JOptionPane.showConfirmDialog(this, 
+                    "Terdapat sisa saldo sebesar "+this._sisa_saldo+" ingin di masukan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            
+                    if (konfir == JOptionPane.YES_OPTION){
+                        sisa_saldo = this._sisa_saldo;
+                    }
+            }
+            
+            
+            jumlah = Integer.parseInt(f_jumlah.getText()) + sisa_saldo; 
+        }
+        
+        if(f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")){
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal = '"+f_tanggal.getText()+"', "
+                    + "jumlah = "+jumlah+", "
+                    + "terpakai = "+terpakai+", "
+                    + "keterangan = '"+this._keterangan_pengisian+"', "
+                    + "uraian = '"+f_uraian.getText()+"' "
+                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
+        } else {
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal = '"+f_tanggal.getText()+"', "
+                    + "jumlah = "+jumlah+", "
+                    + "terpakai = "+terpakai+", "
+                    + "keterangan = '"+this._keterangan_pengisian+"', "
+                    + "uraian = '"+f_uraian.getText()+"', "
+                    + "jumlah_pengisian_kembali = "+f_pengisian_kembali.getText()+", "
+                    + "tanggal_pengisian_kembali = '"+koneksi.get_date_with_format("YYYY-MM-dd HH:mm:dd")+"' "
+                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
+        }
+        
+        try {
+            db.runQueryUpdate(_query);
+            koneksi.popup_message("Berhasil di simpan");
+        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        
+        this.get_data_table();
+        this.clear();
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void edit_pengisian(){
+        this.check_sisa_saldo();
+        
         int terpakai = 0, jumlah = 0;
         
         if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
         if(!f_jumlah.getText().isEmpty()){ jumlah = Integer.parseInt(f_jumlah.getText()); }
         
-        if(f_pengisian_kembali.getText().isEmpty()){
+        if(f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")){
             this._query = "UPDATE pembentukan_dana SET "
                     + "tanggal = '"+f_tanggal.getText()+"', "
                     + "jumlah = "+jumlah+", "
@@ -672,6 +736,22 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         this.clear();
     }
         
+    //---------------------------------------------------------------------------------//
+    
+    private void check_sisa_saldo(){
+        
+        int jumlah = 0, terpakai = 0, pengisian_kembali = 0;
+        
+        if(t_data_pengisian.getRowCount() != 0){
+            
+            jumlah = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 2));
+            terpakai = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 3));
+            pengisian_kembali = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 7));
+            
+            this._sisa_saldo = ( jumlah + terpakai ) - pengisian_kembali;
+        }
+    }
+    
     //---------------------------------------------------------------------------------//
     
     private void delete_pengisian(){
