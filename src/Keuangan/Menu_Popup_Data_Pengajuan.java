@@ -244,7 +244,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }//GEN-LAST:event_f_cariKeyTyped
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
-        portal.id_barang = (String) t_data.getValueAt(t_data.getSelectedRow(), 1);
+        portal.id_kategori = (String) t_data.getValueAt(t_data.getSelectedRow(), 1);
         portal.no_rekening = (String) t_data.getValueAt(t_data.getSelectedRow(), 3);
         this.dispose();
     }//GEN-LAST:event_t_dataMouseClicked
