@@ -66,6 +66,11 @@ public class Laporan_Jurnal_Umum extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Jurnal Umum");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(2, 47, 102));
 
@@ -353,6 +358,10 @@ public class Laporan_Jurnal_Umum extends javax.swing.JDialog {
         f_from.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
         f_to.requestFocus();
     }//GEN-LAST:event_t_dataMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this._check_permission();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

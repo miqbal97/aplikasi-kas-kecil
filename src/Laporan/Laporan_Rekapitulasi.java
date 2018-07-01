@@ -28,6 +28,8 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     public Laporan_Rekapitulasi() {
         initComponents();
         this.get_data_table();
+        c_bulan.setSelectedIndex(Integer.parseInt(koneksi.get_date_with_format("M")));
+        c_tahun.setSelectedItem(koneksi.get_date_with_format("YYYY"));
     }
 
     /**
@@ -47,11 +49,11 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        c_mingguan = new javax.swing.JComboBox<>();
+        c_minggu = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        c_bulanan = new javax.swing.JComboBox<>();
+        c_bulan = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        c_tahunan = new javax.swing.JComboBox<>();
+        c_tahun = new javax.swing.JComboBox<>();
         b_process = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -126,17 +128,17 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Pilih Periode Minggu");
 
-        c_mingguan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Minggu Pertama", "Minggu Kedua", "Minggu Ketiga", "Minggu Keempat" }));
+        c_minggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Minggu Pertama", "Minggu Kedua", "Minggu Ketiga", "Minggu Keempat" }));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Bulan");
 
-        c_bulanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
+        c_bulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tahun");
 
-        c_tahunan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
+        c_tahun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -", "2017", "2018" }));
 
         b_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_autorenew_18pt.png"))); // NOI18N
         b_process.setText("Process");
@@ -154,15 +156,15 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(c_mingguan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_minggu, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(c_bulanan, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addComponent(c_tahunan, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -173,11 +175,11 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(c_mingguan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_minggu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(c_bulanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(c_tahunan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_process))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -348,9 +350,9 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
         if(this.field_validator()){
-            if(c_mingguan.getSelectedIndex() != 0){
+            if(c_minggu.getSelectedIndex() != 0){
                 this.data_full_filtered();
-            } else if (c_mingguan.getSelectedIndex() == 0){
+            } else if (c_minggu.getSelectedIndex() == 0){
                 this.data_filtered_by_month();
             } else {
                 this.data_full_filtered();
@@ -398,9 +400,9 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_process;
-    private javax.swing.JComboBox<String> c_bulanan;
-    private javax.swing.JComboBox<String> c_mingguan;
-    private javax.swing.JComboBox<String> c_tahunan;
+    private javax.swing.JComboBox<String> c_bulan;
+    private javax.swing.JComboBox<String> c_minggu;
+    private javax.swing.JComboBox<String> c_tahun;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -476,22 +478,22 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void data_filtered_by_month(){
-        String month = Integer.toString(c_bulanan.getSelectedIndex());
+        String month = Integer.toString(c_bulan.getSelectedIndex());
         
         final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
                                  "Keterangan", "Nominal"};
         
-        if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;
+        if (c_bulan.getSelectedIndex() <= 9) month = "0"+month;
         
         try {
             
             this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
                         + "keterangan, nominal FROM pengeluaran_dana "
-                        + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-01' "
-                        + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-31'";
+                        + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-01' "
+                        + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-31'";
             
-            _from_date = c_tahunan.getSelectedItem()+"-"+month+"-01";
-            _to_date = c_tahunan.getSelectedItem()+"-"+month+"-31";
+            _from_date = c_tahun.getSelectedItem()+"-"+month+"-01";
+            _to_date = c_tahun.getSelectedItem()+"-"+month+"-31";
             
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -512,7 +514,7 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     private void data_full_filtered(){
         int awal = 0, akhir = 0;
         
-        switch(c_mingguan.getSelectedIndex()){
+        switch(c_minggu.getSelectedIndex()){
             case 1:
                 awal = 01; akhir = 07;
                 break;
@@ -527,22 +529,22 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
                 break;
         }
         
-        String month = Integer.toString(c_bulanan.getSelectedIndex());
+        String month = Integer.toString(c_bulan.getSelectedIndex());
         
         final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
                                  "Keterangan", "Nominal"};
         
-        if (c_bulanan.getSelectedIndex() <= 9) month = "0"+month;
+        if (c_bulan.getSelectedIndex() <= 9) month = "0"+month;
         
         try {
             
             this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
                         + "keterangan, nominal FROM pengeluaran_dana "
-                        + "WHERE tanggal BETWEEN '"+c_tahunan.getSelectedItem()+"-"+month+"-"+awal+"' "
-                        + "AND '"+c_tahunan.getSelectedItem()+"-"+month+"-"+akhir+"'";
+                        + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-"+awal+"' "
+                        + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-"+akhir+"'";
             
-            _from_date = c_tahunan.getSelectedItem()+"-"+month+"-"+awal;
-            _to_date = c_tahunan.getSelectedItem()+"-"+month+"-"+akhir;
+            _from_date = c_tahun.getSelectedItem()+"-"+month+"-"+awal;
+            _to_date = c_tahun.getSelectedItem()+"-"+month+"-"+akhir;
             
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -562,9 +564,9 @@ public class Laporan_Rekapitulasi extends javax.swing.JDialog {
     
     private Boolean field_validator(){
         
-        int mingguan = c_mingguan.getSelectedIndex(),
-            bulanan = c_bulanan.getSelectedIndex(),
-            tahunan = c_tahunan.getSelectedIndex();
+        int mingguan = c_minggu.getSelectedIndex(),
+            bulanan = c_bulan.getSelectedIndex(),
+            tahunan = c_tahun.getSelectedIndex();
        
         if (mingguan == 0 && bulanan == 0 || tahunan == 0){
             koneksi.popup_message("Data Belum Lengkap");
