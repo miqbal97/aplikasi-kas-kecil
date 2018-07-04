@@ -577,18 +577,20 @@ public class Menu_Rekening extends javax.swing.JDialog {
     }//GEN-LAST:event_c_kategoriActionPerformed
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
-        switch(b_process.getText()){
-            case "Simpan":
-                this.create_rekening();
-                break;
-            case "Simpan Perubahan":
-                this.update_rekening();
-                b_process.setText("Simpan");
-                break;
+        if(this.rekening_validation()){
+            switch(b_process.getText()){
+                case "Simpan":
+                    this.create_rekening();
+                    break;
+                case "Simpan Perubahan":
+                    this.update_rekening();
+                    b_process.setText("Simpan");
+                    break;
+            }
+            this.get_data_table_rekening(); 
+            f_no_kategori.setText(null); f_kode_kategori.setText(null);
+            f_keterangan.setText(null);
         }
-        this.get_data_table_rekening(); 
-        f_no_kategori.setText(null); f_kode_kategori.setText(null);
-        f_keterangan.setText(null);
     }//GEN-LAST:event_b_processActionPerformed
 
     private void f_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_f_cariKeyTyped
@@ -596,19 +598,22 @@ public class Menu_Rekening extends javax.swing.JDialog {
     }//GEN-LAST:event_f_cariKeyTyped
 
     private void b_process_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_process_dataActionPerformed
-        switch(b_process_data.getText()){
-            case "Simpan":
-                if(c_kategori.getSelectedIndex() > 0){
-                    this.create_data_rekening();
-                } else koneksi.popup_message("Kategori belum di pilih!");
-                break;
-            case "Simpan Perubahan":
-                this.update_data_rekening();
-                b_process.setText("Simpan");
-                break;
+        if(this.detail_validation()){
+           switch(b_process_data.getText()){
+                case "Simpan":
+                    if(c_kategori.getSelectedIndex() > 0){
+                        this.create_data_rekening();
+                    } else koneksi.popup_message("Kategori belum di pilih!");
+                    break;
+                case "Simpan Perubahan":
+                    this.update_data_rekening();
+                    b_process_data.setText("Simpan");
+                    c_kategori.setEnabled(true);
+                    break;
+            }
+            this.get_data_table_data_rekening();
+            f_nama_kategori.setText(null); 
         }
-        this.get_data_table_data_rekening();
-        f_nama_kategori.setText(null);
     }//GEN-LAST:event_b_process_dataActionPerformed
 
     private void t_rekeningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_rekeningMouseClicked
@@ -623,7 +628,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     private void b_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelActionPerformed
         b_process.setText("Simpan");
         f_no_kategori.setEnabled(true);
-        
+        t_rekening.clearSelection();
         f_no_kategori.setText(null);
         f_kode_kategori.setText(null);
         f_keterangan.setText(null);
@@ -639,7 +644,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     private void b_cancel_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancel_dataActionPerformed
         b_process_data.setText("Simpan");
         c_kategori.setEnabled(true);
-        
+        t_data_rekening.clearSelection();
         c_kategori.setSelectedIndex(0);
         f_nama_kategori.setText(null); 
     }//GEN-LAST:event_b_cancel_dataActionPerformed
@@ -654,8 +659,10 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 try {
                     int _row = t_data_rekening.getSelectedRow();
                     db.runQueryUpdate("DELETE FROM detail_rekening WHERE "
-                                    + "no_rekening = '"+c_kategori.getSelectedItem()+"' AND "
+                                    + "no_rekening = '"+no_kategori.get(c_kategori.getSelectedIndex() - 1)+"' AND "
                                     + "id_kategori = '"+(String) t_data_rekening.getValueAt(_row, 0)+"'");
+                    
+                    c_kategori.setEnabled(true); b_process_data.setText("Simpan");
                 } catch (SQLException err) {koneksi.print(err.getMessage());}
                 
             }
@@ -678,6 +685,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
             }
         }
         
+        f_no_kategori.setEnabled(true); b_process.setText("Simpan");
         f_no_kategori.setText(null); f_kode_kategori.setText(null); f_keterangan.setText(null);
     }//GEN-LAST:event_t_rekeningKeyPressed
 
@@ -700,12 +708,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu_Rekening.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -894,13 +896,26 @@ public class Menu_Rekening extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void create_rekening(){
-        this._query = "INSERT INTO kategori_rekening(no_kategori, kode_kategori, keterangan) VALUES("
-                    + f_no_kategori.getText().trim() +", '"+ f_kode_kategori.getText().trim() +"', '"
-                    + f_keterangan.getText().trim() +"')";
-        try{
-            db.runQueryUpdate(_query);
-            koneksi.popup_message("Data berhasil di simpan!");
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+        if(this.check_rekening()){
+            this._query = "INSERT INTO kategori_rekening(no_kategori, kode_kategori, keterangan) VALUES("
+                        + f_no_kategori.getText().split(" - ")[0].trim() +", '"+ f_no_kategori.getText().split(" - ")[1].trim() +"', '"
+                        + f_keterangan.getText().trim() +"')";
+            try{
+                db.runQueryUpdate(_query);
+                koneksi.popup_message("Data berhasil di simpan!");
+            } catch (SQLException err) { koneksi.print(err.getMessage()); }
+        } else koneksi.popup_message("Kategori telah terdaftar!");
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean check_rekening(){
+        try {
+            ResultSet check = db.runQuery("SELECT no_kategori FROM kategori_rekening WHERE no_kategori = '"+f_no_kategori.getText()+"'");
+            if(check.next()) return false;
+        } catch (SQLException err){ koneksi.print(err.getMessage()); }
+        
+        return true;
     }
     
     //---------------------------------------------------------------------------------//
@@ -920,7 +935,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
         String _no = null; int _id = 0;
         
         this._query = "SELECT no_kategori FROM kategori_rekening "
-                    + "WHERE no_kategori = "+ no_kategori.get(c_kategori.getSelectedIndex()) +"";
+                    + "WHERE no_kategori = "+ no_kategori.get(c_kategori.getSelectedIndex() - 1) +"";
                 
         try{
             ResultSet rekening = db.runQuery(_query);
@@ -929,15 +944,15 @@ public class Menu_Rekening extends javax.swing.JDialog {
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
         
         this._query = "SELECT id_kategori FROM detail_rekening "
-                    + "WHERE no_rekening = "+ no_kategori.get(c_kategori.getSelectedIndex()) +"";
+                    + "WHERE no_rekening = "+ no_kategori.get(c_kategori.getSelectedIndex() - 1) +"";
         
         try{
             ResultSet id = db.runQuery(_query);
             while(id.next()){_id = id.getInt(1)+1;}
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
-        
+                
         this._query = "INSERT INTO detail_rekening(no_rekening, kategori, id_kategori, nama_kategori) "
-                    + "VALUES ("+ _no +", '"+ c_kategori.getSelectedIndex() +"', "+ _id +", '"+ f_nama_kategori.getText().trim() +"')";
+                    + "VALUES ("+ _no +", '"+ c_kategori.getSelectedItem() +"', "+ _id +", '"+ f_nama_kategori.getText().trim() +"')";
         
         try{
             db.runQueryUpdate(_query);
@@ -957,6 +972,32 @@ public class Menu_Rekening extends javax.swing.JDialog {
             koneksi.popup_message("Data berhasil di update!");
             c_kategori.setEnabled(true);
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean rekening_validation(){
+        javax.swing.JTextField[] _fields = {f_no_kategori, f_kode_kategori, f_keterangan};
+        for(javax.swing.JTextField _field : _fields){
+            if(_field.getText().isEmpty()){
+                koneksi.popup_message("Data Belum lengkap");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean detail_validation(){
+        javax.swing.JTextField[] _fields = {f_nama_kategori};
+        for(javax.swing.JTextField _field : _fields){
+            if(_field.getText().isEmpty() || c_kategori.getSelectedIndex() == 0){
+                koneksi.popup_message("Data Belum lengkap");
+                return false;
+            }
+        }
+        return true;
     }
     
     
