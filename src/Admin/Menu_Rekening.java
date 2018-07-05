@@ -54,7 +54,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
         f_no_kategori = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        f_kode_kategori = new javax.swing.JTextField();
         Jpanel = new javax.swing.JPanel();
         b_process = new javax.swing.JButton();
         b_cancel = new javax.swing.JButton();
@@ -190,9 +189,9 @@ public class Menu_Rekening extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nomor Kategori");
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Kode Kategori");
+        jLabel6.setText(")* Contoh Format : 123 - ABC");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -203,29 +202,25 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(f_keterangan)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(f_no_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(f_kode_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(f_no_kategori)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(f_no_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(f_kode_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -260,7 +255,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(b_process, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(b_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(b_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
         );
         JpanelLayout.setVerticalGroup(
@@ -581,6 +576,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
             switch(b_process.getText()){
                 case "Simpan":
                     this.create_rekening();
+                    this.add_no_kategori();
                     break;
                 case "Simpan Perubahan":
                     this.update_rekening();
@@ -588,7 +584,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
                     break;
             }
             this.get_data_table_rekening(); 
-            f_no_kategori.setText(null); f_kode_kategori.setText(null);
+            f_no_kategori.setText(null);
             f_keterangan.setText(null);
         }
     }//GEN-LAST:event_b_processActionPerformed
@@ -620,8 +616,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
         b_process.setText("Simpan Perubahan");
         f_no_kategori.setEnabled(false);
         String kategori = (String)t_rekening.getValueAt(t_rekening.getSelectedRow(), 0);
-        f_no_kategori.setText(kategori.split("-")[0].trim());
-        f_kode_kategori.setText(kategori.split("-")[1].trim());
+        f_no_kategori.setText(kategori);
         f_keterangan.setText((String)t_rekening.getValueAt(t_rekening.getSelectedRow(), 1));
     }//GEN-LAST:event_t_rekeningMouseClicked
 
@@ -630,7 +625,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
         f_no_kategori.setEnabled(true);
         t_rekening.clearSelection();
         f_no_kategori.setText(null);
-        f_kode_kategori.setText(null);
         f_keterangan.setText(null);
     }//GEN-LAST:event_b_cancelActionPerformed
 
@@ -679,14 +673,15 @@ public class Menu_Rekening extends javax.swing.JDialog {
             if (konfir == JOptionPane.YES_OPTION){
                 
                 try {
-                    db.runQueryUpdate("DELETE FROM kategori_rekening WHERE no_kategori = "+f_no_kategori.getText()+"");
+                    db.runQueryUpdate("DELETE FROM kategori_rekening WHERE no_kategori = "
+                                    + f_no_kategori.getText().split("-")[0].trim()+"");
                 } catch (SQLException err) {koneksi.print(err.getMessage());}
                 
             }
         }
         
         f_no_kategori.setEnabled(true); b_process.setText("Simpan");
-        f_no_kategori.setText(null); f_kode_kategori.setText(null); f_keterangan.setText(null);
+        f_no_kategori.setText(null); f_keterangan.setText(null);
     }//GEN-LAST:event_t_rekeningKeyPressed
 
     /**
@@ -728,7 +723,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> c_kategori;
     private javax.swing.JTextField f_cari;
     private javax.swing.JTextField f_keterangan;
-    private javax.swing.JTextField f_kode_kategori;
     private javax.swing.JTextField f_nama_kategori;
     private javax.swing.JTextField f_no_kategori;
     private javax.swing.JLabel jLabel1;
@@ -791,7 +785,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table_rekening(){
-        final String[] _label = {"No Rekening", "Keterangan"};
+        final String[] _label = {"No Kategori", "Keterangan"};
         try{
             
             ResultSet result = db.runQuery("SELECT * FROM kategori_rekening");
@@ -815,7 +809,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table_data_rekening(){
-               
         final String[] _label = {"ID Kategori", "Nama Kategori"};
         if(c_kategori.getSelectedIndex() == 0) t_data_rekening.removeAll();
         if(!this.no_kategori.isEmpty()){
@@ -877,12 +870,21 @@ public class Menu_Rekening extends javax.swing.JDialog {
         c_kategori.removeAllItems();
         c_kategori.addItem(" - Pilih -");
         try {
-            ResultSet result = db.runQuery("SELECT keterangan FROM kategori_rekening");
+            ResultSet result = db.runQuery("SELECT keterangan FROM kategori_rekening ORDER BY no_kategori");
             while(result.next()){
                 c_kategori.addItem(result.getString(1));
             }
             
-            ResultSet list = db.runQuery("SELECT no_kategori FROM kategori_rekening");
+            this.add_no_kategori();
+            
+        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private void add_no_kategori(){
+        try {
+            ResultSet list = db.runQuery("SELECT no_kategori FROM kategori_rekening ORDER BY no_kategori");
             int counter = 0, row = 0; while(list.next()) row = list.getRow();
             list.beforeFirst();
             no_kategori.clear();
@@ -898,22 +900,31 @@ public class Menu_Rekening extends javax.swing.JDialog {
     private void create_rekening(){
         if(this.check_rekening()){
             this._query = "INSERT INTO kategori_rekening(no_kategori, kode_kategori, keterangan) VALUES("
-                        + f_no_kategori.getText().split(" - ")[0].trim() +", '"+ f_no_kategori.getText().split(" - ")[1].trim() +"', '"
+                        + f_no_kategori.getText().split("-")[0].trim() +", '"+ f_no_kategori.getText().split("-")[1].trim().toUpperCase() +"', '"
                         + f_keterangan.getText().trim() +"')";
             try{
                 db.runQueryUpdate(_query);
                 koneksi.popup_message("Data berhasil di simpan!");
-            } catch (SQLException err) { koneksi.print(err.getMessage()); }
+            } catch (SQLException err) { koneksi.popup_message("Gagal Menyimpan!"); }
         } else koneksi.popup_message("Kategori telah terdaftar!");
     }
     
     //---------------------------------------------------------------------------------//
     
     private Boolean check_rekening(){
+        
         try {
-            ResultSet check = db.runQuery("SELECT no_kategori FROM kategori_rekening WHERE no_kategori = '"+f_no_kategori.getText()+"'");
-            if(check.next()) return false;
-        } catch (SQLException err){ koneksi.print(err.getMessage()); }
+            if(f_no_kategori.getText().split("-")[1].trim().length() >= 3){
+                ResultSet check = db.runQuery("SELECT no_kategori FROM kategori_rekening WHERE no_kategori = '"
+                                            + f_no_kategori.getText().split("-")[0].trim()+"'");
+                if(check.next()) return false;
+            } else {
+                koneksi.popup_message("Kode kategori minimal 3 huruf!");
+                
+                return false;
+            }
+        } catch (SQLException | ArrayIndexOutOfBoundsException err){ 
+            koneksi.popup_message("Format Salah! Silahkan ikuti format berikut : \n'NOMOR_KATEGORI - KODE_KATEGORI'"); }
         
         return true;
     }
@@ -921,8 +932,8 @@ public class Menu_Rekening extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void update_rekening(){
-        this._query = "UPDATE kategori_rekening SET kode_kategori = '"+ f_kode_kategori.getText().trim() +"', "
-                    + "keterangan = '"+f_keterangan.getText()+"' WHERE no_kategori = "+f_no_kategori.getText()+"";
+        this._query = "UPDATE kategori_rekening SET kode_kategori = '"+ f_no_kategori.getText().split("-")[1].trim() +"', "
+                    + "keterangan = '"+f_keterangan.getText()+"' WHERE no_kategori = "+f_no_kategori.getText().split(" - ")[0].trim()+"";
         try{
             db.runQueryUpdate(_query);
             koneksi.popup_message("Data berhasil di simpan!");
@@ -977,10 +988,10 @@ public class Menu_Rekening extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private Boolean rekening_validation(){
-        javax.swing.JTextField[] _fields = {f_no_kategori, f_kode_kategori, f_keterangan};
+        javax.swing.JTextField[] _fields = {f_no_kategori, f_keterangan};
         for(javax.swing.JTextField _field : _fields){
             if(_field.getText().isEmpty()){
-                koneksi.popup_message("Data Belum lengkap");
+                koneksi.popup_message("Data belum lengkap");
                 return false;
             }
         }
@@ -993,7 +1004,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
         javax.swing.JTextField[] _fields = {f_nama_kategori};
         for(javax.swing.JTextField _field : _fields){
             if(_field.getText().isEmpty() || c_kategori.getSelectedIndex() == 0){
-                koneksi.popup_message("Data Belum lengkap");
+                koneksi.popup_message("Data belum lengkap");
                 return false;
             }
         }
