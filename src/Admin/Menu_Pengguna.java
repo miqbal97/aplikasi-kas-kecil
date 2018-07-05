@@ -17,14 +17,15 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     
     koneksi db = new koneksi();
     
-    protected Boolean _is_grant = false;
-    protected String _query, _user;
+    protected Boolean _is_grant = false, _delete = true;
+    protected String _query, _user, _pass_lama;
     
     /**
      * Creates new form User
      */
     public Menu_Pengguna() {
         initComponents();
+        l_ket.setVisible(false);
     }
 
     /**
@@ -48,8 +49,8 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         f_password = new javax.swing.JPasswordField();
         f_password_verify = new javax.swing.JPasswordField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        l_pass_1 = new javax.swing.JLabel();
+        l_pass_2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         b_process = new javax.swing.JButton();
         b_batal = new javax.swing.JButton();
@@ -64,6 +65,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         f_id_pengguna = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        l_ket = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Manajemen Pengguna");
@@ -146,13 +148,19 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("ENTER");
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Password");
+        f_password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                f_passwordActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Verifikasi Password");
+        l_pass_1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        l_pass_1.setForeground(new java.awt.Color(255, 255, 255));
+        l_pass_1.setText("Password");
+
+        l_pass_2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        l_pass_2.setForeground(new java.awt.Color(255, 255, 255));
+        l_pass_2.setText("Verifikasi Password");
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Action Panel", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -258,9 +266,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                     .addComponent(f_cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -281,6 +289,10 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Jabatan");
 
+        l_ket.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        l_ket.setForeground(new java.awt.Color(255, 255, 255));
+        l_ket.setText("( Optional )");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -293,6 +305,8 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(f_password)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(l_ket, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(f_password_verify, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -302,13 +316,13 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                                 .addGap(128, 128, 128))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(f_nama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(f_id_pengguna)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6)))
+                                        .addComponent(jLabel6))
+                                    .addComponent(l_pass_1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(c_jabatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -316,62 +330,55 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel8))
+                                    .addComponent(l_pass_2)
+                                    .addComponent(jLabel13))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(233, 233, 233)
-                    .addComponent(jLabel13)
-                    .addContainerGap(705, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(c_jabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(c_jabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(f_id_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(f_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(f_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(f_password_verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(177, 177, 177)
-                    .addComponent(jLabel13)
-                    .addContainerGap(254, Short.MAX_VALUE)))
+                            .addComponent(f_id_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(f_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(f_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(l_pass_1)
+                    .addComponent(l_pass_2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(f_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f_password_verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_ket))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         f_username.getAccessibleContext().setAccessibleDescription("");
@@ -401,62 +408,74 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
         if(this.field_validation()){
-            if (f_password_verify.getText().equals(f_password.getText())){
+            if(l_pass_2.getText().equals("Password Baru") && f_password.getText().equals(f_password_verify.getText())){
+                koneksi.popup_message("Password baru sama dengan password lama!");
+            } else {
                 switch(b_process.getText()){
                     case "Simpan":
-                        this.create_user();
+                        if(f_password.getText().equals(f_password_verify.getText())){
+                            this.create_user();
+                            f_id_pengguna.setEnabled(true); f_id_pengguna.setText(null);
+                        } else koneksi.popup_message("Password verifikasi tidak sama!");
                         break;
                     case "Simpan Perubahan":
                         this.update_user();
-                        b_process.setText("Simpan");
-                        f_username.setEnabled(true);
+                        f_id_pengguna.setEnabled(true); f_id_pengguna.setText(null);
+                        b_process.setText("Simpan"); f_username.setEnabled(true);
+                        f_password.setEnabled(true); l_pass_1.setText("Password");
+                        this._pass_lama = null; l_ket.setVisible(false);
                         break;
                 }
                 this.get_data_table();
                 f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
-                f_password.setText(null); f_password_verify.setText(null);
-            } else koneksi.popup_message("password konfirmasi tidak sama!");
+                f_password.setText(null); f_password_verify.setText(null); 
+            }
         }
-        
     }//GEN-LAST:event_b_processActionPerformed
 
     private void b_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_batalActionPerformed
         f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
         f_password.setText(null); f_password_verify.setText(null); f_id_pengguna.setText(null);
         b_process.setText("Simpan"); f_username.setEnabled(true); f_id_pengguna.setEnabled(true);
-        c_jabatan.setEnabled(true);
+        c_jabatan.setEnabled(true); l_pass_1.setText("Password"); l_ket.setVisible(false);
+        t_data.clearSelection(); this._pass_lama = null; f_password.setEnabled(true);
     }//GEN-LAST:event_b_batalActionPerformed
 
     private void t_dataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_dataKeyPressed
         String username = (String) t_data.getValueAt(t_data.getSelectedRow(), 0);
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_DELETE){
+            if(this._delete){
+                int konfir = JOptionPane.showConfirmDialog(this, 
+                        "Apa Anda Yakin?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+                if (konfir == JOptionPane.YES_OPTION){
+
+                    try {
+                        db.runQueryUpdate("DELETE FROM pengguna WHERE id_pengguna = '"+username+"'");
+                        koneksi.popup_message("'"+username+"' berhasil di hapus!");
+                    } catch (SQLException err) {koneksi.print(err.getMessage());}
+                }
+            } else koneksi.popup_message("Hanya terdapat 1 admin tidak dapat di hapus");
             
-            int konfir = JOptionPane.showConfirmDialog(this, 
-                    "Apa Anda Yakin?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            
-            if (konfir == JOptionPane.YES_OPTION){
-                
-                try {
-                    db.runQueryUpdate("DELETE FROM user WHERE username = '"+username+"'");
-                    koneksi.popup_message("'"+username+"' berhasil di hapus!");
-                } catch (SQLException err) {koneksi.print(err.getMessage());}
-                
-            }
+            l_pass_1.setText("Password"); l_ket.setVisible(false);
             f_username.setText(null); c_jabatan.setSelectedIndex(0); f_nama.setText(null);
-            f_password.setText(null); f_password_verify.setText(null);
-            b_process.setText("Simpan"); f_username.setEnabled(true);
+            f_password.setText(null); f_password_verify.setText(null); f_id_pengguna.setText(null);
+            b_process.setText("Simpan"); f_id_pengguna.setEnabled(true); c_jabatan.setEnabled(true);
         }
     }//GEN-LAST:event_t_dataKeyPressed
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
         b_process.setText("Simpan Perubahan");
         f_id_pengguna.setEnabled(false);
+        l_pass_1.setText("Ganti Password Lama"); l_ket.setVisible(true);
         try{
             ResultSet check = db.runQuery("SELECT COUNT(jabatan) FROM pengguna WHERE jabatan = 'Admin'");
             if(check.next()){
                 if(check.getInt(1) == 1 && t_data.getValueAt(t_data.getSelectedRow(), 4).equals("Admin")){
                     c_jabatan.setEnabled(false);
+                    this._delete = false;
                 } else {
+                    this._delete = true;
                     c_jabatan.setEnabled(true);
                 }
             }
@@ -468,7 +487,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         try{
             ResultSet pass = db.runQuery("SELECT password FROM pengguna WHERE id_pengguna = '"
                                         +(String) t_data.getValueAt(t_data.getSelectedRow(), 0)+"'");
-            if(pass.next()) f_password.setText(pass.getString(1));
+            if(pass.next()) this._pass_lama = pass.getString(1);
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         
     }//GEN-LAST:event_t_dataMouseClicked
@@ -476,6 +495,20 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private void f_id_penggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_id_penggunaActionPerformed
         this.no_user();
     }//GEN-LAST:event_f_id_penggunaActionPerformed
+
+    private void f_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_passwordActionPerformed
+        if(l_pass_1.getText().equals("Ganti Password Lama")){
+            try {
+                ResultSet pass = db.runQuery("SELECT * FROM pengguna WHERE password = '"
+                                            + f_password.getText().toLowerCase().trim() +"' "
+                                            + "AND id_pengguna = '"+f_id_pengguna.getText()+"'");
+                if(pass.next()) {
+                    f_password.setEnabled(false); f_password_verify.requestFocus();
+                    l_pass_2.setText("Password Baru");
+                } else koneksi.popup_message("Password lama tidak cocok!");
+            } catch (SQLException err) {koneksi.print(err.getMessage());}
+        }
+    }//GEN-LAST:event_f_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,8 +560,6 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -537,6 +568,9 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel l_ket;
+    private javax.swing.JLabel l_pass_1;
+    private javax.swing.JLabel l_pass_2;
     private javax.swing.JTable t_data;
     // End of variables declaration//GEN-END:variables
 
@@ -546,6 +580,8 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     public void grant_permission(Boolean _grant){
         this._is_grant = _grant;
     }
+    
+    //---------------------------------------------------------------------------------//
     
     public void get_user(String _username){
         this._user = _username;
@@ -569,7 +605,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     
     protected void _check_user(String _user){
         try {
-            ResultSet result = db.runQuery("SELECT username FROM user WHERE username = '"+_user+"'");
+            ResultSet result = db.runQuery("SELECT username FROM pengguna WHERE username = '"+_user+"'");
             if (result.next()) koneksi.popup_message("'"+_user+"' telah terdaftar!");
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
@@ -597,29 +633,57 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void create_user(){
-        this._query = "INSERT INTO pengguna(id_pengguna, username, nama_pengguna, password, jabatan) VALUES('"
+        if(this.check_user()){
+            this._query = "INSERT INTO pengguna(id_pengguna, username, nama_pengguna, password, jabatan) VALUES('"
                     + f_id_pengguna.getText().toUpperCase().trim()+"', '"
                     + f_username.getText().toLowerCase().trim() +"', '"
                     + f_nama.getText().toLowerCase().trim() +"', '"
                     + f_password.getText().toLowerCase().trim() +"', '"
                     + c_jabatan.getSelectedItem().toString().trim() +"')";
+            try {
+                db.runQueryUpdate(_query);
+                koneksi.popup_message("Pengguna berhasil di simpan!");
+            } catch (SQLException err) { koneksi.print(err.getMessage()); }
+            
+        } else koneksi.popup_message("Pengguna telah terdaftar!");
+        
+    }
+    
+    //---------------------------------------------------------------------------------//
+    
+    private Boolean check_user(){
         try {
-            db.runQueryUpdate(_query);
-            koneksi.popup_message("User berhasil di simpan!");
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+            ResultSet check = db.runQuery("SELECT id_pengguna FROM pengguna WHERE id_pengguna = '"+f_id_pengguna.getText()+"' "
+                                        + "OR username = '"+f_username.getText()+"'");
+            if(check.next()) return false;
+        } catch (SQLException err){ koneksi.print(err.getMessage()); }
+        
+        return true;
     }
     
     //---------------------------------------------------------------------------------//
     
     private void update_user(){
+        String pass = null;
+        if(l_pass_2.getText().equals("Verifikasi Password")){
+                        
+            if(f_password_verify.getText().equals(this._pass_lama)){
+                pass = this._pass_lama.toLowerCase().trim();
+            } else koneksi.popup_message("Password verifikasi tidak cocok!");
+            
+        } else if (l_pass_2.getText().equals("Password Baru")){
+            pass = f_password_verify.getText().toLowerCase().trim();
+        }
+        
         this._query = "UPDATE pengguna SET nama_pengguna = '"+ f_nama.getText().toLowerCase().trim() +"', "
-                    + "password = '"+ f_password.getText().toLowerCase().trim()+"', "
-                    + "jabatan = '"+ c_jabatan.getSelectedItem().toString().trim() +"', "
+                    + "password = '"+ pass +"', jabatan = '"+ c_jabatan.getSelectedItem().toString().trim() +"', "
                     + "username  = '"+ f_username.getText().toLowerCase().trim() +"' "
                     + "WHERE id_pengguna  = '"+ f_id_pengguna.getText().toUpperCase().trim() +"'";
+        
         try {
             db.runQueryUpdate(_query);
-            koneksi.popup_message("User berhasil di update!");
+            
+            koneksi.popup_message("Pengguna '"+f_nama.getText()+"' berhasil di update!");
             try {
                 ResultSet check = db.runQuery("SELECT jabatan FROM pengguna WHERE username = '"+this._user+"'");
                 if(check.next() && !check.getString(1).equals("Admin")){
@@ -690,7 +754,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private Boolean field_validation(){
-        javax.swing.JTextField[] _fields = {f_id_pengguna, f_username, f_nama, f_password, f_password_verify};
+        javax.swing.JTextField[] _fields = {f_id_pengguna, f_username, f_nama};
         for(javax.swing.JTextField _field : _fields){
             if(_field.getText().isEmpty()){
                 koneksi.popup_message("Data Belum lengkap");
