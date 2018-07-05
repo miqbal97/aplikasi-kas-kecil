@@ -504,7 +504,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        this._check_permission();
+//        this._check_permission();
         this.get_data_table();
         f_id_pengguna.setEditable(false); f_nama_pengguna.setEditable(false);
         f_id_kategori.setEditable(false); f_nama_kategori.setEditable(false);
@@ -521,7 +521,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         b_simpan.setEnabled(true);
         
         try {
-            ResultSet detail = db.runQuery("SELECT id_kategori, nama_kategori, no_kategori, unit, "
+            ResultSet detail = db.runQuery("SELECT id_kategori, nama_kategori, no_rekening, unit, "
                             + "jumlah, keterangan FROM detail_pengajuan WHERE id_pengajuan = "+ this._id +"");
             if (detail.next()){
                 f_id_kategori.setText(detail.getString(1));
@@ -752,8 +752,10 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void save_persetujuan(){
+        String tanggal_disetujui = "'"+koneksi.get_date_with_format("YYYY-MM-dd")+"'";
+        if(c_status.getSelectedIndex() == 1) tanggal_disetujui = "NULL";
         this._query = "UPDATE pengajuan SET status = '"+c_status.getSelectedItem()+"', "
-                    + "tanggal_disetujui = '"+koneksi.get_date_with_format("YYYY-MM-dd")+"' "
+                    + "tanggal_disetujui = "+tanggal_disetujui+" "
                     + "WHERE id_pengajuan = "+ this._id +"";
         try {
             db.runQueryUpdate(this._query);
