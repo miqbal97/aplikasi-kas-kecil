@@ -454,6 +454,8 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     private void b_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelActionPerformed
         if(b_cancel.getText().equals("Kembali")){
             b_cancel.setText("Batal");
+            b_process.setText("Simpan");
+            t_data_pengisian.clearSelection();
             this.clear();
         } else {
             this.cancel_pengisian();
@@ -674,7 +676,9 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                     + "jumlah = "+jumlah+", "
                     + "terpakai = "+terpakai+", "
                     + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"' "
+                    + "uraian = '"+f_uraian.getText()+"', "
+                    + "jumlah_pengisian_kembali = 0, "
+                    + "tanggal_pengisian_kembali = NULL "
                     + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
         } else {
             this._query = "UPDATE pembentukan_dana SET "
@@ -689,8 +693,21 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         }
         
         try {
-            db.runQueryUpdate(_query);
-            koneksi.popup_message("Berhasil di simpan");
+            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
+                terpakai_awal = 0,
+                pengisian_kembali_awal = 0;
+            
+            if(!f_terpakai.getText().isEmpty()) terpakai_awal = Integer.parseInt(f_terpakai.getText());
+            if(!f_pengisian_kembali.getText().isEmpty()) pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
+            
+            int total = jumlah_awal + pengisian_kembali_awal;
+            
+            if(total >= terpakai_awal){
+                db.runQueryUpdate(_query);
+                koneksi.popup_message("Berhasil di simpan");
+            } else koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
+            
+            
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         
         this.get_data_table();
@@ -713,7 +730,9 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                     + "jumlah = "+jumlah+", "
                     + "terpakai = "+terpakai+", "
                     + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"' "
+                    + "uraian = '"+f_uraian.getText()+"', "
+                    + "jumlah_pengisian_kembali = 0, "
+                    + "tanggal_pengisian_kembali = NULL "
                     + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
         } else {
             this._query = "UPDATE pembentukan_dana SET "
@@ -728,8 +747,20 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         }
         
         try {
-            db.runQueryUpdate(_query);
-            koneksi.popup_message("Berhasil di simpan");
+            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
+                terpakai_awal = 0,
+                pengisian_kembali_awal = 0;
+            
+            if(!f_terpakai.getText().isEmpty()) terpakai_awal = Integer.parseInt(f_terpakai.getText());
+            if(!f_pengisian_kembali.getText().isEmpty()) pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
+            
+            int total = jumlah_awal + pengisian_kembali_awal;
+            
+            if(total >= terpakai_awal){
+                db.runQueryUpdate(_query);
+                koneksi.popup_message("Berhasil di simpan");
+            } else koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
+            
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         
         this.get_data_table();
@@ -748,7 +779,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
             terpakai = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 3));
             pengisian_kembali = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 7));
             
-            this._sisa_saldo = ( jumlah + terpakai ) - pengisian_kembali;
+            this._sisa_saldo = ( jumlah + pengisian_kembali ) - terpakai;
         }
     }
     
@@ -768,6 +799,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                         db.runQueryUpdate("DELETE FROM pembentukan_dana "
                                 + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
                         koneksi.popup_message("Berhasil di hapus");
+                        b_process.setText("Simpan"); b_cancel.setText("Batal");
                     }
                 }
             } catch (SQLException err) {koneksi.print(err.getMessage());}
