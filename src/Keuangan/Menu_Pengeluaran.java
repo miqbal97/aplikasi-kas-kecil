@@ -516,7 +516,14 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
 
     private void t_data_notaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_data_notaMouseClicked
         if(!f_kode_transaksi.getText().isEmpty()){
-            f_no_nota.setText((String) t_data_nota.getValueAt(t_data_nota.getSelectedRow(), 0));
+            if((int) t_data_nota.getValueAt(t_data_nota.getSelectedRow(), 5) == 0){
+                Notifikasi.Dana_Tidak_Cukup portal = new Notifikasi.Dana_Tidak_Cukup();
+                portal.setLocationRelativeTo(null);
+                portal.setVisible(true);
+            } else {
+                f_no_nota.setText((String) t_data_nota.getValueAt(t_data_nota.getSelectedRow(), 0));
+            }
+            
         } else {
             koneksi.popup_message("Kode transaksi tidak di temukan");
         }
