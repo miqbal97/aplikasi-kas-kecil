@@ -415,10 +415,10 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Data Pengajuan & Status", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("ID Data Rekening");
+        jLabel14.setText("ID Pengajuan");
 
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Nama Data Rekening");
+        jLabel15.setText("Nama");
 
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("No Rekening");
@@ -730,7 +730,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
         this._id = Integer.parseInt((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
         try {
-            ResultSet detail = db.runQuery("SELECT id_pengguna, nama_kategori, no_kategori, unit, "
+            ResultSet detail = db.runQuery("SELECT id_pengguna, nama_kategori, no_rekening, unit, "
                             + "jumlah, keterangan FROM detail_pengajuan WHERE id_pengajuan = "+ this._id +"");
             if (detail.next()){
                 f_id_barang1.setText(detail.getString(1));
@@ -940,8 +940,8 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         if (c_unit.getSelectedIndex() == 0 ) unit = " - ";
         if (f_jumlah.getText().isEmpty()) jumlah = "0";
         
-        this._query = "INSERT INTO detail_pengajuan(id_pengajuan, id_pengguna, no_kategori, id_kategori, nama_kategori, "
-                    + "unit, jumlah, keterangan) VALUES ("
+        this._query = "INSERT INTO detail_pengajuan(id_pengajuan, id_pengguna, no_rekening, "
+                    + " id_kategori, nama_kategori, unit, jumlah, keterangan) VALUES ("
                     + this._id + ", '"+ f_id_pegawai.getText()+"', '"
                     + f_no_kategori.getText() +"', '"+ f_id_kategori.getText() +"', '"
                     + f_nama_kategori.getText() +"', '"+ unit +"', "
@@ -954,7 +954,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
     //---------------------------------------------------------------------------------//
     
     private void get_data_table(){
-        final String[] _label = {"Key", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
         try {
             ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, nama_pengguna, tanggal_pengajuan, "
                                          + "status FROM pengajuan");
@@ -982,7 +982,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         String _akhir = f_akhir.getText(), _awal = f_mulai.getText();
         if(_akhir.isEmpty()) _akhir = f_mulai.getText();
         if(_awal.isEmpty()) _awal = koneksi.get_date_with_format("YYYY-MM-dd");
-        final String[] _label = {"Key", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
         try {
             
             ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, nama_pengguna, tanggal_pengajuan, "
