@@ -504,7 +504,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        this._check_permission();
+        this._check_permission();
         this.get_data_table();
         f_id_pengguna.setEditable(false); f_nama_pengguna.setEditable(false);
         f_id_kategori.setEditable(false); f_nama_kategori.setEditable(false);
