@@ -62,14 +62,13 @@ public class Menu_Utama extends javax.swing.JFrame {
         submenu_rekening = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         submenu_persetujuan = new javax.swing.JMenuItem();
-        m_laporan = new javax.swing.JMenu();
-        m_jurnal_umum = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        m_laporan_rekapitulasi = new javax.swing.JMenuItem();
         m_transaksi = new javax.swing.JMenu();
         m_pembentukan_dana = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         m_pengeluaran = new javax.swing.JMenuItem();
+        m_laporan = new javax.swing.JMenu();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        m_laporan_rekapitulasi = new javax.swing.JMenuItem();
         m_keluar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -322,31 +321,6 @@ public class Menu_Utama extends javax.swing.JFrame {
 
         jMenuBar1.add(m_file);
 
-        m_laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_collections_bookmark_18pt.png"))); // NOI18N
-        m_laporan.setText("Laporan");
-        m_laporan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-
-        m_jurnal_umum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
-        m_jurnal_umum.setText("Data Jurnal Umum");
-        m_jurnal_umum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jurnal_umumActionPerformed(evt);
-            }
-        });
-        m_laporan.add(m_jurnal_umum);
-        m_laporan.add(jSeparator2);
-
-        m_laporan_rekapitulasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
-        m_laporan_rekapitulasi.setText("Rekapitulasi Pengeluaran Kas Kecil");
-        m_laporan_rekapitulasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_laporan_rekapitulasiActionPerformed(evt);
-            }
-        });
-        m_laporan.add(m_laporan_rekapitulasi);
-
-        jMenuBar1.add(m_laporan);
-
         m_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_assessment_18pt.png"))); // NOI18N
         m_transaksi.setText("Transaksi");
         m_transaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -371,6 +345,22 @@ public class Menu_Utama extends javax.swing.JFrame {
         m_transaksi.add(m_pengeluaran);
 
         jMenuBar1.add(m_transaksi);
+
+        m_laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_collections_bookmark_18pt.png"))); // NOI18N
+        m_laporan.setText("Rekapitulasi");
+        m_laporan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        m_laporan.add(jSeparator2);
+
+        m_laporan_rekapitulasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_arrow_forward_18pt.png"))); // NOI18N
+        m_laporan_rekapitulasi.setText("Pengeluaran");
+        m_laporan_rekapitulasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_laporan_rekapitulasiActionPerformed(evt);
+            }
+        });
+        m_laporan.add(m_laporan_rekapitulasi);
+
+        jMenuBar1.add(m_laporan);
 
         m_keluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ic_exit_to_app_18pt.png"))); // NOI18N
         m_keluar.setText("Keluar");
@@ -460,16 +450,10 @@ public class Menu_Utama extends javax.swing.JFrame {
     }//GEN-LAST:event_m_pengeluaranActionPerformed
 
     private void m_laporan_rekapitulasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_laporan_rekapitulasiActionPerformed
-        Laporan.Laporan_Rekapitulasi portal = new Laporan.Laporan_Rekapitulasi();
+        Rekapitulasi.Rekapitulasi_Pengeluaran portal = new Rekapitulasi.Rekapitulasi_Pengeluaran();
         portal.grant_permission(true);
         portal.setVisible(true);
     }//GEN-LAST:event_m_laporan_rekapitulasiActionPerformed
-
-    private void m_jurnal_umumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jurnal_umumActionPerformed
-        Laporan.Laporan_Jurnal_Umum portal = new Laporan.Laporan_Jurnal_Umum();
-        portal.grant_permission(true);
-        portal.setVisible(true);
-    }//GEN-LAST:event_m_jurnal_umumActionPerformed
 
     /**
      * @param args the command line arguments
@@ -529,7 +513,6 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JLabel l_tanggal;
     private javax.swing.JLabel l_user;
     private javax.swing.JMenu m_file;
-    private javax.swing.JMenuItem m_jurnal_umum;
     private javax.swing.JMenu m_keluar;
     private javax.swing.JMenu m_laporan;
     private javax.swing.JMenuItem m_laporan_rekapitulasi;
