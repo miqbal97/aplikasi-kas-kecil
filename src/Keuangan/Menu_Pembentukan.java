@@ -16,11 +16,11 @@ import java.sql.*;
 public class Menu_Pembentukan extends javax.swing.JDialog {
 
     koneksi db = new koneksi();
-    
+
     protected int _sisa_saldo = 0;
     protected String _query, _keterangan_pengisian;
     protected Boolean _is_grant = false;
-    
+
     /**
      * Creates new form Menu_Pembentukan
      */
@@ -214,7 +214,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         jLabel8.setText("Terpakai");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Keterangang Pengisian");
+        jLabel9.setText("Uraian Pengisian");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -413,24 +413,26 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         b_process.setEnabled(true);
         b_cancel.setEnabled(true);
         try {
-            db.runQueryUpdate("INSERT INTO pembentukan_dana (no_pengisian) VALUES ('"+f_no_pengisian.getText()+"')");
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
+            db.runQueryUpdate("INSERT INTO pembentukan_dana (no_pengisian) VALUES ('" + f_no_pengisian.getText() + "')");
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
         b_cancel.setText("Batal");
     }//GEN-LAST:event_f_no_pengisianActionPerformed
 
     private void b_processActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_processActionPerformed
-        if(this.field_validation()){
-            switch(b_process.getText()){
+        if (this.field_validation()) {
+            switch (b_process.getText()) {
                 case "Simpan":
                     this.save_pengisian();
                     break;
-                    
+
                 case "Simpan Perubahan":
                     this.edit_pengisian();
                     b_process.setText("Simpan");
                     break;
             }
-            
+
             b_process.setEnabled(false);
             b_cancel.setEnabled(false);
         }
@@ -441,18 +443,18 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         b_cancel.setEnabled(true);
         b_cancel.setText("Kembali");
         b_process.setText("Simpan Perubahan");
-        
+
         f_no_pengisian.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 0));
         f_tanggal.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 1));
         f_jumlah.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 2));
         f_terpakai.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 3));
-        this._keterangan_pengisian = (String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 4);
-        f_uraian.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 5));
-        f_pengisian_kembali.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 7));
+        this._keterangan_pengisian = (String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 5);
+        f_uraian.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 6));
+        f_pengisian_kembali.setText((String) t_data_pengisian.getValueAt(t_data_pengisian.getSelectedRow(), 8));
     }//GEN-LAST:event_t_data_pengisianMouseClicked
 
     private void b_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelActionPerformed
-        if(b_cancel.getText().equals("Kembali")){
+        if (b_cancel.getText().equals("Kembali")) {
             b_cancel.setText("Batal");
             b_process.setText("Simpan");
             t_data_pengisian.clearSelection();
@@ -462,11 +464,11 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
             b_process.setEnabled(false);
             b_cancel.setEnabled(false);
         }
-        
+
     }//GEN-LAST:event_b_cancelActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        this._check_permission();
+//        this._check_permission();
         this.get_data_table();
     }//GEN-LAST:event_formWindowActivated
 
@@ -540,288 +542,308 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable t_data_pengisian;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     // PUBLIC CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    public void grant_permission(Boolean _grant){
+    public void grant_permission(Boolean _grant) {
         this._is_grant = _grant;
     }
-    
-    
-    
+
     // PROTECTED CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    protected void _check_permission(){
-        if(this._is_grant.equals(false)) {
-            
+    protected void _check_permission() {
+        if (this._is_grant.equals(false)) {
+
             koneksi.popup_message("Anda tidak memiliki izin!");
             this.dispose();
-            
+
         }
     }
-    
+
     //---------------------------------------------------------------------------------//
-    
-    protected Boolean field_validation(){
-        javax.swing.JTextField[] _fields = {f_no_pengisian, f_tanggal, f_uraian};
-        for(javax.swing.JTextField _field : _fields){
-            if (_field.getText().isEmpty()){
+    protected Boolean field_validation() {
+        javax.swing.JTextField[] _fields = {f_no_pengisian, f_tanggal, f_uraian, f_jumlah};
+        for (javax.swing.JTextField _field : _fields) {
+            if (_field.getText().isEmpty()) {
                 koneksi.popup_message("Data Belum Lengkap!");
                 return false;
-            } else if (f_jumlah.getText().isEmpty() && f_terpakai.getText().isEmpty()){
+            } else if (f_jumlah.getText().isEmpty() && f_terpakai.getText().isEmpty()) {
                 koneksi.popup_message("Data Belum Lengkap!");
                 return false;
             }
         }
-        
+
         return true;
     }
-    
-    
-    
-    
+
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    private void set_no_pengisian(){
+    private void set_no_pengisian() {
         String no_pengisian = null, no_urut = null;
         this._query = "SELECT RIGHT(no_pengisian, 3) + 1 FROM pembentukan_dana ORDER BY no_pengisian";
         try {
             ResultSet result = db.runQuery(this._query);
-            if(result.next()){
+            if (result.next()) {
                 result.last();
-                
-                if(result.getInt(1) <= 9){
-                    no_urut = "/00"+result.getString(1); 
-                } else if (result.getInt(1) <= 99){
-                    no_urut = "/0"+result.getString(1); 
+
+                if (result.getInt(1) <= 9) {
+                    no_urut = "/00" + result.getString(1);
+                } else if (result.getInt(1) <= 99) {
+                    no_urut = "/0" + result.getString(1);
                 } else {
                     no_urut = result.getString(1);
                 }
-                
-                no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM")+no_urut;
+
+                no_pengisian = "PBK" + koneksi.get_date_with_format("/YY/MM") + no_urut;
             } else {
-                no_pengisian = "PBK"+koneksi.get_date_with_format("/YY/MM/")+"001";
-            }   
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
-        
+                no_pengisian = "PBK" + koneksi.get_date_with_format("/YY/MM/") + "001";
+            }
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
+
         f_no_pengisian.setText(no_pengisian);
         f_tanggal.setText(koneksi.get_date_with_format("YYYY-MM-dd"));
-        
+
         int value = Integer.parseInt(koneksi.get_date_with_format("dd"));
-        
+
         final String[] keterangan_pengisian = {"Minggu Pertama", "Minggu Kedua",
-                                               "Minggu Ketiga", "Minggu Keempat"};
+            "Minggu Ketiga", "Minggu Keempat"};
         int[] _days = {8, 15, 22, 28};
-        
-        for (int i = 0; i < _days.length; i++){
-            if(value < _days[i]){
+
+        for (int i = 0; i < _days.length; i++) {
+            if (value < _days[i]) {
                 this._keterangan_pengisian = keterangan_pengisian[i];
-                break; 
-            } else if (value >= _days[3]){
+                break;
+            } else if (value >= _days[3]) {
                 this._keterangan_pengisian = keterangan_pengisian[3];
-               break; 
+                break;
             }
         }
     }
-    
+
     //---------------------------------------------------------------------------------//
-    
-    private void get_data_table(){
-        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Periode", "Keterangan", "Transaksi Terakhir", 
-                                 "Pengisian Kembali", "Tanggal Pengisian Kembali"};
+    private void get_data_table() {
+        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Sisa Saldo", "Periode", "Keterangan", "Transaksi Terakhir",
+            "Pengisian Kembali", "Tanggal Pengisian Kembali"};
         try {
-            this._query = "SELECT no_pengisian, tanggal, jumlah, terpakai, keterangan, uraian, terakhir_digunakan, "
-                        + "jumlah_pengisian_kembali, tanggal_pengisian_kembali FROM pembentukan_dana ORDER BY no_pengisian";
+            this._query = "SELECT * FROM pembentukan_dana ORDER BY no_pengisian";
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
-            
-            int _row = 0, counter = 0; while(result.next()){ _row = result.getRow(); }
-            Object[][] data_pembentukan = new Object[_row][table.getColumnCount()];
+
+            int _row = 0, counter = 0;
+            while (result.next()) {
+                _row = result.getRow();
+            }
+            Object[][] data_pembentukan = new Object[_row][table.getColumnCount()+1];
             result.beforeFirst();
-            while(result.next()){
-                for(int i = 0; i < table.getColumnCount(); i++) data_pembentukan[counter][i] = result.getString(i+1);
+            while (result.next()) {
+                data_pembentukan[counter][0] = result.getString("no_pengisian");
+                data_pembentukan[counter][1] = result.getString("tanggal_pembentukan");
+                data_pembentukan[counter][2] = result.getString("jumlah");
+                data_pembentukan[counter][3] = result.getString("terpakai");
+                data_pembentukan[counter][4] = (result.getInt("jumlah") + result.getInt("jumlah_pengisian_kembali")) - result.getInt("terpakai");
+                data_pembentukan[counter][5] = result.getString("keterangan_periode");
+                data_pembentukan[counter][6] = result.getString("uraian_pembentukan");
+                data_pembentukan[counter][7] = result.getString("terakhir_digunakan");
+                data_pembentukan[counter][8] = result.getString("jumlah_pengisian_kembali");
+                data_pembentukan[counter][9] = result.getString("tanggal_pengisian_kembali");
                 counter++;
             }
             t_data_pengisian.setModel(new javax.swing.table.DefaultTableModel(data_pembentukan, _label));
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
     }
-    
+
     //---------------------------------------------------------------------------------//
-    
-    private void save_pengisian(){
-        this.check_sisa_saldo();
-        
+    private void save_pengisian() {
+//        this.check_sisa_saldo();
+//        
         int terpakai = 0, jumlah = 0, sisa_saldo = 0;
-        
+//        
         if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
-        if(!f_jumlah.getText().isEmpty()){
-            
-            if(this._sisa_saldo != 0){
-                int konfir = JOptionPane.showConfirmDialog(this, 
-                    "Terdapat sisa saldo sebesar "+this._sisa_saldo+" ingin di masukan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            
-                    if (konfir == JOptionPane.YES_OPTION){
-                        sisa_saldo = this._sisa_saldo;
-                    }
+//        if(!f_jumlah.getText().isEmpty()){
+//            
+//            if(this._sisa_saldo != 0){
+//                int konfir = JOptionPane.showConfirmDialog(this, 
+//                    "Terdapat sisa saldo sebesar "+this._sisa_saldo+" ingin di masukan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+//            
+//                    if (konfir == JOptionPane.YES_OPTION){
+//                        sisa_saldo = this._sisa_saldo;
+//                    }
+//            }
+//            
+//            
+//            jumlah = Integer.parseInt(f_jumlah.getText()) + sisa_saldo; 
+//        }
+
+        if (f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")) {
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
+                    + "jumlah = " + f_jumlah.getText() + ", "
+                    + "terpakai = " + terpakai + ", "
+                    + "keterangan_periode = '" + this._keterangan_pengisian + "', "
+                    + "uraian_pembentukan = '" + f_uraian.getText() + "', "
+                    + "jumlah_pengisian_kembali = 0, "
+                    + "tanggal_pengisian_kembali = NULL "
+                    + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'";
+        } else {
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
+                    + "jumlah = " + f_jumlah.getText() + ", "
+                    + "terpakai = " + terpakai + ", "
+                    + "keterangan_periode = '" + this._keterangan_pengisian + "', "
+                    + "uraian_pembentukan = '" + f_uraian.getText() + "', "
+                    + "jumlah_pengisian_kembali = " + f_pengisian_kembali.getText() + ", "
+                    + "tanggal_pengisian_kembali = '" + koneksi.get_date_with_format("YYYY-MM-dd HH:mm:dd") + "' "
+                    + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'";
+        }
+
+        try {
+            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
+                    terpakai_awal = 0,
+                    pengisian_kembali_awal = 0;
+
+            if (!f_terpakai.getText().isEmpty()) {
+                terpakai_awal = Integer.parseInt(f_terpakai.getText());
+            }
+            if (!f_pengisian_kembali.getText().isEmpty()) {
+                pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
+            }
+
+            int total = jumlah_awal + pengisian_kembali_awal;
+
+            if (total >= terpakai_awal) {
+                db.runQueryUpdate(_query);
+                koneksi.popup_message("Berhasil di simpan");
+            } else {
+                koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
+            }
+
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
+
+        this.get_data_table();
+        this.clear();
+    }
+
+    //---------------------------------------------------------------------------------//
+    private void edit_pengisian() {
+//        this.check_sisa_saldo();
+
+        int terpakai = 0, jumlah = 0;
+        if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
+//        if(!f_jumlah.getText().isEmpty()){ jumlah = Integer.parseInt(f_jumlah.getText()); }
+        if (f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")) {
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
+                    + "jumlah = " + f_jumlah.getText() + ", "
+                    + "terpakai = " + terpakai + ", "
+                    + "keterangan_periode = '" + this._keterangan_pengisian + "', "
+                    + "uraian_pembentukan = '" + f_uraian.getText() + "', "
+                    + "jumlah_pengisian_kembali = 0, "
+                    + "tanggal_pengisian_kembali = NULL "
+                    + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'";
+        } else {
+            this._query = "UPDATE pembentukan_dana SET "
+                    + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
+                    + "jumlah = " + f_jumlah.getText() + ", "
+                    + "terpakai = " + terpakai + ", "
+                    + "keterangan_periode = '" + this._keterangan_pengisian + "', "
+                    + "uraian_pembentukan = '" + f_uraian.getText() + "', "
+                    + "jumlah_pengisian_kembali = " + f_pengisian_kembali.getText() + ", "
+                    + "tanggal_pengisian_kembali = '" + koneksi.get_date_with_format("YYYY-MM-dd HH:mm:dd") + "' "
+                    + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'";
+        }
+
+        try {
+            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
+                    terpakai_awal = 0,
+                    pengisian_kembali_awal = 0;
+
+            if (!f_terpakai.getText().isEmpty()) {
+                terpakai_awal = Integer.parseInt(f_terpakai.getText());
             }
             
-            
-            jumlah = Integer.parseInt(f_jumlah.getText()) + sisa_saldo; 
-        }
-        
-        if(f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")){
-            this._query = "UPDATE pembentukan_dana SET "
-                    + "tanggal = '"+f_tanggal.getText()+"', "
-                    + "jumlah = "+jumlah+", "
-                    + "terpakai = "+terpakai+", "
-                    + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"', "
-                    + "jumlah_pengisian_kembali = 0, "
-                    + "tanggal_pengisian_kembali = NULL "
-                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
-        } else {
-            this._query = "UPDATE pembentukan_dana SET "
-                    + "tanggal = '"+f_tanggal.getText()+"', "
-                    + "jumlah = "+jumlah+", "
-                    + "terpakai = "+terpakai+", "
-                    + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"', "
-                    + "jumlah_pengisian_kembali = "+f_pengisian_kembali.getText()+", "
-                    + "tanggal_pengisian_kembali = '"+koneksi.get_date_with_format("YYYY-MM-dd HH:mm:dd")+"' "
-                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
-        }
-        
-        try {
-            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
-                terpakai_awal = 0,
-                pengisian_kembali_awal = 0;
-            
-            if(!f_terpakai.getText().isEmpty()) terpakai_awal = Integer.parseInt(f_terpakai.getText());
-            if(!f_pengisian_kembali.getText().isEmpty()) pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
-            
+            if (!f_pengisian_kembali.getText().isEmpty()) {
+                pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
+            }
+
             int total = jumlah_awal + pengisian_kembali_awal;
-            
-            if(total >= terpakai_awal){
+
+            if (total >= terpakai_awal) {
                 db.runQueryUpdate(_query);
                 koneksi.popup_message("Berhasil di simpan");
-            } else koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
-            
-            
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
-        
+            } else {
+                koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
+            }
+
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
+
         this.get_data_table();
         this.clear();
     }
-    
+
     //---------------------------------------------------------------------------------//
-    
-    private void edit_pengisian(){
-        this.check_sisa_saldo();
-        
-        int terpakai = 0, jumlah = 0;
-        
-        if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
-        if(!f_jumlah.getText().isEmpty()){ jumlah = Integer.parseInt(f_jumlah.getText()); }
-        
-        if(f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")){
-            this._query = "UPDATE pembentukan_dana SET "
-                    + "tanggal = '"+f_tanggal.getText()+"', "
-                    + "jumlah = "+jumlah+", "
-                    + "terpakai = "+terpakai+", "
-                    + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"', "
-                    + "jumlah_pengisian_kembali = 0, "
-                    + "tanggal_pengisian_kembali = NULL "
-                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
-        } else {
-            this._query = "UPDATE pembentukan_dana SET "
-                    + "tanggal = '"+f_tanggal.getText()+"', "
-                    + "jumlah = "+jumlah+", "
-                    + "terpakai = "+terpakai+", "
-                    + "keterangan = '"+this._keterangan_pengisian+"', "
-                    + "uraian = '"+f_uraian.getText()+"', "
-                    + "jumlah_pengisian_kembali = "+f_pengisian_kembali.getText()+", "
-                    + "tanggal_pengisian_kembali = '"+koneksi.get_date_with_format("YYYY-MM-dd HH:mm:dd")+"' "
-                    + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'";
-        }
-        
-        try {
-            int jumlah_awal = Integer.parseInt(f_jumlah.getText()),
-                terpakai_awal = 0,
-                pengisian_kembali_awal = 0;
-            
-            if(!f_terpakai.getText().isEmpty()) terpakai_awal = Integer.parseInt(f_terpakai.getText());
-            if(!f_pengisian_kembali.getText().isEmpty()) pengisian_kembali_awal = Integer.parseInt(f_pengisian_kembali.getText());
-            
-            int total = jumlah_awal + pengisian_kembali_awal;
-            
-            if(total >= terpakai_awal){
-                db.runQueryUpdate(_query);
-                koneksi.popup_message("Berhasil di simpan");
-            } else koneksi.popup_message("Jumlah terpakai tidak sesuai dengan dana perusahaan!");
-            
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
-        
-        this.get_data_table();
-        this.clear();
-    }
-        
+//    private void check_sisa_saldo(){
+//        
+//        int jumlah = 0, terpakai = 0, pengisian_kembali = 0;
+//        
+//        if(t_data_pengisian.getRowCount() != 0){
+//            
+//            jumlah = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 2));
+//            terpakai = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 3));
+//            pengisian_kembali = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 7));
+//            
+//            this._sisa_saldo = ( jumlah + pengisian_kembali ) - terpakai;
+//        }
+//    }
     //---------------------------------------------------------------------------------//
-    
-    private void check_sisa_saldo(){
-        
-        int jumlah = 0, terpakai = 0, pengisian_kembali = 0;
-        
-        if(t_data_pengisian.getRowCount() != 0){
-            
-            jumlah = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 2));
-            terpakai = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 3));
-            pengisian_kembali = Integer.parseInt((String) t_data_pengisian.getValueAt(t_data_pengisian.getRowCount() - 1, 7));
-            
-            this._sisa_saldo = ( jumlah + pengisian_kembali ) - terpakai;
-        }
-    }
-    
-    //---------------------------------------------------------------------------------//
-    
-    private void delete_pengisian(){
-        int konfir = JOptionPane.showConfirmDialog(this, 
-                    "Apa Anda Yakin?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            
-        if (konfir == JOptionPane.YES_OPTION){
+    private void delete_pengisian() {
+        int konfir = JOptionPane.showConfirmDialog(this,
+                "Apa Anda Yakin?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+        if (konfir == JOptionPane.YES_OPTION) {
             try {
-                ResultSet check = db.runQuery("SELECT terpakai FROM pembentukan_dana WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
-                if(check.next()){
-                    if(check.getInt(1) > 0){
+                ResultSet check = db.runQuery("SELECT terpakai FROM pembentukan_dana WHERE no_pengisian = '" + f_no_pengisian.getText() + "'");
+                if (check.next()) {
+                    if (check.getInt(1) > 0) {
                         koneksi.popup_message("Data sedang di gunakan mohon check data transaksi!");
                     } else {
                         db.runQueryUpdate("DELETE FROM pembentukan_dana "
-                                + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
+                                + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'");
                         koneksi.popup_message("Berhasil di hapus");
-                        b_process.setText("Simpan"); b_cancel.setText("Batal");
+                        b_process.setText("Simpan");
+                        b_cancel.setText("Batal");
                     }
                 }
-            } catch (SQLException err) {koneksi.print(err.getMessage());}
+            } catch (SQLException err) {
+                koneksi.print(err.getMessage());
+            }
             this.get_data_table();
             this.clear();
         }
     }
-    
+
     //---------------------------------------------------------------------------------//
-    
-    private void cancel_pengisian(){
+    private void cancel_pengisian() {
         try {
             db.runQueryUpdate("DELETE FROM pembentukan_dana "
-                            + "WHERE no_pengisian = '"+f_no_pengisian.getText()+"'");
-        } catch (SQLException err) {koneksi.print(err.getMessage());}
+                    + "WHERE no_pengisian = '" + f_no_pengisian.getText() + "'");
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
         this.get_data_table();
         this.clear();
     }
-    
+
     //---------------------------------------------------------------------------------//
     
-    private void clear(){
+    private void clear() {
         f_no_pengisian.setText(null);
         f_tanggal.setText(null);
         f_jumlah.setText(null);
@@ -829,9 +851,6 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
         f_uraian.setText(null);
         f_pengisian_kembali.setText(null);
     }
-    
-    
-    
-    
+
     // END OF CLASS DECLARATION
 }
