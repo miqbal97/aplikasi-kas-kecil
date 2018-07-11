@@ -183,7 +183,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Keterangan");
+        jLabel7.setText("Keterangan Kategori");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,14 +202,14 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(f_keterangan)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(f_no_kategori)
+                        .addComponent(f_no_kategori, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -307,7 +307,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Kategori");
+        jLabel8.setText("Keterangan Kategori");
 
         c_kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -" }));
         c_kategori.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +318,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Nama");
+        jLabel9.setText("Nama Kategori");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -329,10 +329,10 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(f_nama_kategori)
-                    .addComponent(c_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 27, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(c_kategori, 0, 316, Short.MAX_VALUE)
+                    .addComponent(f_nama_kategori)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,7 +653,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 try {
                     int _row = t_data_rekening.getSelectedRow();
                     db.runQueryUpdate("DELETE FROM detail_rekening WHERE "
-                                    + "no_rekening = '"+no_kategori.get(c_kategori.getSelectedIndex() - 1)+"' AND "
+                                    + "no_kategori = '"+no_kategori.get(c_kategori.getSelectedIndex() - 1)+"' AND "
                                     + "id_kategori = '"+(String) t_data_rekening.getValueAt(_row, 0)+"'");
                     
                     c_kategori.setEnabled(true); b_process_data.setText("Simpan");
@@ -785,7 +785,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table_rekening(){
-        final String[] _label = {"No Kategori", "Keterangan"};
+        final String[] _label = {"No Kategori", "Keterangan Kategori"};
         try{
             
             ResultSet result = db.runQuery("SELECT * FROM kategori_rekening");
@@ -870,7 +870,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
         c_kategori.removeAllItems();
         c_kategori.addItem(" - Pilih -");
         try {
-            ResultSet result = db.runQuery("SELECT keterangan FROM kategori_rekening ORDER BY no_kategori");
+            ResultSet result = db.runQuery("SELECT keterangan_kategori FROM kategori_rekening ORDER BY no_kategori");
             while(result.next()){
                 c_kategori.addItem(result.getString(1));
             }
@@ -899,7 +899,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     
     private void create_rekening(){
         if(this.check_rekening()){
-            this._query = "INSERT INTO kategori_rekening(no_kategori, kode_kategori, keterangan) VALUES("
+            this._query = "INSERT INTO kategori_rekening(no_kategori, kode_kategori, keterangan_kategori) VALUES("
                         + f_no_kategori.getText().split("-")[0].trim() +", '"+ f_no_kategori.getText().split("-")[1].trim().toUpperCase() +"', '"
                         + f_keterangan.getText().trim() +"')";
             try{
@@ -933,7 +933,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
     
     private void update_rekening(){
         this._query = "UPDATE kategori_rekening SET kode_kategori = '"+ f_no_kategori.getText().split("-")[1].trim() +"', "
-                    + "keterangan = '"+f_keterangan.getText()+"' WHERE no_kategori = "+f_no_kategori.getText().split(" - ")[0].trim()+"";
+                    + "keterangan_kategori = '"+f_keterangan.getText()+"' WHERE no_kategori = "+f_no_kategori.getText().split(" - ")[0].trim()+"";
         try{
             db.runQueryUpdate(_query);
             koneksi.popup_message("Data berhasil di simpan!");

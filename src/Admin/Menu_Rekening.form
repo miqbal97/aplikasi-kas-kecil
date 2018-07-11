@@ -304,17 +304,17 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="f_keterangan" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="f_no_kategori" max="32767" attributes="0"/>
+                                  <Component id="f_no_kategori" pref="217" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -351,7 +351,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Keterangan"/>
+                    <Property name="text" type="java.lang.String" value="Keterangan Kategori"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="f_no_kategori">
@@ -541,10 +541,10 @@
                               <Component id="jLabel9" max="32767" attributes="0"/>
                               <Component id="jLabel8" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace type="separate" pref="27" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="c_kategori" pref="316" max="32767" attributes="0"/>
                               <Component id="f_nama_kategori" max="32767" attributes="0"/>
-                              <Component id="c_kategori" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -576,7 +576,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Kategori"/>
+                    <Property name="text" type="java.lang.String" value="Keterangan Kategori"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="c_kategori">
@@ -602,7 +602,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nama"/>
+                    <Property name="text" type="java.lang.String" value="Nama Kategori"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="f_nama_kategori">
