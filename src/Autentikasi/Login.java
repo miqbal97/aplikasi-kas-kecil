@@ -13,9 +13,9 @@ import java.sql.*;
  * @author Muhammad Iqbal
  */
 public class Login extends javax.swing.JDialog {
-        
+
     koneksi db = new koneksi();
-   
+
     protected String _query;
 
     /**
@@ -226,7 +226,7 @@ public class Login extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -251,35 +251,26 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     // PUBLIC CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
     // PROTECTED CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    private void login(){
+    private void login() {
         String _username = f_username.getText(),
-               _password = f_password.getText();
+                _password = f_password.getText();
         try {
-            this._query = "SELECT password, nama_pengguna, jabatan, id_pengguna FROM pengguna WHERE username = '"+_username+"'";
-            
+            this._query = "SELECT password, nama_pengguna, jabatan, id_pengguna FROM pengguna WHERE username = '" + _username + "'";
+
             ResultSet result = db.runQuery(this._query);
-            
-            if (result.next()){
-                                
-                if(_password.equals(result.getString(1))){
-                                        
-                    if(result.getString(3).equals("Pegawai")){
+
+            if (result.next()) {
+
+                if (_password.equals(result.getString(1))) {
+
+                    if (result.getString(3).equals("Pegawai")) {
                         Pegawai.Menu_Pengajuan portal = new Pegawai.Menu_Pengajuan();
                         portal.grant_permission(true);
                         portal.set_user(result.getString(4), result.getString(2));
@@ -292,19 +283,22 @@ public class Login extends javax.swing.JDialog {
                         portal.setVisible(true);
                     }
                     this.dispose();
-                    
-                } else koneksi.popup_message("Password salah!");
-                
-            } else koneksi.popup_message("Username salah atau tidak tersedia!");
-            
-            f_username.setText(null); f_password.setText(null);
-            
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+
+                } else {
+                    koneksi.popup_message("Password salah!");
+                }
+
+            } else {
+                koneksi.popup_message("Username salah atau tidak tersedia!");
+            }
+
+            f_username.setText(null);
+            f_password.setText(null);
+
+        } catch (SQLException err) {
+            koneksi.print(err.getMessage());
+        }
     }
-    
-    
-    
-    
-    
+
     // END OF CLASS DECLARATION
 }
