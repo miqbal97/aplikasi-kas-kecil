@@ -624,7 +624,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
     //---------------------------------------------------------------------------------//
     private void get_data_table() {
-        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Sisa Saldo", "Periode", "Keterangan", "Transaksi Terakhir",
+        final String[] _label = {"No. Pengisian", "Tanggal", "Jumlah", "Terpakai", "Sisa Saldo", "Periode", "Uraian Pembentukan", "Transaksi Terakhir",
             "Pengisian Kembali", "Tanggal Pengisian Kembali"};
         try {
             this._query = "SELECT * FROM pembentukan_dana ORDER BY no_pengisian";
@@ -638,16 +638,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
             Object[][] data_pembentukan = new Object[_row][table.getColumnCount()+1];
             result.beforeFirst();
             while (result.next()) {
-                data_pembentukan[counter][0] = result.getString("no_pengisian");
-                data_pembentukan[counter][1] = result.getString("tanggal_pembentukan");
-                data_pembentukan[counter][2] = result.getString("jumlah");
-                data_pembentukan[counter][3] = result.getString("terpakai");
-                data_pembentukan[counter][4] = (result.getInt("jumlah") + result.getInt("jumlah_pengisian_kembali")) - result.getInt("terpakai");
-                data_pembentukan[counter][5] = result.getString("keterangan_periode");
-                data_pembentukan[counter][6] = result.getString("uraian_pembentukan");
-                data_pembentukan[counter][7] = result.getString("terakhir_digunakan");
-                data_pembentukan[counter][8] = result.getString("jumlah_pengisian_kembali");
-                data_pembentukan[counter][9] = result.getString("tanggal_pengisian_kembali");
+                for(int i = 0; i < table.getColumnCount(); i++) data_pembentukan[counter][i] = result.getString(i+1);
                 counter++;
             }
             t_data_pengisian.setModel(new javax.swing.table.DefaultTableModel(data_pembentukan, _label));
@@ -658,31 +649,21 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
     //---------------------------------------------------------------------------------//
     private void save_pengisian() {
-//        this.check_sisa_saldo();
-//        
-        int terpakai = 0, jumlah = 0, sisa_saldo = 0;
-//        
+        
+        int terpakai = 0, pengisian_kembali = 0;
+        int jumlah = Integer.parseInt(f_jumlah.getText());
+        
         if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
-//        if(!f_jumlah.getText().isEmpty()){
-//            
-//            if(this._sisa_saldo != 0){
-//                int konfir = JOptionPane.showConfirmDialog(this, 
-//                    "Terdapat sisa saldo sebesar "+this._sisa_saldo+" ingin di masukan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-//            
-//                    if (konfir == JOptionPane.YES_OPTION){
-//                        sisa_saldo = this._sisa_saldo;
-//                    }
-//            }
-//            
-//            
-//            jumlah = Integer.parseInt(f_jumlah.getText()) + sisa_saldo; 
-//        }
+        if(!f_pengisian_kembali.getText().isEmpty()){ pengisian_kembali = Integer.parseInt(f_pengisian_kembali.getText()); }
+
+        int sisa_saldo = ( jumlah + pengisian_kembali ) - terpakai;
 
         if (f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")) {
             this._query = "UPDATE pembentukan_dana SET "
                     + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
                     + "jumlah = " + f_jumlah.getText() + ", "
                     + "terpakai = " + terpakai + ", "
+                    + "sisa_saldo = "+sisa_saldo+", "
                     + "keterangan_periode = '" + this._keterangan_pengisian + "', "
                     + "uraian_pembentukan = '" + f_uraian.getText() + "', "
                     + "jumlah_pengisian_kembali = 0, "
@@ -693,6 +674,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                     + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
                     + "jumlah = " + f_jumlah.getText() + ", "
                     + "terpakai = " + terpakai + ", "
+                    + "sisa_saldo = "+ sisa_saldo +", "
                     + "keterangan_periode = '" + this._keterangan_pengisian + "', "
                     + "uraian_pembentukan = '" + f_uraian.getText() + "', "
                     + "jumlah_pengisian_kembali = " + f_pengisian_kembali.getText() + ", "
@@ -731,16 +713,20 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
 
     //---------------------------------------------------------------------------------//
     private void edit_pengisian() {
-//        this.check_sisa_saldo();
 
-        int terpakai = 0, jumlah = 0;
+        int terpakai = 0, jumlah = 0, pengisian_kembali = 0;
         if(!f_terpakai.getText().isEmpty()){ terpakai = Integer.parseInt(f_terpakai.getText()); }
-//        if(!f_jumlah.getText().isEmpty()){ jumlah = Integer.parseInt(f_jumlah.getText()); }
+        if(!f_jumlah.getText().isEmpty()){ jumlah = Integer.parseInt(f_jumlah.getText()); }
+        if(!f_pengisian_kembali.getText().isEmpty()){ pengisian_kembali = Integer.parseInt(f_pengisian_kembali.getText()); }
+
+        int sisa_saldo = ( jumlah + pengisian_kembali ) - terpakai;
+        
         if (f_pengisian_kembali.getText().isEmpty() || f_pengisian_kembali.getText().equals("0")) {
             this._query = "UPDATE pembentukan_dana SET "
                     + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
                     + "jumlah = " + f_jumlah.getText() + ", "
                     + "terpakai = " + terpakai + ", "
+                    + "sisa_saldo = "+sisa_saldo+", "
                     + "keterangan_periode = '" + this._keterangan_pengisian + "', "
                     + "uraian_pembentukan = '" + f_uraian.getText() + "', "
                     + "jumlah_pengisian_kembali = 0, "
@@ -751,6 +737,7 @@ public class Menu_Pembentukan extends javax.swing.JDialog {
                     + "tanggal_pembentukan = '" + f_tanggal.getText() + "', "
                     + "jumlah = " + f_jumlah.getText() + ", "
                     + "terpakai = " + terpakai + ", "
+                    + "sisa_saldo = "+sisa_saldo+", "
                     + "keterangan_periode = '" + this._keterangan_pengisian + "', "
                     + "uraian_pembentukan = '" + f_uraian.getText() + "', "
                     + "jumlah_pengisian_kembali = " + f_pengisian_kembali.getText() + ", "

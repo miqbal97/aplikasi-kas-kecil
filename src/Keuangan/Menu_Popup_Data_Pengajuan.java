@@ -244,8 +244,9 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     }//GEN-LAST:event_f_cariKeyTyped
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
-        portal.id_kategori = (String) t_data.getValueAt(t_data.getSelectedRow(), 1);
-        portal.no_rekening = (String) t_data.getValueAt(t_data.getSelectedRow(), 3);
+        portal.id_kategori = (String) t_data.getValueAt(t_data.getSelectedRow(), 2);
+        portal.no_rekening = (String) t_data.getValueAt(t_data.getSelectedRow(), 4);
+        portal._id_pengajuan = (String) t_data.getValueAt(t_data.getSelectedRow(), 0);
         this.dispose();
     }//GEN-LAST:event_t_dataMouseClicked
 
@@ -322,13 +323,12 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        this._query = "SELECT pengajuan.id_pengguna, detail_pengajuan.id_kategori, detail_pengajuan.nama_kategori, "
-                    + "detail_pengajuan.no_rekening, pengajuan.tanggal_pengajuan "
-                    + "FROM pengajuan INNER JOIN detail_pengajuan "
-                    + "ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan WHERE pengajuan.tanggal_pengajuan "
-                    + "BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
+       this._query = "SELECT pengajuan.id_pengajuan, pengajuan.id_pengguna, detail_rekening.id_kategori, detail_pengajuan.nama_kategori, detail_pengajuan.no_kategori, "
+                   + "pengajuan.tanggal_pengajuan FROM pengajuan INNER JOIN detail_pengajuan ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
+                   + "INNER JOIN detail_rekening ON  detail_rekening.nama_kategori = detail_pengajuan.nama_kategori WHERE pengajuan.tanggal_pengajuan "
+                   + "BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
 
-        final String[] _label = {"ID Pengguna", "ID Kategori", "Nama", "No. Rekening", "Tanggal"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "ID Kategori", "Nama Kategori", "No. Kategori", "Tanggal"};
         
         try {
             ResultSet result = db.runQuery(_query);
@@ -348,16 +348,13 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     private void search_data_table(){
-        this._query = "SELECT pengajuan.id_pengguna, detail_pengajuan.id_kategori, detail_pengajuan.nama_kategori, "
-                    + "detail_pengajuan.no_rekening, pengajuan.tanggal_pengajuan "
-                    + "FROM pengajuan INNER JOIN detail_pengajuan "
-                    + "ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
-                    + "WHERE pengajuan.tanggal_pengajuan LIKE "
-                    + "'%"+f_cari.getText()+"%' OR detail_pengajuan.nama_barang LIKE '%"+f_cari.getText()+"%' AND"
-                    + "pengajuan.tanggal_pengajuan BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' "
-                    + "AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
+        this._query = "SELECT pengajuan.id_pengajuan, pengajuan.id_pengguna, detail_rekening.id_kategori, detail_pengajuan.nama_kategori, detail_pengajuan.no_kategori, "
+                    + "pengajuan.tanggal_pengajuan FROM pengajuan INNER JOIN detail_pengajuan ON pengajuan.id_pengajuan = detail_pengajuan.id_pengajuan "
+                    + "INNER JOIN detail_rekening ON  detail_rekening.nama_kategori = detail_pengajuan.nama_kategori WHERE pengajuan.tanggal_pengajuan "
+                    + "WHERE pengajuan.tanggal_pengajuan LIKE '%"+f_cari.getText()+"%' OR detail_pengajuan.nama_barang LIKE '%"+f_cari.getText()+"%' AND"
+                    + "pengajuan.tanggal_pengajuan BETWEEN '"+koneksi.get_date_with_format("YYYY-MM-01")+"' AND '"+koneksi.get_date_with_format("YYYY-MM-31")+"'";
         
-        final String[] _label = {"ID Pengguna", "ID Kategori", "Nama", "No. Rekening", "Tanggal"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "ID Kategori", "Nama Kategori", "No. Kategori", "Tanggal"};
         
         try {
             ResultSet result = db.runQuery(_query);

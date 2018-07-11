@@ -45,7 +45,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         f_id_pengguna = new javax.swing.JTextField();
-        f_nama_pengguna = new javax.swing.JTextField();
+        f_id_pengajuan = new javax.swing.JTextField();
         f_tanggal_pengajuan = new javax.swing.JTextField();
         c_status = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -54,7 +54,6 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         b_simpan = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_data = new javax.swing.JTable();
@@ -71,6 +70,9 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        t_detail_pengajuan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("APLIKASI KAS KACIL - PT. Exlayer Teknologi Indonesia | Persetujuan Pembelian Perlengkapan");
@@ -140,7 +142,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jLabel5.setText("ID Pengguna");
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Nama Pengguna");
+        jLabel6.setText("ID Pengajuan");
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tanggal Pengajuan");
@@ -158,26 +160,20 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Lihat Detail Pengajuan");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
                 .addComponent(b_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_simpan)
-                    .addComponent(jButton1))
+                .addComponent(b_simpan)
                 .addContainerGap())
         );
 
@@ -192,18 +188,20 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(f_nama_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(f_id_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(f_tanggal_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(f_tanggal_pengajuan))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(c_status, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(c_status, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -218,7 +216,7 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(f_id_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(f_nama_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f_id_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(f_tanggal_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(c_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -309,7 +307,8 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                     .addComponent(jLabel20)
                     .addComponent(c_status_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel7.setBackground(new java.awt.Color(2, 47, 102));
@@ -365,6 +364,39 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jPanel6.setBackground(new java.awt.Color(2, 47, 102));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Detail Pengajuan", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        t_detail_pengajuan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(t_detail_pengajuan);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -383,7 +415,8 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -404,6 +437,8 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -417,7 +452,9 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -426,45 +463,48 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         this._check_permission();
         this.get_data_table();
-        f_id_pengguna.setEditable(false); f_nama_pengguna.setEditable(false);
+        f_id_pengguna.setEditable(false); f_id_pengajuan.setEditable(false);
 //        f_id_kategori.setEditable(false); f_nama_kategori.setEditable(false);
 //        f_no_rekening.setEditable(false); f_jumlah.setEditable(false);
 //        ta_keterangan.setEditable(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
-        this._id = Integer.parseInt((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
+        f_id_pengajuan.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
         f_id_pengguna.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 1));
-        f_nama_pengguna.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 2));
-        f_tanggal_pengajuan.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 3));
-        c_status.setSelectedItem((String) t_data.getValueAt(t_data.getSelectedRow(), 4));
-        b_simpan.setEnabled(true);
+        f_tanggal_pengajuan.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 2));
+        c_status.setSelectedItem((String) t_data.getValueAt(t_data.getSelectedRow(), 3));
         
-//        try {
-//            ResultSet detail = db.runQuery("SELECT id_kategori, nama_kategori, no_rekening, unit, "
-//                            + "jumlah, keterangan FROM detail_pengajuan WHERE id_pengajuan = "+ this._id +"");
-//            if (detail.next()){
-//                f_id_kategori.setText(detail.getString(1));
-//                f_nama_kategori.setText(detail.getString(2));
-//                f_no_rekening.setText(detail.getString(3));
-//                if (detail.getInt(5) == 0){
-//                    f_jumlah.setText("-");
-//                } else f_jumlah.setText(detail.getString(5)+" "+detail.getString(4));
-//                ta_keterangan.setText(detail.getString(6));
-//            }
-//        } catch (SQLException err) {koneksi.print(err.getMessage());}
+        final String[] _label = {"No Kategori", "Nama Kategori", "Unit", "Jumlah", "Keterangan"};
+        try {
+            b_simpan.setEnabled(true);
+            ResultSet result = db.runQuery("SELECT no_kategori, nama_kategori, unit, jumlah, "
+                                         + "keterangan_pengajuan FROM detail_pengajuan WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"'");
+            
+            ResultSetMetaData table = result.getMetaData();
+            int _row = 0, counter = 0; while(result.next()) _row = result.getRow();
+            
+            Object[][] _data = new Object[_row][table.getColumnCount()];
+            result.beforeFirst();
+            
+            while(result.next()){
+                
+                for(int i = 0; i < table.getColumnCount(); i++) _data[counter][i] = result.getString(i+1);
+                counter++;
+                
+            }
+            
+            t_detail_pengajuan.setModel(new javax.swing.table.DefaultTableModel(_data, _label));
+            
+        } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }//GEN-LAST:event_t_dataMouseClicked
 
     private void b_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_simpanActionPerformed
-        if (this._id != 0) {
-            this.save_persetujuan();
-            this.get_data_table();
-            this.clear();
-            this._id = 0;
-            b_simpan.setEnabled(false);
-        } else {
-            koneksi.popup_message("Gagal menyimpan ID tidak di temukan!");
-        }
+        this.save_persetujuan();
+        this.get_data_table();
+        this.clear();
+        this._id = 0;
+        b_simpan.setEnabled(false);
         
     }//GEN-LAST:event_b_simpanActionPerformed
 
@@ -479,9 +519,9 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
 
     private void c_status_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_status_filterActionPerformed
         if(c_status_filter.getSelectedIndex() > 0){
-            final String[] _label = {"Key", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
+            final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
             try {
-                ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, nama_pengguna, tanggal_pengajuan, "
+                ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
                                              + "status FROM pengajuan WHERE status = '"+c_status_filter.getSelectedItem()+"'");
                 
                 ResultSetMetaData table = result.getMetaData();
@@ -545,11 +585,10 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> c_status;
     private javax.swing.JComboBox<String> c_status_filter;
     private javax.swing.JTextField f_akhir;
+    private javax.swing.JTextField f_id_pengajuan;
     private javax.swing.JTextField f_id_pengguna;
     private javax.swing.JTextField f_mulai;
-    private javax.swing.JTextField f_nama_pengguna;
     private javax.swing.JTextField f_tanggal_pengajuan;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -570,12 +609,15 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable t_data;
+    private javax.swing.JTable t_detail_pengajuan;
     // End of variables declaration//GEN-END:variables
         
     
@@ -605,10 +647,10 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        final String[] _label = {"Key", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
         try{
             
-            ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, nama_pengguna, tanggal_pengajuan, status "
+            ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, status "
                                          + "FROM pengajuan");
             
             ResultSetMetaData table = result.getMetaData();
@@ -633,9 +675,9 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         String _akhir = f_akhir.getText(), _awal = f_mulai.getText();
         if(_akhir.isEmpty()) _akhir = f_mulai.getText();
         if(_awal.isEmpty()) _awal = koneksi.get_date_with_format("YYYY-MM-dd");
-        final String[] _label = {"Key", "ID Pengguna", "Nama Pengguna", "Tanggal Pengajuan", "Status"};
+        final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
         try {
-            ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, nama_pengguna, tanggal_pengajuan, status"
+            ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna,  tanggal_pengajuan, status"
                                          + " FROM pengajuan WHERE tanggal_pengajuan BETWEEN "
                                          + "'"+_awal+"' AND '"+_akhir+"'");
             
@@ -665,25 +707,27 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         if(c_status.getSelectedIndex() == 1) tanggal_disetujui = "NULL";
         this._query = "UPDATE pengajuan SET status = '"+c_status.getSelectedItem()+"', "
                     + "tanggal_disetujui = "+tanggal_disetujui+" "
-                    + "WHERE id_pengajuan = "+ this._id +"";
+                    + "WHERE id_pengajuan = '"+ f_id_pengajuan.getText() +"'";
         try {
             db.runQueryUpdate(this._query);
             koneksi.popup_message("Berhasil dI update!");
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
+        
+        t_detail_pengajuan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "No Kategori", "Nama Kategori", "Unit", "Jumlah", "Keterangan"
+            }
+        ));
     }
     
     //---------------------------------------------------------------------------------//
     
     private void clear(){
         f_id_pengguna.setText(null);
-        f_nama_pengguna.setText(null);
+        f_id_pengajuan.setText(null);
         f_tanggal_pengajuan.setText(null);
         c_status.setSelectedItem(0);
-//        f_id_kategori.setText(null);
-//        f_nama_kategori.setText(null);
-//        f_no_rekening.setText(null);
-//        f_jumlah.setText(null);
-//        ta_keterangan.setText(null);
     }
 
 

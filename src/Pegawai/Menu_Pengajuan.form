@@ -66,7 +66,7 @@
                       <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -74,13 +74,13 @@
                               </Group>
                               <Component id="jPanel6" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="b_process" max="32767" attributes="0"/>
-                              <Component id="b_cancel" max="32767" attributes="0"/>
-                              <Component id="b_input_lagi" alignment="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="b_cancel" alignment="1" max="32767" attributes="0"/>
+                              <Component id="b_process" alignment="0" max="32767" attributes="0"/>
+                              <Component id="b_selesai" alignment="1" max="32767" attributes="0"/>
                               <Component id="b_hapus" alignment="0" max="32767" attributes="0"/>
-                              <Component id="b_selesai" alignment="0" max="32767" attributes="0"/>
+                              <Component id="b_input_lagi" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -771,7 +771,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel24" alignment="0" pref="419" max="32767" attributes="0"/>
+                          <Component id="jLabel24" alignment="0" pref="446" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>

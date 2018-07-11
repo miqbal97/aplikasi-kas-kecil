@@ -27,6 +27,10 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
     public Menu_Pengajuan() {
         initComponents();
         this.enabled_form(false);
+        
+        b_input_lagi.setEnabled(false);
+        b_hapus.setEnabled(false);
+        b_selesai.setEnabled(false);
     }
 
     /**
@@ -479,7 +483,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
@@ -552,19 +556,19 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(b_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b_input_lagi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b_selesai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(b_process, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(b_selesai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(b_hapus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(b_input_lagi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -656,6 +660,10 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 this.enabled_form(true);
                 b_process.setText("Simpan");
                 b_cancel.setText("Batal");
+                
+                b_input_lagi.setEnabled(true);
+                b_hapus.setEnabled(true);
+                b_selesai.setEnabled(true);
             break;
             case "Simpan":
                 if(this.field_validation()){
@@ -719,7 +727,12 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 } catch (SQLException err) {koneksi.print(err.getMessage());}
                 
             }
+            b_process.setText("Buat Baru");
             f_id_pengajuan.setText(null);
+            
+            b_input_lagi.setEnabled(false);
+            b_hapus.setEnabled(false);
+            b_selesai.setEnabled(false);
         }
     }//GEN-LAST:event_t_dataKeyPressed
 
@@ -747,9 +760,13 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
             t_data_sementara.setModel(new javax.swing.table.DefaultTableModel(_data, _label));
             
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
-        b_cancel.setText("Kembali");
+        b_cancel.setText("Kembali"); b_hapus.setText("Hapus Detail");
         b_process.setText("Simpan");
         this.enabled_form(false);
+        
+        b_input_lagi.setEnabled(true);
+        b_hapus.setEnabled(true);
+        b_selesai.setEnabled(true);
     }//GEN-LAST:event_t_dataMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -763,7 +780,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
 
     private void c_status_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_status_filterActionPerformed
         if(c_status_filter.getSelectedIndex() > 0){
-            final String[] _label = {"Key", "ID Pegawai", "Nama Pegawai", "Tanggal Pengajuan", "Status"};
+            final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
             try {
                 ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
                                              + "status FROM pengajuan WHERE status = '"+c_status_filter.getSelectedItem()+"'");
@@ -812,11 +829,26 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         if (konfir == JOptionPane.YES_OPTION){
 
             try {
-                db.runQueryUpdate("DELETE FROM pengajuan_sementara WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"' AND "
+                if(b_hapus.getText().equals("Hapus Detail")){
+                    
+                    db.runQueryUpdate("DELETE FROM detail_pengajuan WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"' AND "
                                 + "id_pengguna = '"+f_id_pengguna.getText()+"' AND nama_kategori = '"+nama_kategori+"'");
+                    b_hapus.setText("Hapus");
+                
+                } else {
+                    
+                    db.runQueryUpdate("DELETE FROM pengajuan_sementara WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"' AND "
+                                + "id_pengguna = '"+f_id_pengguna.getText()+"' AND nama_kategori = '"+nama_kategori+"'");
+                    
+                }
+                
                 koneksi.popup_message("Berhasil di hapus!");
                 t_data_sementara.clearSelection();
             } catch (SQLException err) {koneksi.print(err.getMessage());}
+            
+             b_input_lagi.setEnabled(false);
+            b_hapus.setEnabled(false);
+            b_selesai.setEnabled(false);
 
         }
     }//GEN-LAST:event_b_hapusActionPerformed
@@ -834,9 +866,12 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 db.runQueryUpdate("DELETE FROM pengajuan_sementara WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"'");
             } catch (SQLException err) { koneksi.print(err.getMessage()); }
         }
-        b_process.setText("Buat Baru"); f_id_pengajuan.setText(null);
+        b_process.setText("Buat Baru"); f_id_pengajuan.setText(null); b_process.setEnabled(true); b_hapus.setText("Hapus");
         koneksi.popup_message("Berhasil di simpan");
         
+        b_input_lagi.setEnabled(false);
+        b_hapus.setEnabled(false);
+        b_selesai.setEnabled(false);
     }//GEN-LAST:event_b_selesaiActionPerformed
     /**
      * @param args the command line arguments
@@ -1041,7 +1076,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         try {
             
             ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
-                                         + "status FROM detail_pengajuan WHERE tanggal_pengajuan BETWEEN "
+                                         + "status FROM pengajuan WHERE tanggal_pengajuan BETWEEN "
                                          + "'"+_awal+"' AND '"+_akhir+"'");
             
             ResultSetMetaData table = result.getMetaData();

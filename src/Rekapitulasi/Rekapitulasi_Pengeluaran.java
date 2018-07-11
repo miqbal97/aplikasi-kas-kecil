@@ -55,6 +55,8 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         c_tahun = new javax.swing.JComboBox<>();
         b_process = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        f_id_pengajuan = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_data = new javax.swing.JTable();
@@ -148,6 +150,9 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
             }
         });
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("ID Pengajuan");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -156,15 +161,19 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(c_minggu, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(c_minggu, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(c_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(c_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(c_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(f_id_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(b_process, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -180,7 +189,9 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
                     .addComponent(c_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(c_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_process))
+                    .addComponent(b_process)
+                    .addComponent(jLabel8)
+                    .addComponent(f_id_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -404,6 +415,7 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> c_bulan;
     private javax.swing.JComboBox<String> c_minggu;
     private javax.swing.JComboBox<String> c_tahun;
+    private javax.swing.JTextField f_id_pengajuan;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -417,6 +429,7 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -456,11 +469,16 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
     // PRIVATE CLASS
     //////////////////////////////////////////////////////////////////////////////////////
     private void get_data_table(){
-        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
-                                 "Keterangan", "Nominal"};
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Pengisian", "ID Pengajuan", "No Kategori",
+                                 "Keterangan Periode", "Nominal"};
         try {
-            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening,"
-                        + "keterangan, nominal FROM pengeluaran_dana ORDER BY kode_transaksi";
+            if(f_id_pengajuan.getText().isEmpty()){
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori,"
+                            + "keterangan_kategori, nominal FROM pengeluaran_dana ORDER BY kode_transaksi";
+            } else {
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori,"
+                        + "keterangan_kategori, nominal FROM pengeluaran_dana WHERE id_pengajuan = '"+f_id_pengajuan.getText()+"' ORDER BY kode_transaksi";
+            }
             
             ResultSet result = db.runQuery(_query);
             ResultSetMetaData table = result.getMetaData();
@@ -481,18 +499,23 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
     private void data_filtered_by_month(){
         String month = Integer.toString(c_bulan.getSelectedIndex());
         
-        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
-                                 "Keterangan", "Nominal"};
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Pengisian", "ID Pengajuan", "No Kategori",
+                                 "Keterangan Periode", "Nominal"};
         
         if (c_bulan.getSelectedIndex() <= 9) month = "0"+month;
         
         try {
-            
-            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
-                        + "keterangan, nominal FROM pengeluaran_dana "
+            if(f_id_pengajuan.getText().isEmpty()){
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori, "
+                        + "keterangan_kategori, nominal FROM pengeluaran_dana "
                         + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-01' "
                         + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-31'";
-            
+            } else {
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori, "
+                        + "keterangan_kategori, nominal FROM pengeluaran_dana "
+                        + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-01' "
+                        + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-31' AND id_pengajuan = '"+f_id_pengajuan.getText()+"'";
+            } 
             _from_date = c_tahun.getSelectedItem()+"-"+month+"-01";
             _to_date = c_tahun.getSelectedItem()+"-"+month+"-31";
             
@@ -532,17 +555,23 @@ public class Rekapitulasi_Pengeluaran extends javax.swing.JDialog {
         
         String month = Integer.toString(c_bulan.getSelectedIndex());
         
-        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Nota", "No Rekening",
-                                 "Keterangan", "Nominal"};
+        final String[] _label = {"Tanggal Transaksi", "Kode Transaksi", "No Pengisian", "ID Pengajuan", "No Kategori",
+                                 "Keterangan Periode", "Nominal"};
         
         if (c_bulan.getSelectedIndex() <= 9) month = "0"+month;
         
         try {
-            
-            this._query = "SELECT tanggal, kode_transaksi, no_nota, no_rekening, "
-                        + "keterangan, nominal FROM pengeluaran_dana "
+            if(f_id_pengajuan.getText().isEmpty()){
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori, "
+                        + "keterangan_kategori, nominal FROM pengeluaran_dana "
                         + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-"+awal+"' "
                         + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-"+akhir+"'";
+            } else {
+                this._query = "SELECT tanggal, kode_transaksi, no_pengisian, id_pengajuan, no_kategori, "
+                        + "keterangan_kategori, nominal FROM pengeluaran_dana "
+                        + "WHERE tanggal BETWEEN '"+c_tahun.getSelectedItem()+"-"+month+"-"+awal+"' "
+                        + "AND '"+c_tahun.getSelectedItem()+"-"+month+"-"+akhir+"' AND id_pengajuan = '"+f_id_pengajuan.getText()+"'";
+            }
             
             _from_date = c_tahun.getSelectedItem()+"-"+month+"-"+awal;
             _to_date = c_tahun.getSelectedItem()+"-"+month+"-"+akhir;
