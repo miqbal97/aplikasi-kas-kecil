@@ -419,7 +419,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                         } else koneksi.popup_message("Password verifikasi tidak sama!");
                         break;
                     case "Simpan Perubahan":
-                        this.update_user();
+                        this.update_user(); c_jabatan.setEnabled(true);
                         f_id_pengguna.setEnabled(true); f_id_pengguna.setText(null);
                         b_process.setText("Simpan"); f_username.setEnabled(true);
                         f_password.setEnabled(true); l_pass_1.setText("Password");
@@ -466,7 +466,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked
         b_process.setText("Simpan Perubahan");
-        f_id_pengguna.setEnabled(false);
+        f_id_pengguna.setEnabled(false); c_jabatan.setEnabled(false);
         l_pass_1.setText("Ganti Password Lama"); l_ket.setVisible(true);
         try{
             ResultSet check = db.runQuery("SELECT COUNT(jabatan) FROM pengguna WHERE jabatan = 'Admin'");
@@ -474,10 +474,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
                 if(check.getInt(1) == 1 && t_data.getValueAt(t_data.getSelectedRow(), 4).equals("Admin")){
                     c_jabatan.setEnabled(false);
                     this._delete = false;
-                } else {
-                    this._delete = true;
-                    c_jabatan.setEnabled(true);
-                }
+                } else this._delete = true;
             }
         } catch (SQLException err) {koneksi.print(err.getMessage());}
         f_id_pengguna.setText((String) t_data.getValueAt(t_data.getSelectedRow(), 0));
@@ -618,14 +615,16 @@ public class Menu_Pengguna extends javax.swing.JDialog {
     //////////////////////////////////////////////////////////////////////////////////////
     private void no_user(){
         String urut = null;
-        this._query = "SELECT RIGHT(id_pengguna, 3) + 1 FROM pengguna ORDER BY id_pengguna";
+        String[] user_prefix = {"P", "A", "K"};
+        this._query = "SELECT RIGHT(id_pengguna, 3) + 1 FROM pengguna WHERE id_pengguna LIKE '%"+user_prefix[c_jabatan.getSelectedIndex()]+"%'"
+                    + " ORDER BY RIGHT(id_pengguna, 3)";
         try {
             ResultSet id = db.runQuery(_query);
             if(id.last()){
-                if(id.getInt(1) < 9) urut = "P00"+id.getString(1);
-                else if(id.getInt(1) < 99) urut = "P0"+id.getString(1);
-                else if(id.getInt(1) < 999) urut = "P"+id.getString(1);
-            }
+                if(id.getInt(1) < 9) urut = user_prefix[c_jabatan.getSelectedIndex()]+"00"+id.getString(1);
+                else if(id.getInt(1) < 99) urut = user_prefix[c_jabatan.getSelectedIndex()]+"0"+id.getString(1);
+                else if(id.getInt(1) < 999) urut = user_prefix[c_jabatan.getSelectedIndex()]+id.getString(1);
+            } else urut = user_prefix[c_jabatan.getSelectedIndex()]+"001";
             f_id_pengguna.setText(urut);
         } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
@@ -676,8 +675,7 @@ public class Menu_Pengguna extends javax.swing.JDialog {
         }
         
         this._query = "UPDATE pengguna SET nama_pengguna = '"+ f_nama.getText().toLowerCase().trim() +"', "
-                    + "password = '"+ pass +"', jabatan = '"+ c_jabatan.getSelectedItem().toString().trim() +"', "
-                    + "username  = '"+ f_username.getText().toLowerCase().trim() +"' "
+                    + "password = '"+ pass +"', username  = '"+ f_username.getText().toLowerCase().trim() +"' "
                     + "WHERE id_pengguna  = '"+ f_id_pengguna.getText().toUpperCase().trim() +"'";
         
         try {

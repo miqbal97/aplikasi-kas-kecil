@@ -9,6 +9,9 @@
 	<parameter name="tanggal_2" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="id_pengajuan" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      pengeluaran_dana.`tanggal` AS tanggal,
@@ -23,6 +26,8 @@ FROM
      `pengeluaran_dana` pengeluaran_dana
 WHERE
      pengeluaran_dana.`tanggal` BETWEEN $P{tanggal_1} AND $P{tanggal_2}
+AND  
+     pengeluaran_dana.`id_pengajuan` = $P{id_pengajuan}
 ORDER BY
      pengeluaran_dana.`tanggal` ASC]]>
 	</queryString>
@@ -204,12 +209,12 @@ ORDER BY
 				<textFieldExpression><![CDATA["( "+$F{uraian_pengeluaran}+" )"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="1" width="105" height="20" uuid="1213ad4a-f4b7-43af-8934-75a3c32387c2"/>
+				<reportElement x="100" y="0" width="105" height="20" uuid="1213ad4a-f4b7-43af-8934-75a3c32387c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id_pengajuan}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="205" y="0" width="84" height="20" uuid="2023d5be-10ba-44f0-b25e-5a926b1f6f6e"/>
+				<reportElement x="205" y="0" width="84" height="20" uuid="2f2870dd-e2d3-434f-a725-f0943adbf21a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id_pengguna}]]></textFieldExpression>
 			</textField>

@@ -18,7 +18,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
     koneksi db = new koneksi();
     
     protected String _query;
-    public String id_kategori, nama_kategori, no_rekening;
+    public String id_pengguna, id_kategori, nama_kategori, no_rekening;
     protected Boolean _is_grant = false;
 
     /**
@@ -121,7 +121,6 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Pengajuan Pengeluaran Kas Kecil");
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
@@ -159,7 +158,6 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 .addComponent(jLabel4))
         );
 
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(2, 47, 102));
@@ -328,7 +326,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         });
 
         jPanel5.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Data Pengajuan & Status", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Data Pengajuan & Status", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Filter data pengajuan mulai dari ");
@@ -394,11 +392,11 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(f_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(c_status_filter, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(c_status_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -419,7 +417,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         );
 
         jPanel6.setBackground(new java.awt.Color(2, 47, 102));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Detail Pengajuan", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null), "Detail Pengajuan", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
         t_data_sementara.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -505,7 +503,6 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 .addComponent(jLabel26))
         );
 
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -627,7 +624,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         this.check_permission();
         this.get_data_table(); this.get_data_sementara();
         f_tanggal.setText(koneksi.get_date_with_format("YYYY-MM-dd"));
-        f_id_pengguna.setEditable(false); f_id_pengajuan.setEditable(false);
+        f_id_pengguna.setEditable(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void b_cari_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cari_barangActionPerformed
@@ -696,7 +693,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
                 }
                 this.clear();
                 this.enabled_form(false);
-                b_cancel.setText("Keluar");
+                b_cancel.setText("Keluar"); f_id_pengajuan.setText(null);
             break;
             case "Keluar":
                 this.dispose();
@@ -783,7 +780,8 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
             final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
             try {
                 ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
-                                             + "status FROM pengajuan WHERE status = '"+c_status_filter.getSelectedItem()+"'");
+                                             + "status FROM pengajuan WHERE status = '"+c_status_filter.getSelectedItem()+"' "
+                                             + " AND id_pengguna = '"+f_id_pengguna.getText()+"'");
                 
                 ResultSetMetaData table = result.getMetaData();
                 int _row = 0, counter = 0; while(result.next()) _row = result.getRow();
@@ -965,8 +963,9 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
     
     // PUBLIC CLASS
     //////////////////////////////////////////////////////////////////////////////////////
-    public void set_user(String _username, String _name){
-        f_id_pengguna.setText(_username);
+    public void set_user(String _id_pengguna, String _name){
+        f_id_pengguna.setText(_id_pengguna);
+        this.id_pengguna = _id_pengguna;
     }
     
     //---------------------------------------------------------------------------------//
@@ -1047,7 +1046,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
         final String[] _label = {"ID Pengajuan", "ID Pengguna", "Tanggal Pengajuan", "Status"};
         try {
             ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
-                                         + "status FROM pengajuan");
+                                         + "status FROM pengajuan WHERE id_pengguna = '"+f_id_pengguna.getText()+"'");
             ResultSetMetaData table = result.getMetaData();
             int _row = 0, counter = 0; while(result.next()) _row = result.getRow();
             
@@ -1077,7 +1076,7 @@ public class Menu_Pengajuan extends javax.swing.JFrame {
             
             ResultSet result = db.runQuery("SELECT id_pengajuan, id_pengguna, tanggal_pengajuan, "
                                          + "status FROM pengajuan WHERE tanggal_pengajuan BETWEEN "
-                                         + "'"+_awal+"' AND '"+_akhir+"'");
+                                         + "'"+_awal+"' AND '"+_akhir+"' AND id_pengguna = '"+f_id_pengguna.getText()+"'");
             
             ResultSetMetaData table = result.getMetaData();
             int _row = 0, counter = 0; while(result.next()) _row = result.getRow();

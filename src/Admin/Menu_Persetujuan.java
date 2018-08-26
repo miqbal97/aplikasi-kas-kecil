@@ -464,9 +464,6 @@ public class Menu_Persetujuan extends javax.swing.JDialog {
         this._check_permission();
         this.get_data_table();
         f_id_pengguna.setEditable(false); f_id_pengajuan.setEditable(false);
-//        f_id_kategori.setEditable(false); f_nama_kategori.setEditable(false);
-//        f_no_rekening.setEditable(false); f_jumlah.setEditable(false);
-//        ta_keterangan.setEditable(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void t_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_dataMouseClicked

@@ -110,7 +110,6 @@ public class Menu_Rekening extends javax.swing.JDialog {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("PT. Exlayer Teknologi Indonesia");
 
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -147,7 +146,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,7 +190,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText(")* Contoh Format : 123 - ABC");
+        jLabel6.setText(")* Contoh Format : 567 - ABC");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -297,7 +296,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(2, 47, 102));
@@ -500,7 +499,7 @@ public class Menu_Rekening extends javax.swing.JDialog {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
@@ -992,6 +991,11 @@ public class Menu_Rekening extends javax.swing.JDialog {
         for(javax.swing.JTextField _field : _fields){
             if(_field.getText().isEmpty()){
                 koneksi.popup_message("Data belum lengkap");
+                return false;
+            }
+            
+            if(!_fields[0].getText().startsWith("5")){
+                koneksi.popup_message("Awalan Nomor Harus Angka 5!");
                 return false;
             }
         }

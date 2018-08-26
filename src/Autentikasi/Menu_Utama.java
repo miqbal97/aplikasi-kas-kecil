@@ -445,7 +445,6 @@ public class Menu_Utama extends javax.swing.JFrame {
 
     private void m_pengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_pengeluaranActionPerformed
         Keuangan.Menu_Pengeluaran portal = new Keuangan.Menu_Pengeluaran();
-        portal.id_pengguna(this._username);
         portal.grant_permission(true);
         portal.setVisible(true);
     }//GEN-LAST:event_m_pengeluaranActionPerformed

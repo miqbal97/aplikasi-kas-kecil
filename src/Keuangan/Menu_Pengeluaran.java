@@ -69,6 +69,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         f_keterangan_rek = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         f_id_pengajuan = new javax.swing.JTextField();
+        l_id_pengguna = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_data_nota = new javax.swing.JTable();
@@ -82,7 +83,6 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        l_id_pengguna = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -210,6 +210,10 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("ID Pengajuan");
 
+        l_id_pengguna.setBackground(new java.awt.Color(2, 47, 102));
+        l_id_pengguna.setForeground(new java.awt.Color(2, 47, 102));
+        l_id_pengguna.setText("jLabel18");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -251,14 +255,19 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(f_uraian, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(f_nominal)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(b_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(b_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(f_nominal)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(b_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(b_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(l_id_pengguna)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -297,7 +306,8 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(f_uraian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(l_id_pengguna))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -417,9 +427,6 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("(021) -57853468 ");
 
-        l_id_pengguna.setForeground(new java.awt.Color(2, 47, 102));
-        l_id_pengguna.setText("jLabel18");
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -438,9 +445,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(l_id_pengguna)
-                        .addGap(88, 88, 88))))
+                        .addGap(88, 334, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,9 +455,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
                 .addGap(12, 12, 12)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(l_id_pengguna))
+                .addComponent(jLabel16)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel17))
         );
@@ -624,7 +627,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         
         f_id_barang.setText(this.id_kategori); f_no_rekening.setText(this.no_rekening);
-        f_id_pengajuan.setText(this._id_pengajuan);
+        f_id_pengajuan.setText(this._id_pengajuan); 
         if(this.no_rekening != null){
             try {
                 ResultSet result = db.runQuery("SELECT keterangan_kategori FROM kategori_rekening "
@@ -733,10 +736,11 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
     //---------------------------------------------------------------------------------//
     
     public void id_pengguna(String _id){
-        try {
-            ResultSet check = db.runQuery("SELECT id_pengguna FROM pengguna WHERE username = '"+_id+"'");
-            if(check.next()) l_id_pengguna.setText(check.getString(1));
-        } catch (SQLException err) { koneksi.print(err.getMessage()); }
+        l_id_pengguna.setText(_id);
+//        try {
+//            ResultSet check = db.runQuery("SELECT id_pengguna FROM pengguna WHERE username = '"+_id+"'");
+//            if(check.next()) l_id_pengguna.setText(check.getString(1));
+//        } catch (SQLException err) { koneksi.print(err.getMessage()); }
     }
 
     
@@ -977,6 +981,7 @@ public class Menu_Pengeluaran extends javax.swing.JDialog {
         f_keterangan_rek.setText(null);
         f_uraian.setText(null);
         f_nominal.setText(null);
+        l_id_pengguna.setText(null);
     }
     
     //---------------------------------------------------------------------------------//

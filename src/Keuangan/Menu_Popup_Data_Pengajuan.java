@@ -247,6 +247,7 @@ public class Menu_Popup_Data_Pengajuan extends javax.swing.JDialog {
         portal.id_kategori = (String) t_data.getValueAt(t_data.getSelectedRow(), 2);
         portal.no_rekening = (String) t_data.getValueAt(t_data.getSelectedRow(), 4);
         portal._id_pengajuan = (String) t_data.getValueAt(t_data.getSelectedRow(), 0);
+        portal.id_pengguna((String) t_data.getValueAt(t_data.getSelectedRow(), 1));
         this.dispose();
     }//GEN-LAST:event_t_dataMouseClicked
 
